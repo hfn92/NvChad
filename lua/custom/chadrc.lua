@@ -36,7 +36,7 @@ M.mappings = {
     n = {
       -- ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Switch Source/Header" },
       ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "[F]ind [S]ymbols" },
-      ["<leader>cf"] = { "<cmd> Telescope lsp_document_symbols <CR>", "[F]ind [S]ymbols" },
+      ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "[F]ind [S]ymbols" },
     }
   }
 }
