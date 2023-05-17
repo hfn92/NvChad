@@ -7,7 +7,7 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 
 M.ui =
 {
-  theme = 'chocolate',
+  theme = 'tomorrow_night',
   statusline = {
     overriden_modules = function()
       local st_modules = require "nvchad_ui.statusline.default"
@@ -44,6 +44,11 @@ M.mappings = {
     },
 
     n = {
+      ["<C-d>"] = { "<C-d>zz", "Scroll down" },
+      ["<C-u>"] = { "<C-u>zz", "Scroll up" },
+      ["n"] = { "nzzzv", "next (search)" },
+      ["N"] = { "Nzzzv", "previous (search)" },
+
       ["<A-Left>"] = { "<C-o>", "Navigate Backwards" },
       ["<A-Right>"] = { "<C-i>", "Navigate Forwards" },
       ["<C-S-s>"] = { "<cmd> wa <CR>", "Save all files" },
@@ -80,9 +85,39 @@ M.mappings = {
     plugin = true,
 
     n = {
-      -- ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Switch Source/Header" },
       ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "[F]ind [S]ymbols" },
       ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "[F]ind [S]ymbols" },
+    }
+  },
+  dap = {
+
+    n = {
+      ["<F5>"] = { function() require('dap').continue() end , "[F5] continue" },
+      ["<F9>"] = { function() require('dap').toggle_breakpoint() end , "[F9] toogle breakpoint" },
+      ["<F10>"] = { function() require('dap').step_over() end , "[F10] step over" },
+      ["<leader><F10>"] = { function() require('dap').run_to_cursor() end , "Run to cursor" },
+      ["<F12>"] = { function() require('dap').step_into() end , "[F12] step into" },
+      ["<S-F12>"] = { function() require('dap').step_out() end , "Shift + [F12] step out" },
+      ["<F11>"] = { function() require('dap').step_into() end , "[F11] step into" },
+      ["<S-F11>"] = { function() require('dap').step_out() end , "Shift + [F11] step out" },
+
+      ["<leader>dq"] = { function() require('dap').terminate() end , "Stop debugging" },
+      ["<leader>dc"] = { function() require('dap').clear_breakpoints() end , "Clear breakpoints" },
+      ["<leader>dl"] = { function() require('dap').list_breakpoints() end , "List breakpoints" },
+      ["<leader>dt"] = { function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end , "Trace point" },
+      ["<leader>dr"] = { function() require('dap').repl.toggle() end , "Open repl" },
+      ["<leader>dh"] = { function() require('dap.ui.widgets').hover() end , "Hover" },
+      ["<leader>dp"] = { function() require('dap.ui.widgets').preview() end , "Preview" },
+      ["<leader>df"] = {
+        function()
+          local w = require('dap.ui.widgets');
+          w.centered_float(w.frames)
+        end , "Stack frames" },
+      ["<leader>ds"] = {
+        function()
+          local w = require('dap.ui.widgets');
+          w.centered_float(w.scopes)
+        end , "Variables in Scope" },
     }
   }
 }
