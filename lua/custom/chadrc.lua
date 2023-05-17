@@ -44,6 +44,7 @@ M.mappings = {
     },
 
     n = {
+      --["<CR>"] = { "o<Esc>", "New Line" },
       ["<C-d>"] = { "<C-d>zz", "Scroll down" },
       ["<C-u>"] = { "<C-u>zz", "Scroll up" },
       ["n"] = { "nzzzv", "next (search)" },
@@ -101,6 +102,7 @@ M.mappings = {
       ["<F11>"] = { function() require('dap').step_into() end , "[F11] step into" },
       ["<S-F11>"] = { function() require('dap').step_out() end , "Shift + [F11] step out" },
 
+      ["<leader>du"] = { function() require('dapui').toggle() end , "Toggle Debug UI" },
       ["<leader>dq"] = { function() require('dap').terminate() end , "Stop debugging" },
       ["<leader>dc"] = { function() require('dap').clear_breakpoints() end , "Clear breakpoints" },
       ["<leader>dl"] = { function() require('dap').list_breakpoints() end , "List breakpoints" },
