@@ -1,7 +1,25 @@
+
 local plugins = {
   {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        mappings = {
+          i = {
+            ["<A-q>"] = require "telescope.actions".send_to_qflist + require "telescope.actions".open_qflist,
+            ["<A-S-q>"] = require "telescope.actions".send_selected_to_qflist + require "telescope.actions".open_qflist
+          },
+          n = {
+            ["<A-q>"] = require "telescope.actions".send_to_qflist + require "telescope.actions".open_qflist,
+            ["<A-S-q>"] = require "telescope.actions".send_selected_to_qflist + require "telescope.actions".open_qflist
+          },
+        },
+      },
+    },
+  },
+  {
     "lukas-reineke/lsp-format.nvim",
-     config = function()
+    config = function()
        require("lsp-format").setup{}
      end,
   },
@@ -112,6 +130,10 @@ local plugins = {
         -- add any options here, or leave empty to use the default settings
       })
     end
+  },
+  {
+    'github/copilot.vim',
+    lazy = false,
   }
 }
 return plugins

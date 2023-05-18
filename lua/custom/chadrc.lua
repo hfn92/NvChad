@@ -74,20 +74,31 @@ M.mappings = {
     i = {
       --["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Switch Source/Header" },
       ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
+      ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
     },
 
     n = {
-      ["K"] = { "<cmd> lua vim.lsp.buf.hover() <CR>", "Code Action" },
+      ["K"] = { "<cmd> lua vim.lsp.buf.hover() <CR>", "Hover" },
+      ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
       ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
-      ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Switch Source/Header" },
+      ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Follow Symbol" },
     }
   },
   telescope = {
     plugin = true,
 
-    n = {
-      ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "[F]ind [S]ymbols" },
-      ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "[F]ind [S]ymbols" },
+    i = {
+      -- ["<A-q"] = {  function ()
+      --   local actions = require "telescope.actions"
+      --   actions.send_to_qflist()
+      --   actions.open_qflist()
+      -- end , "Find Symbols" },
+    },
+     n = {
+      ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "Find Symbols" },
+      ["<leader>fe"] = { "<cmd> Telescope lsp_dynamic_workspace_symbols <CR>", "Find symbols everywhere" },
+      ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Search git files" },
+      ["<leader>fd"] = { "<cmd> Telescope diagnostics <CR>", "Diagnostics" },
     }
   },
   dap = {
