@@ -20,10 +20,19 @@ M.ui =
           local type = cmake.get_build_type()
           local run = cmake.get_launch_target()
           local tgt = cmake.get_build_target()
+          local args = cmake.get_launch_args()
+          arg = ""
+          if (args ~= nil) then
+            for _, v in ipairs(args) do
+              arg = arg .. v
+            end
+          end
+
           local str = "%#Hl#"
           .. "   %@FCmakeSelectTarget@% [" .. (type and type or "None") .. "]"
           .. "   %@FCmakeSelectBuild@% [" .. (tgt and tgt or "None") .. "]"
           .. "   %@FCmakeSelectRun@% [" ..  (run and run or "None") .. "]"
+          .. "   <" ..  arg .. ">"
           return st_modules.LSP_progress() .. str --cmake.get_build_type()
           -- or just return "" to hide this module
         end,
@@ -62,6 +71,13 @@ M.mappings = {
     n = {
       ["<leader>ct"] = { "<cmd> CMakeSelectBuildTarget <CR>", "Select CMake [t]arget" },
       ["<leader>cb"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
+      ["<leader>cd"] = { "<cmd> CMakeDebug <CR>", "CMake debug" },
+      ["<leader>ca"] = {
+        function()
+          local args = vim.fn.input("Command line args:")
+          vim.cmd("CMakeLaunchArgs " .. args)
+        end
+        , "CMake launch args" },
       ["<C-b>"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
       ["<leader>cr"] = { "<cmd> CMakeRun <CR>", "CMake [r]un" },
       ["<C-r>"] = { "<cmd> CMakeRun <CR>", "CMake [r]un" },
@@ -82,6 +98,10 @@ M.mappings = {
       ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
       ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
       ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Follow Symbol" },
+
+      ["<leader>fr"] = { "<cmd> lua vim.lsp.buf.references() <CR>", "Find references" },
+      ["<leader>ra"] = { function() require("nvchad_ui.renamer").open() end, "LSP rename", },
+      ["<leader>dd"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
     }
   },
   telescope = {
@@ -98,7 +118,13 @@ M.mappings = {
       ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "Find Symbols" },
       ["<leader>fe"] = { "<cmd> Telescope lsp_dynamic_workspace_symbols <CR>", "Find symbols everywhere" },
       ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Search git files" },
+      ["<leader>fc"] = { "<cmd> Telescope git_status <CR>", "Search git diff" },
       ["<leader>fd"] = { "<cmd> Telescope diagnostics <CR>", "Diagnostics" },
+    }
+  },
+  undotree = {
+     n = {
+      ["<leader>u"] = { vim.cmd.UndotreeToggle, "Undotree" },
     }
   },
   dap = {
