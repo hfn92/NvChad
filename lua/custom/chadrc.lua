@@ -7,7 +7,7 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 
 M.ui =
 {
-  theme = 'tomorrow_night',
+  theme = 'fab',
   statusline = {
     overriden_modules = function()
       local st_modules = require "nvchad_ui.statusline.default"
@@ -58,10 +58,27 @@ M.mappings = {
       ["<C-u>"] = { "<C-u>zz", "Scroll up" },
       ["n"] = { "nzzzv", "next (search)" },
       ["N"] = { "Nzzzv", "previous (search)" },
+      ["J"] = { "mzJ`z", "Move next line back" },
 
       ["<A-Left>"] = { "<C-o>", "Navigate Backwards" },
       ["<A-Right>"] = { "<C-i>", "Navigate Forwards" },
       ["<C-S-s>"] = { "<cmd> wa <CR>", "Save all files" },
+
+      ["<leader>y"] = { "\"+y", "Yank to clipboard" },
+      ["<leader>d"] = { "\"_d", "Delete to void" },
+    },
+
+    v = {
+      ["J"] = { ":m '>+1<CR>gv=gv", "Move down" },
+      ["K"] = { ":m '<-2<CR>gv=gv", "Move Up" },
+      ["<S-Down>"] = { ":m '>+1<CR>gv=gv", "Move down" },
+      ["<S-Up>"] = { ":m '<-2<CR>gv=gv", "Move Up" },
+
+      ["<leader>y"] = { "\"+y", "Yank to clipboard" },
+      ["<leader>d"] = { "\"_d", "Delete to void" },
+    },
+    x = {
+      ["<leader>p"] = { "\"_dP", "Paste" },
     }
   },
   cmake = {
@@ -91,6 +108,9 @@ M.mappings = {
       --["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Switch Source/Header" },
       ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
       ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
+
+      ["<A-k>"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
+      ["<A-j>"] = { "<cmd>cprev<CR>zz", "Quickfix previous" },
     },
 
     n = {
@@ -102,7 +122,20 @@ M.mappings = {
       ["<leader>fr"] = { "<cmd> lua vim.lsp.buf.references() <CR>", "Find references" },
       ["<leader>ra"] = { function() require("nvchad_ui.renamer").open() end, "LSP rename", },
       ["<leader>dd"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
+      ["<A-d>"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
+      ["<leader>s"] = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace under cursor" },
+
+      ["<A-k>"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
+      ["<A-j>"] = { "<cmd>cprev<CR>zz", "Quickfix previous" },
+      ["<leader>k"] = { "<cmd>lnext<CR>zz", "Location next" },
+      ["<leader>j"] = { "<cmd>lprev<CR>zz", "Location previous" },
+    },
+
+    v = {
+      ["<leader>s"] = { [[:s///<Left><Left>]], "Replace within selection" },
     }
+
+
   },
   telescope = {
     plugin = true,
