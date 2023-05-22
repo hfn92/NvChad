@@ -24,9 +24,17 @@ local plugins = {
      end,
   },
   {
-     "neovim/nvim-lspconfig",
-     config = function()
-       require "plugins.configs.lspconfig"
+    "neovim/nvim-lspconfig",
+
+    dependencies = {
+      "jose-elias-alvarez/null-ls.nvim",
+      config = function()
+        require "custom.configs.null-ls"
+      end,
+    },
+
+    config = function()
+      require "plugins.configs.lspconfig"
        require "custom.configs.lspconfig"
      end,
   },
@@ -69,6 +77,7 @@ local plugins = {
               table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}]" -x glm::vec<2]])
               table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}, ${var.z}]" -x glm::vec<3]])
               table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}, ${var.z}, ${var.w}]" -x glm::vec<4]])
+              table.insert(cmds, [[type summary add -s "[${var.Left}, ${var.Top}, ${var.Width}, ${var.Height}]" -x Rect<]])
               return cmds
             end
           }, -- dap configuration, optional
