@@ -29,10 +29,14 @@ M.ui =
           end
 
           local str = "%#Hl#"
-          .. "   %@FCmakeSelectTarget@% [" .. (type and type or "None") .. "]"
-          .. "   %@FCmakeSelectBuild@% [" .. (tgt and tgt or "None") .. "]"
-          .. "   %@FCmakeSelectRun@% [" ..  (run and run or "None") .. "]"
+          .. "   [" .. (type and type or "None") .. "]"
+          .. "   [" .. (tgt and tgt or "None") .. "]"
+          .. "   [" ..  (run and run or "None") .. "]"
           .. "   <" ..  arg .. ">"
+          -- .. "   %@FCmakeSelectTarget@% [" .. (type and type or "None") .. "]"
+          -- .. "   %@FCmakeSelectBuild@% [" .. (tgt and tgt or "None") .. "]"
+          -- .. "   %@FCmakeSelectRun@% [" ..  (run and run or "None") .. "]"
+          -- .. "   <" ..  arg .. ">"
           return st_modules.LSP_progress() .. str --cmake.get_build_type()
           -- or just return "" to hide this module
         end,
@@ -109,8 +113,8 @@ M.mappings = {
       ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
       ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
 
-      ["<A-k>"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
-      ["<A-j>"] = { "<cmd>cprev<CR>zz", "Quickfix previous" },
+      ["<A-j>"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
+      ["<A-k>"] = { "<cmd>cprev<CR>zz", "Quickfix previous" },
     },
 
     n = {
@@ -125,8 +129,8 @@ M.mappings = {
       ["<A-d>"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
       ["<leader>s"] = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace under cursor" },
 
-      ["<A-k>"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
-      ["<A-j>"] = { "<cmd>cprev<CR>zz", "Quickfix previous" },
+      ["<A-j>"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
+      ["<A-k>"] = { "<cmd>cprev<CR>zz", "Quickfix previous" },
       ["<leader>k"] = { "<cmd>lnext<CR>zz", "Location next" },
       ["<leader>j"] = { "<cmd>lprev<CR>zz", "Location previous" },
     },
