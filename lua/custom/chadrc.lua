@@ -128,7 +128,7 @@ M.mappings = {
       ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
       ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Follow Symbol" },
 
-      ["<leader>fr"] = { "<cmd> lua vim.lsp.buf.references() <CR>", "Find references" },
+      ["<leader>fr"] = { "<cmd> lua require('telescope.builtin').lsp_references() <CR>", "Find references" },
       ["<leader>ra"] = { function() require("nvchad_ui.renamer").open() end, "LSP rename", },
       ["<leader>dd"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
       ["<A-d>"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
