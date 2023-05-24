@@ -92,6 +92,7 @@ M.mappings = {
     n = {
       ["<leader>ct"] = { "<cmd> CMakeSelectBuildTarget <CR>", "Select CMake [t]arget" },
       ["<leader>cb"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
+      ["<leader>cs"] = { "<cmd> CMakeStop <CR>", "CMake [b]uild" },
       ["<leader>cd"] = { "<cmd> CMakeDebug <CR>", "CMake debug" },
       ["<leader>ca"] = {
         function()
