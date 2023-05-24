@@ -105,6 +105,10 @@ M.mappings = {
       ["<leader>cl"] = { "<cmd> CMakeSelectLaunchTarget <CR>", "CMake select [l]aunch target" },
     }
   },
+  macros = {
+    i = {
+    }
+  },
   fab = {
     -- plugin = true,
 
@@ -118,6 +122,7 @@ M.mappings = {
     },
 
     n = {
+      ["<C-w>b"] = { "<cmd>%bd|e#<CR>", "Close other buffers" },
       ["K"] = { "<cmd> lua vim.lsp.buf.hover() <CR>", "Hover" },
       ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
       ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },

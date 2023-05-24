@@ -73,11 +73,12 @@ local plugins = {
               local script_import = 'command script import /home/fab/.conan/data/llvm-core/13.0.0/_/_/source/source/utils/lldbDataFormatters.py'
               local cmds = {}
               table.insert(cmds, script_import)
-              table.insert(cmds, [[type summary add -w llvm e -s "size=${svar%#}" -x ^llvm::SmallVector<.+,.+>$]])
-              table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}]" -x glm::vec<2]])
-              table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}, ${var.z}]" -x glm::vec<3]])
-              table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}, ${var.z}, ${var.w}]" -x glm::vec<4]])
-              table.insert(cmds, [[type summary add -s "[${var.Left}, ${var.Top}, ${var.Width}, ${var.Height}]" -x Rect<]])
+              table.insert(cmds, [[type summary add -s "size=${svar%#}" -x ^llvm::SmallVector<.+,.+>$]])
+              table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}]" -x ^glm::vec<2.*>$]])
+              table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}, ${var.z}]" -x ^glm::vec<3.*>$]])
+              table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}, ${var.z}, ${var.w}]" -x ^glm::vec<4.*>$]])
+              table.insert(cmds, [[type summary add -s "[${var.Left}, ${var.Top}, ${var.Width}, ${var.Height}]" -x ^Rect<.+>$]])
+              table.insert(cmds, [[type summary add -s "[${var.r%u}, ${var.g%u}, ${var.b%u}, ${var.a%u}]" Color]])
               return cmds
             end
           }, -- dap configuration, optional
