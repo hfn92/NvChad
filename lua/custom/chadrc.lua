@@ -90,9 +90,9 @@ M.mappings = {
       ["<C-b>"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
     },
     n = {
-      ["<leader>ct"] = { "<cmd> CMakeSelectBuildTarget <CR>", "Select CMake [t]arget" },
-      ["<leader>cb"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
-      ["<leader>cs"] = { "<cmd> CMakeStop <CR>", "CMake [b]uild" },
+      ["<leader>ct"] = { "<cmd> CMakeSelectBuildTarget <CR>", "Select CMake target" },
+      ["<leader>cb"] = { "<cmd> CMakeBuild <CR>", "CMake build" },
+      ["<leader>cs"] = { "<cmd> CMakeStop <CR>", "CMake stop" },
       ["<leader>cd"] = { "<cmd> CMakeDebug <CR>", "CMake debug" },
       ["<leader>ca"] = {
         function()
@@ -100,10 +100,10 @@ M.mappings = {
           vim.cmd("CMakeLaunchArgs " .. args)
         end
         , "CMake launch args" },
-      ["<C-b>"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
-      ["<leader>cr"] = { "<cmd> CMakeRun <CR>", "CMake [r]un" },
-      ["<C-r>"] = { "<cmd> CMakeRun <CR>", "CMake [r]un" },
-      ["<leader>cl"] = { "<cmd> CMakeSelectLaunchTarget <CR>", "CMake select [l]aunch target" },
+      ["<C-b>"] = { "<cmd> CMakeBuild <CR>", "CMake build" },
+      ["<leader>cr"] = { "<cmd> CMakeRun <CR>", "CMake run" },
+      ["<C-r>"] = { "<cmd> CMakeRun <CR>", "CMake run" },
+      ["<leader>cl"] = { "<cmd> CMakeSelectLaunchTarget <CR>", "CMake select launch target" },
     }
   },
   macros = {
@@ -173,15 +173,17 @@ M.mappings = {
   dap = {
 
     n = {
-      ["<F5>"] = { function() require('dap').continue() end , "[F5] continue" },
-      ["<F9>"] = { function() require('dap').toggle_breakpoint() end , "[F9] toogle breakpoint" },
-      ["<F10>"] = { function() require('dap').step_over() end , "[F10] step over" },
+      ["<F5>"] = { function() require('dap').continue() end , "continue" },
+      ["<F9>"] = { function() require('dap').toggle_breakpoint() end , "toogle breakpoint" },
+      ["<F10>"] = { function() require('dap').step_over() end , "step over" },
       ["<leader><F10>"] = { function() require('dap').run_to_cursor() end , "Run to cursor" },
-      ["<F12>"] = { function() require('dap').step_into() end , "[F12] step into" },
-      ["<S-F12>"] = { function() require('dap').step_out() end , "Shift + [F12] step out" },
-      ["<F11>"] = { function() require('dap').step_into() end , "[F11] step into" },
-      ["<S-F11>"] = { function() require('dap').step_out() end , "Shift + [F11] step out" },
+      ["<F12>"] = { function() require('dap').step_into() end , "step into" },
+      ["<S-F12>"] = { function() require('dap').step_out() end , "step out" },
+      ["<F11>"] = { function() require('dap').step_into() end , "step into" },
+      ["<S-F11>"] = { function() require('dap').step_out() end , "step out" },
 
+      ["<leader>di"] = { function() require('dap').step_into() end , "step into" },
+      ["<leader>do"] = { function() require('dap').step_out() end , "step out" },
       ["<leader>du"] = { function() require('dapui').toggle() end , "Toggle Debug UI" },
       ["<leader>dq"] = { function() require('dap').terminate() end , "Stop debugging" },
       ["<leader>dc"] = { function() require('dap').clear_breakpoints() end , "Clear breakpoints" },
