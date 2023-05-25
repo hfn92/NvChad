@@ -6,12 +6,12 @@ local lint = null_ls.builtins.diagnostics
 
 local sources = {
   null_ls.builtins.code_actions.refactoring.with({
-    filetypes = { "cpp" }
+    filetypes = { "cpp", "c" }
   }),
-   formatting.prettier,
-   formatting.stylua,
-   --formatting.clang_format,
-   lint.shellcheck,
+  formatting.prettier,
+  formatting.stylua,
+  --formatting.clang_format,
+  lint.shellcheck,
   --lint.cppcheck,
 }
 
