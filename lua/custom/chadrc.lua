@@ -5,6 +5,26 @@ vim.cmd "function! FCmakeSelectTarget(a,b,c,d) \n CMakeSelectBuildType \n endfun
 vim.cmd "function! FCmakeSelectRun(a,b,c,d) \n CMakeSelectLaunchTarget \n endfunction"
 vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfunction"
 
+
+function GitSignCodeAction()
+  local ok, gitsigns_actions = pcall(require("gitsigns").get_actions)
+  if not ok or not gitsigns_actions then
+    return
+  end
+
+  local names = {}
+  for name in pairs(gitsigns_actions) do
+    table.insert(names, name)
+  end
+
+  vim.ui.select(names, { prompt = "Select launch target" }, function(_, idx)
+    if not idx then
+      return
+    end
+    gitsigns_actions[names[idx]]()
+  end)
+end
+
 M.ui =
 {
   theme = 'fab',
@@ -139,6 +159,7 @@ M.mappings = {
       ["<A-k>"] = { "<cmd>cprev<CR>zz", "Quickfix previous" },
       ["<leader>k"] = { "<cmd>lnext<CR>zz", "Location next" },
       ["<leader>j"] = { "<cmd>lprev<CR>zz", "Location previous" },
+      ["<C-g>"] = { function () GitSignCodeAction()  end, "Location previous" },
     },
 
     v = {
