@@ -164,6 +164,7 @@ M.mappings = {
 
     v = {
       ["<leader>s"] = { [[:s///<Left><Left>]], "Replace within selection" },
+      ["<leader>r"] = { [[y:%s/<C-R>=escape(@",'/\:.')<esc>//g<Left><Left>]], "Replace selection" },
     }
 
 

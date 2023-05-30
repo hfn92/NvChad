@@ -5,6 +5,7 @@ vim.opt.smartindent = true
 
 vim.filetype.add({ extension = { fsh = 'glsl' } })
 vim.filetype.add({ extension = { vsh = 'glsl' } })
+--vim.filetype.add({ extension = { vsh = 'glsl' } })
 
 -- vim.highlight.create('DapBreakpoint', { ctermbg=0, guifg='#993939', guibg='#31353f' }, false)
 -- vim.highlight.create('DapLogPoint', { ctermbg=0, guifg='#61afef', guibg='#31353f' }, false)
