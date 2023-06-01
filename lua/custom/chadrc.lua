@@ -208,12 +208,17 @@ M.mappings = {
       ["<leader>do"] = { function() require('dap').step_out() end , "step out" },
       ["<leader>du"] = { function() require('dapui').toggle() end , "Toggle Debug UI" },
       ["<leader>dq"] = { function() require('dap').terminate() end , "Stop debugging" },
+      ["<leader>db"] = { function() require('dap').pause() end , "Pause" },
       ["<leader>dc"] = { function() require('dap').clear_breakpoints() end , "Clear breakpoints" },
       ["<leader>dl"] = { function() require('dap').list_breakpoints() end , "List breakpoints" },
-      ["<leader>dt"] = { function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end , "Trace point" },
       ["<leader>dr"] = { function() require('dap').repl.toggle() end , "Open repl" },
       ["<leader>dh"] = { function() require('dap.ui.widgets').hover() end , "Hover" },
       ["<leader>dp"] = { function() require('dap.ui.widgets').preview() end , "Preview" },
+      ["<leader>dt"] = {
+        function()
+          local w = require('dap.ui.widgets');
+          w.centered_float(w.threads)
+        end , "Stack frames" },
       ["<leader>df"] = {
         function()
           local w = require('dap.ui.widgets');
@@ -224,6 +229,21 @@ M.mappings = {
           local w = require('dap.ui.widgets');
           w.centered_float(w.scopes)
         end , "Variables in Scope" },
+      ["<leader>dot"] = {
+        function()
+          local w = require('dap.ui.widgets');
+          w.sidebar(w.threads).open()
+        end , "Threds in sidebar" },
+      ["<leader>dof"] = {
+        function()
+          local w = require('dap.ui.widgets');
+          w.sidebar(w.frames).open()
+        end , "Stack frames sidebar" },
+      ["<leader>dos"] = {
+        function()
+          local w = require('dap.ui.widgets');
+          w.sidebar(w.scopes).open()
+        end , "Variables in Scope sidebar" },
     }
   }
 }
