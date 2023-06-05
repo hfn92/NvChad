@@ -39,6 +39,10 @@ local plugins = {
      end,
   },
   {
+    "sindrets/diffview.nvim",
+    lazy=false,
+  },
+  {
     "nvim-telescope/telescope-ui-select.nvim",
   },
   {
