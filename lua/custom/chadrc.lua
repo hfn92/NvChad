@@ -160,11 +160,18 @@ M.mappings = {
       ["<leader>k"] = { "<cmd>lnext<CR>zz", "Location next" },
       ["<leader>j"] = { "<cmd>lprev<CR>zz", "Location previous" },
       ["<C-g>"] = { function () GitSignCodeAction()  end, "Location previous" },
+
+      ["<leader>gd"] = { "<cmd>Gitsigns diffthis<CR>", "git diff" },
+      ["<leader>gq"] = { "<cmd>Gitsigns setqflist<CR>", "git diffs quickfix" },
+      ["<leader>gv"] = { "<cmd>DiffviewOpen<CR>", "Open diff view" },
+      ["<leader>gc"] = { "<cmd>DiffviewClose<CR>", "Close diff view" },
     },
 
     v = {
       ["<leader>s"] = { [[:s///<Left><Left>]], "Replace within selection" },
       ["<leader>r"] = { [[y:%s/<C-R>=escape(@",'/\:.')<esc>//g<Left><Left>]], "Replace selection" },
+
+      ["<C-p>"] = { ":diffput<CR>", "Move diff of other view" },
     }
 
 
