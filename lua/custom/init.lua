@@ -2,6 +2,7 @@ vim.opt.colorcolumn = "120"
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 12
 vim.opt.smartindent = true
+vim.opt.clipboard = ""
 
 vim.filetype.add({ extension = { fsh = 'glsl' } })
 vim.filetype.add({ extension = { vsh = 'glsl' } })
