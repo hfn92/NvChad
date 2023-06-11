@@ -1,5 +1,5 @@
 ---@type ChadrcConfig 
- local M = {}
+local M = {}
 
 vim.cmd "function! FCmakeSelectTarget(a,b,c,d) \n CMakeSelectBuildType \n endfunction"
 vim.cmd "function! FCmakeSelectRun(a,b,c,d) \n CMakeSelectLaunchTarget \n endfunction"
@@ -124,6 +124,35 @@ M.mappings = {
       ["<leader>cr"] = { "<cmd> CMakeRun <CR>", "CMake run" },
       ["<C-r>"] = { "<cmd> CMakeRun <CR>", "CMake run" },
       ["<leader>cl"] = { "<cmd> CMakeSelectLaunchTarget <CR>", "CMake select launch target" },
+      ["<leader>cqb"] = { "<cmd> CMakeQuickBuild <CR>", "CMake quick build" },
+      ["<leader>cqd"] = { "<cmd> CMakeQuickDebug <CR>", "CMake quick debug" },
+      ["<leader>cqr"] = { "<cmd> CMakeQuickRun <CR>", "CMake quick run" },
+    }
+  },
+  gtest = {
+    n = {
+      ["<C-t>"] = { [[<cmd>GTestRunTestsuite<CR>]], "Run current Testsuite" },
+      ["<leader>tc"] = { [[<cmd>GTestCancel<CR>]], "Cancel current test" },
+      ["<leader>ts"] = { [[<cmd>GTestSelectAndRunTestsuite<CR>]], "Run Testsuite" },
+      ["<leader>tt"] = { [[<cmd>GTestSelectAndRunTest<CR>]], "Run Test" },
+    }
+  },
+  harpoon = {
+    i = {
+      ["<A-s>"] = { function() require("harpoon.ui").toggle_quick_menu() end , "Marked files" },
+      ["<A-a>"] = { function() require("harpoon.mark").add_file() end , "Mark file" },
+      ["<A-1>"] = { function() require("harpoon.ui").nav_file(1) end , "Navaigate to file" },
+      ["<A-2>"] = { function() require("harpoon.ui").nav_file(2) end , "Navaigate to file" },
+      ["<A-3>"] = { function() require("harpoon.ui").nav_file(3) end , "Navaigate to file" },
+      ["<A-4>"] = { function() require("harpoon.ui").nav_file(4) end , "Navaigate to file" },
+    },
+    n = {
+      ["<A-s>"] = { function() require("harpoon.ui").toggle_quick_menu() end , "Marked files" },
+      ["<A-a>"] = { function() require("harpoon.mark").add_file() end , "Mark file" },
+      ["<A-1>"] = { function() require("harpoon.ui").nav_file(1) end , "Navaigate to file" },
+      ["<A-2>"] = { function() require("harpoon.ui").nav_file(2) end , "Navaigate to file" },
+      ["<A-3>"] = { function() require("harpoon.ui").nav_file(3) end , "Navaigate to file" },
+      ["<A-4>"] = { function() require("harpoon.ui").nav_file(4) end , "Navaigate to file" },
     }
   },
   macros = {
@@ -165,6 +194,7 @@ M.mappings = {
       ["<leader>gq"] = { "<cmd>Gitsigns setqflist<CR>", "git diffs quickfix" },
       ["<leader>gv"] = { "<cmd>DiffviewOpen<CR>", "Open diff view" },
       ["<leader>gc"] = { "<cmd>DiffviewClose<CR>", "Close diff view" },
+      ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
     },
 
     v = {
@@ -186,7 +216,7 @@ M.mappings = {
       --   actions.open_qflist()
       -- end , "Find Symbols" },
     },
-     n = {
+    n = {
       ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "Find Symbols" },
       ["<leader>fe"] = { "<cmd> Telescope lsp_dynamic_workspace_symbols <CR>", "Find symbols everywhere" },
       ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Search git files" },
@@ -195,7 +225,7 @@ M.mappings = {
     }
   },
   undotree = {
-     n = {
+    n = {
       ["<leader>u"] = { vim.cmd.UndotreeToggle, "Undotree" },
     }
   },
@@ -255,4 +285,4 @@ M.mappings = {
   }
 }
 
- return M
+return M
