@@ -18,10 +18,34 @@ local plugins = {
     },
   },
   {
+    "ThePrimeagen/harpoon",
+    config = function ()
+      require("harpoon").setup({})
+      require("telescope").load_extension('harpoon')
+    end,
+    lazy=false
+  },
+  {
     "lukas-reineke/lsp-format.nvim",
     config = function()
-       require("lsp-format").setup{}
-     end,
+      require("lsp-format").setup{}
+    end,
+  },
+  {
+    "kdheepak/lazygit.nvim",
+    lazy=false,
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+
+  { "folke/neodev.nvim", opts = {}, lazy=false,
+    config = function ()
+      require("neodev").setup({
+        -- add any options here, or leave empty to use the default settings
+      })
+    end
   },
   {
     "neovim/nvim-lspconfig",
@@ -35,8 +59,8 @@ local plugins = {
 
     config = function()
       require "plugins.configs.lspconfig"
-       require "custom.configs.lspconfig"
-     end,
+      require "custom.configs.lspconfig"
+    end,
   },
   {
     "sindrets/diffview.nvim",
@@ -52,7 +76,19 @@ local plugins = {
     },
   },
   {
-    "Civitasv/cmake-tools.nvim",
+    "hfn92/cmake-gtest.nvim",
+    lazy=false,
+    --  dir = '/home/fab/Desktop/cmake-gtest.nvim/',
+    --   -- dev=true,
+    --   lazy=false,
+    --   config = function()
+    --      require("cmake-gtest").setup{}
+    --    end,
+  },
+  {
+    -- "Civitasv/cmake-tools.nvim",
+    "hfn92/cmake-tools.nvim",
+    branch="CmakeModelInfoMerge",
     lazy=false,
     config = function()
       require("cmake-tools").setup
@@ -73,6 +109,7 @@ local plugins = {
             name = "cpp",
             type = "lldb",
             request = "launch",
+            runInTerminal = false,
             initCommands = function ()
               local script_import = 'command script import /home/fab/.conan/data/llvm-core/13.0.0/_/_/source/source/utils/lldbDataFormatters.py'
               local cmds = {}
@@ -127,7 +164,7 @@ local plugins = {
           cwd = '${workspaceFolder}',
           stopOnEntry = false,
           args = {},
-          runInTerminal = true,
+          runInTerminal = false,
         },
       }
       dap.configurations.c = dap.configurations.cpp

@@ -19,3 +19,20 @@ null_ls.setup {
    --debug = true,
    sources = sources,
 }
+
+require'null-ls'.register({
+  name = 'GTestActions',
+  method = {require'null-ls'.methods.CODE_ACTION},
+  filetypes = { 'cpp' },
+  generator = {
+    fn = function()
+      local actions = require("cmake-gtest").get_code_actions()
+      if actions == nil then return end
+      local result = {}
+      for idx, v in ipairs(actions.display) do
+        table.insert(result, { title = v, action = actions.fn[idx] })
+      end
+      return result
+    end
+  }
+})
