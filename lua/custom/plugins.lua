@@ -26,6 +26,16 @@ local plugins = {
     lazy=false
   },
   {
+    'stevearc/oil.nvim',
+    opts = {},
+    cmd = { "Oil" },
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function ()
+      require("oil").setup()
+    end
+  },
+  {
     "lukas-reineke/lsp-format.nvim",
     config = function()
       require("lsp-format").setup{}
