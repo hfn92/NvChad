@@ -195,6 +195,7 @@ M.mappings = {
       ["<leader>gv"] = { "<cmd>DiffviewOpen<CR>", "Open diff view" },
       ["<leader>gc"] = { "<cmd>DiffviewClose<CR>", "Close diff view" },
       ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
+      ["-"] = { [[<cmd>Oil --float %:p:h<CR>]], "Oil" },
     },
 
     v = {
