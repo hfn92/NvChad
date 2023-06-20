@@ -179,6 +179,7 @@ M.mappings = {
       ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Follow Symbol" },
 
       ["<leader>fr"] = { "<cmd> lua require('telescope.builtin').lsp_references() <CR>", "Find references" },
+      ["<leader>fm"] = { "<cmd> Telescope marks <CR>", "Find marks" },
       ["<leader>ra"] = { function() require("nvchad_ui.renamer").open() end, "LSP rename", },
       ["<leader>dd"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
       ["<A-d>"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
@@ -195,7 +196,7 @@ M.mappings = {
       ["<leader>gv"] = { "<cmd>DiffviewOpen<CR>", "Open diff view" },
       ["<leader>gc"] = { "<cmd>DiffviewClose<CR>", "Close diff view" },
       ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
-      ["-"] = { [[<cmd>Oil --float %:p:h<CR>]], "Oil" },
+      ["-"] = { [[<cmd>Oil<CR>]], "Oil" },
     },
 
     v = {
