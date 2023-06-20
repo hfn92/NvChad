@@ -7,11 +7,15 @@ local plugins = {
         mappings = {
           i = {
             ["<A-q>"] = require "telescope.actions".send_to_qflist + require "telescope.actions".open_qflist,
-            ["<A-S-q>"] = require "telescope.actions".send_selected_to_qflist + require "telescope.actions".open_qflist
+            ["<A-S-q>"] = require "telescope.actions".send_selected_to_qflist + require "telescope.actions".open_qflist,
+            ["<A-a>"] = require "telescope.actions".add_to_qflist + require "telescope.actions".open_qflist,
+            ["<A-S-a>"] = require "telescope.actions".add_selected_to_qflist + require "telescope.actions".open_qflist
           },
           n = {
             ["<A-q>"] = require "telescope.actions".send_to_qflist + require "telescope.actions".open_qflist,
-            ["<A-S-q>"] = require "telescope.actions".send_selected_to_qflist + require "telescope.actions".open_qflist
+            ["<A-S-q>"] = require "telescope.actions".send_selected_to_qflist + require "telescope.actions".open_qflist,
+            ["<A-a>"] = require "telescope.actions".add_to_qflist + require "telescope.actions".open_qflist,
+            ["<A-S-a>"] = require "telescope.actions".add_selected_to_qflist + require "telescope.actions".open_qflist
           },
         },
       },
@@ -24,6 +28,13 @@ local plugins = {
       require("telescope").load_extension('harpoon')
     end,
     lazy=false
+  },
+  {
+    "chentoast/marks.nvim",
+    lazy=false,
+    config = function ()
+      require("marks").setup({})
+    end
   },
   {
     'stevearc/oil.nvim',
@@ -96,9 +107,9 @@ local plugins = {
     --    end,
   },
   {
-    -- "Civitasv/cmake-tools.nvim",
-    "hfn92/cmake-tools.nvim",
-    branch="CmakeModelInfoMerge",
+    "Civitasv/cmake-tools.nvim",
+    -- "hfn92/cmake-tools.nvim",
+    -- branch="CmakeModelInfoMerge",
     lazy=false,
     config = function()
       require("cmake-tools").setup
