@@ -9,8 +9,8 @@ local setup = {
 }
 
 local lspconfig = require "lspconfig"
-    local ccapabilities = vim.lsp.protocol.make_client_capabilities()
-    ccapabilities.offsetEncoding = { "utf-16" }
+local ccapabilities = vim.lsp.protocol.make_client_capabilities()
+ccapabilities.offsetEncoding = { "utf-16" }
 --require'lspconfig'.clangd.setup{ on_attach = require("lsp-format").on_attach }
 require'lspconfig'.clangd.setup{
   on_attach = function(client, bufnr)
@@ -18,7 +18,12 @@ require'lspconfig'.clangd.setup{
     require("lsp-format").on_attach (client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
   end,
-  capabilities = ccapabilities
+  capabilities = ccapabilities,
+  cmd = {
+    "clangd",
+    "--clang-tidy",
+    "--header-insertion=never",
+  }
 }
 require'lspconfig'.lua_ls.setup {
   settings = {
