@@ -195,6 +195,7 @@ M.mappings = {
       ["<leader>gq"] = { "<cmd>Gitsigns setqflist<CR>", "git diffs quickfix" },
       ["<leader>gv"] = { "<cmd>DiffviewOpen<CR>", "Open diff view" },
       ["<leader>gc"] = { "<cmd>DiffviewClose<CR>", "Close diff view" },
+      ["<leader>gh"] = { "<cmd>DiffviewFileHistory %<CR>", "git history" },
       ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
       ["-"] = { [[<cmd>Oil<CR>]], "Oil" },
     },
