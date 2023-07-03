@@ -198,6 +198,11 @@ M.mappings = {
       ["<leader>gh"] = { "<cmd>DiffviewFileHistory %<CR>", "git history" },
       ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
       ["-"] = { [[<cmd>Oil<CR>]], "Oil" },
+
+
+      ["<leader>qc"] = { "<cmd>cclose<CR>", "Quickfix close" },
+      ["<leader>qv"] = { "<cmd>cclose<CR><cmd>vert copen 100<CR>", "Quickfix open vertical" },
+      ["<leader>qb"] = { "<cmd>cclose<CR><cmd>bot copen 12<CR>", "Quickfix open bottom" },
     },
 
     v = {
