@@ -22,6 +22,13 @@ local plugins = {
     },
   },
   {
+    "williamboman/mason-lspconfig.nvim",
+    config = function ()
+      require("mason-lspconfig").setup()
+    end,
+    lazy=false
+  },
+  {
     "ThePrimeagen/harpoon",
     config = function ()
       require("harpoon").setup({})
@@ -85,6 +92,9 @@ local plugins = {
   },
   {
     "sindrets/diffview.nvim",
+    config = function ()
+      require("diffview").setup({view = { merge_tool = { layout = "diff3_mixed" } } });
+    end,
     lazy=false,
   },
   {
