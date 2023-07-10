@@ -135,11 +135,17 @@ local plugins = {
         cmake_console_size = 10, -- cmake output window height
         cmake_console_position = "belowright", -- "belowright", "aboveleft", ...
         cmake_show_console = "always", -- "always", "only_on_error"
+        -- cmake_quickfix_opts = { -- quickfix settings for cmake, quickfix will be used when `cmake_always_use_terminal` is false
+        --   show = "always", -- "always", "only_on_error"
+        --   position = "vert", -- "bottom", "top"
+        --   size = 50,
+        -- },
         cmake_dap_configuration =
           {
             name = "cpp",
-            type = "lldb",
+            type = "codelldb",
             request = "launch",
+            stopOnEntry = false,
             runInTerminal = false,
             initCommands = function ()
               local script_import = 'command script import /home/fab/.conan/data/llvm-core/13.0.0/_/_/source/source/utils/lldbDataFormatters.py'
@@ -172,12 +178,17 @@ local plugins = {
         name = 'lldb',
       }
 
+      local mason_registry = require("mason-registry")
+      local codelldb = mason_registry.get_package("codelldb") -- note that this will error if you provide a non-existent package name
+
       dap.adapters.codelldb = {
+        stopOnEntry = false,
         type = 'server',
         port = "${port}",
         executable = {
           -- CHANGE THIS to your path!
-          command = '/home/fab/Desktop/codelldb-x86_64-linux.vsix_FILES/extension/adapter/codelldb',
+          -- command = '/home/fab/Desktop/codelldb-x86_64-linux.vsix_FILES/extension/adapter/codelldb',
+          command = codelldb:get_install_path() .. "/extension/adapter/codelldb",
           args = {"--port", "${port}"},
 
           -- On windows you may have to uncomment this:
@@ -232,7 +243,29 @@ local plugins = {
   {
     'rcarriga/nvim-dap-ui',
     config = function()
-      require("dapui").setup()
+      require("dapui").setup({
+        layouts = {
+          {
+            elements = {
+              { id = "repl", size = 0.25 },
+              { id = "console", size = 0.25 },
+              { id = "stacks", size = 0.35 },
+              { id = "breakpoints", size = 0.15 },
+            },
+            position = "bottom",
+            size = 14
+          },
+          {
+            elements = {
+              { id = "scopes", size = 0.85 },
+              { id = "watches", size = 0.15 },
+            },
+            position = "left",
+            size = 80
+          },
+        },
+
+      })
     end,
   },
   {
