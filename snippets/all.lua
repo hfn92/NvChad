@@ -57,7 +57,7 @@ end
 
 return {
   -- Shorthand
-  ls.parser.parse_snippet({trig = "lsp"}, "$1 xFFF is ${2|hard,easy,challenging|}"),
+  -- ls.parser.parse_snippet({trig = "lsp"}, "$1 xFFF is ${2|hard,easy,challenging|}"),
   s("!cc", { t("//----------------------------------------------------------------------------------------------------------------------"), }),
   s("!en", { t("std::endl"), }),
   s("!up", fmt("std::unique_ptr<{}>", { i(1) }, { delimiters = "{}" })),
