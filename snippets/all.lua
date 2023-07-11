@@ -1,5 +1,6 @@
 
 local ls = require("luasnip")
+local c = ls.choice_node
 local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
@@ -51,7 +52,7 @@ local function GetClassName()
 
   if not expr then return "" end
 
-  return (ts_utils.get_node_text(expr:child(1)))[1]
+  return vim.treesitter.get_node_text(expr:child(1), 0)
 end
 
 return {
@@ -79,19 +80,17 @@ return {
   s("me", fmt(
     [[
 {r} {n}({p}) {m}
-{r} {c}::{n}({p}) {m}
+{r} {cls}::{n}({p}) {m}
 {{
   {}
 }}]] , {
       r = i(1, "void"),
       n = i(2),
       p = i(3),
-      m = i(4),
-      c = f(function ()
+      m = c(4, { t(""), t("const noexcept"), t("const"), t("noexcept") }),
+      cls = f(function ()
         return GetClassName()
       end),
       i(5),
     }, { repeat_duplicates = true })),
-
-
 }
