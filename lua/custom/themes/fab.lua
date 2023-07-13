@@ -3,13 +3,13 @@ local M = {}
 M.base_30 = {
   white = "#C5C8C2",
   darker_black = "#2A2B2B",
-  black        = "#2E2F30", -- nvim bg
-  black2  = "#232527",
-  one_bg  = "#2d2f31",
+  black = "#2E2F30", -- nvim bg
+  black2 = "#232527",
+  one_bg = "#2d2f31",
   one_bg2 = "#353b45",
   one_bg3 = "#30343c",
-  grey     = "#6B6D6E", -- line number
-  grey_fg  = "#A8ABB0", -- comments
+  grey = "#6B6D6E",    -- line number
+  grey_fg = "#A8ABB0", -- comments
   grey_fg2 = "#616875",
   light_grey = "#676e7b",
   red = "#cc6666",
@@ -28,9 +28,9 @@ M.base_30 = {
   orange = "#DE935F",
   cyan = "#70c0b1",
   statusline_bg = "#333436",
-  lightbg       = "#373B41",
-  pmenu_bg      = "#a4b595",
-  folder_bg     = "#6f8dab",
+  lightbg = "#373B41",
+  pmenu_bg = "#a4b595",
+  folder_bg = "#6f8dab",
 }
 
 M.base_16 = {
@@ -53,6 +53,5 @@ M.base_16 = {
 }
 
 M.type = "dark"
-
 
 return M

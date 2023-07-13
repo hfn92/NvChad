@@ -1,4 +1,3 @@
-
 local ls = require("luasnip")
 local c = ls.choice_node
 local s = ls.snippet
@@ -13,27 +12,27 @@ local rep = require("luasnip.extras").rep
 
 -- print("xxxxxxxxxxxxxx")
 --
-vim.keymap.set({ "i", "s" }, "<C-l>", function()
-  if ls.choice_active() then
+vim.keymap.set({ "i", "s" }, "<A-j>", function()
+     if ls.choice_active() then
     ls.change_choice(1)
   end
 end)
-vim.keymap.set({ "i", "s" }, "<C-h>", function()
+vim.keymap.set({ "i", "s" }, "<A-h>", function()
   if ls.choice_active() then
  ls.change_choice(-1)
  end
 end)
 
-vim.keymap.set({ "i", "s" }, "<C-k>", function()
-  if ls.jumpable(1) then
-   ls.jump(1);
- end
+vim.keymap.set({ "i", "s" }, "<A-l>", function()
+ if ls.jumpable(1) then
+  ls.jump(1);
+end
 end)
 
-vim.keymap.set({ "i", "s" }, "<C-j>", function()
-  if ls.jumpable(-1) then
-   ls.jump(-1);
- end
+vim.keymap.set({ "i", "s" }, "<A-k>", function()
+ if ls.jumpable(-1) then
+  ls.jump(-1);
+end
 end)
 
 local function GetClassName()
@@ -70,6 +69,12 @@ return {
   s("!sm", fmt("SmallVector<{}, {}>", { i(1), i(2) })),
   s("m", fmt("std::move({})", { i(1) }, { delimiters = "{}" })),
   s("ar", fmt("std::array<{}, {}>", { i(1), i(2) }, { delimiters = "{}" })),
+  s("fora", fmt(
+[[
+for ({} : {})
+{{
+  {}
+}}]] , { i(1, "auto&"), i(2), i(3) })),
   s("fn", fmt(
 [[
 {} {}({})
@@ -79,15 +84,15 @@ return {
 
   s("me", fmt(
     [[
-{r} {n}({p}) {m};
-{r} {cls}::{n}({p}) {m}
+{r} {n}({p}){m};
+{r} {cls}::{n}({p}){m}
 {{
   {}
 }}]] , {
       r = i(1, "void"),
       n = i(2),
       p = i(3),
-      m = c(4, { t(""), t("const noexcept"), t("const"), t("noexcept") }),
+      m = c(4, { t(""), t(" const noexcept"), t(" const"), t(" noexcept") }),
       cls = f(function ()
         return GetClassName()
       end),

@@ -1,10 +1,9 @@
----@type ChadrcConfig 
+---@type ChadrcConfig
 local M = {}
 
 vim.cmd "function! FCmakeSelectTarget(a,b,c,d) \n CMakeSelectBuildType \n endfunction"
 vim.cmd "function! FCmakeSelectRun(a,b,c,d) \n CMakeSelectLaunchTarget \n endfunction"
 vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfunction"
-
 
 function GitSignCodeAction()
   local ok, gitsigns_actions = pcall(require("gitsigns").get_actions)
@@ -25,9 +24,8 @@ function GitSignCodeAction()
   end)
 end
 
-M.ui =
-{
-  theme = 'fab',
+M.ui = {
+  theme = "fab",
   statusline = {
     overriden_modules = function()
       local st_modules = require "nvchad_ui.statusline.default"
@@ -42,17 +40,25 @@ M.ui =
           local tgt = cmake.get_build_target()
           local args = cmake.get_launch_args()
           arg = ""
-          if (args ~= nil) then
+          if args ~= nil then
             for _, v in ipairs(args) do
               arg = arg .. v
             end
           end
 
           local str = "%#Hl#"
-          .. "   [" .. (type and type or "None") .. "]"
-          .. "   [" .. (tgt and tgt or "None") .. "]"
-          .. "   [" ..  (run and run or "None") .. "]"
-          .. "   <" ..  arg .. ">"
+              .. "   ["
+              .. (type and type or "None")
+              .. "]"
+              .. "   ["
+              .. (tgt and tgt or "None")
+              .. "]"
+              .. "   ["
+              .. (run and run or "None")
+              .. "]"
+              .. "   <"
+              .. arg
+              .. ">"
           -- .. "   %@FCmakeSelectTarget@% [" .. (type and type or "None") .. "]"
           -- .. "   %@FCmakeSelectBuild@% [" .. (tgt and tgt or "None") .. "]"
           -- .. "   %@FCmakeSelectRun@% [" ..  (run and run or "None") .. "]"
@@ -65,7 +71,7 @@ M.ui =
   },
 }
 
-M.plugins = 'custom/plugins'
+M.plugins = "custom/plugins"
 
 M.mappings = {
   general = {
@@ -88,8 +94,8 @@ M.mappings = {
       ["<A-Right>"] = { "<C-i>", "Navigate Forwards" },
       ["<C-S-s>"] = { "<cmd> wa <CR>", "Save all files" },
 
-      ["<leader>y"] = { "\"+y", "Yank to clipboard" },
-      ["<leader>d"] = { "\"_d", "Delete to void" },
+      ["<leader>y"] = { '"+y', "Yank to clipboard" },
+      ["<leader>d"] = { '"_d', "Delete to void" },
     },
 
     v = {
@@ -98,12 +104,12 @@ M.mappings = {
       ["<S-Down>"] = { ":m '>+1<CR>gv=gv", "Move down" },
       ["<S-Up>"] = { ":m '<-2<CR>gv=gv", "Move Up" },
 
-      ["<leader>y"] = { "\"+y", "Yank to clipboard" },
-      ["<leader>d"] = { "\"_d", "Delete to void" },
+      ["<leader>y"] = { '"+y', "Yank to clipboard" },
+      ["<leader>d"] = { '"_d', "Delete to void" },
     },
     x = {
-      ["<leader>p"] = { "\"_dP", "Paste" },
-    }
+      ["<leader>p"] = { '"_dP', "Paste" },
+    },
   },
   cmake = {
     i = {
@@ -116,10 +122,11 @@ M.mappings = {
       ["<leader>cd"] = { "<cmd> CMakeDebug <CR>", "CMake debug" },
       ["<leader>ca"] = {
         function()
-          local args = vim.fn.input("Command line args:")
+          local args = vim.fn.input "Command line args:"
           vim.cmd("CMakeLaunchArgs " .. args)
-        end
-        , "CMake launch args" },
+        end,
+        "CMake launch args",
+      },
       ["<C-b>"] = { "<cmd> CMakeBuild <CR>", "CMake build" },
       ["<leader>cr"] = { "<cmd> CMakeRun <CR>", "CMake run" },
       ["<C-r>"] = { "<cmd> CMakeRun <CR>", "CMake run" },
@@ -127,7 +134,7 @@ M.mappings = {
       ["<leader>cqb"] = { "<cmd> CMakeQuickBuild <CR>", "CMake quick build" },
       ["<leader>cqd"] = { "<cmd> CMakeQuickDebug <CR>", "CMake quick debug" },
       ["<leader>cqr"] = { "<cmd> CMakeQuickRun <CR>", "CMake quick run" },
-    }
+    },
   },
   gtest = {
     n = {
@@ -135,29 +142,88 @@ M.mappings = {
       ["<leader>tc"] = { [[<cmd>GTestCancel<CR>]], "Cancel current test" },
       ["<leader>ts"] = { [[<cmd>GTestSelectAndRunTestsuite<CR>]], "Run Testsuite" },
       ["<leader>tt"] = { [[<cmd>GTestSelectAndRunTest<CR>]], "Run Test" },
-    }
+    },
   },
   harpoon = {
     i = {
-      ["<A-s>"] = { function() require("harpoon.ui").toggle_quick_menu() end , "Marked files" },
-      ["<A-a>"] = { function() require("harpoon.mark").add_file() end , "Mark file" },
-      ["<A-1>"] = { function() require("harpoon.ui").nav_file(1) end , "Navaigate to file" },
-      ["<A-2>"] = { function() require("harpoon.ui").nav_file(2) end , "Navaigate to file" },
-      ["<A-3>"] = { function() require("harpoon.ui").nav_file(3) end , "Navaigate to file" },
-      ["<A-4>"] = { function() require("harpoon.ui").nav_file(4) end , "Navaigate to file" },
+      ["<A-s>"] = {
+        function()
+          require("harpoon.ui").toggle_quick_menu()
+        end,
+        "Marked files",
+      },
+      ["<A-a>"] = {
+        function()
+          require("harpoon.mark").add_file()
+        end,
+        "Mark file",
+      },
+      ["<A-1>"] = {
+        function()
+          require("harpoon.ui").nav_file(1)
+        end,
+        "Navaigate to file",
+      },
+      ["<A-2>"] = {
+        function()
+          require("harpoon.ui").nav_file(2)
+        end,
+        "Navaigate to file",
+      },
+      ["<A-3>"] = {
+        function()
+          require("harpoon.ui").nav_file(3)
+        end,
+        "Navaigate to file",
+      },
+      ["<A-4>"] = {
+        function()
+          require("harpoon.ui").nav_file(4)
+        end,
+        "Navaigate to file",
+      },
     },
     n = {
-      ["<A-s>"] = { function() require("harpoon.ui").toggle_quick_menu() end , "Marked files" },
-      ["<A-a>"] = { function() require("harpoon.mark").add_file() end , "Mark file" },
-      ["<A-1>"] = { function() require("harpoon.ui").nav_file(1) end , "Navaigate to file" },
-      ["<A-2>"] = { function() require("harpoon.ui").nav_file(2) end , "Navaigate to file" },
-      ["<A-3>"] = { function() require("harpoon.ui").nav_file(3) end , "Navaigate to file" },
-      ["<A-4>"] = { function() require("harpoon.ui").nav_file(4) end , "Navaigate to file" },
-    }
+      ["<A-s>"] = {
+        function()
+          require("harpoon.ui").toggle_quick_menu()
+        end,
+        "Marked files",
+      },
+      ["<A-a>"] = {
+        function()
+          require("harpoon.mark").add_file()
+        end,
+        "Mark file",
+      },
+      ["<A-1>"] = {
+        function()
+          require("harpoon.ui").nav_file(1)
+        end,
+        "Navaigate to file",
+      },
+      ["<A-2>"] = {
+        function()
+          require("harpoon.ui").nav_file(2)
+        end,
+        "Navaigate to file",
+      },
+      ["<A-3>"] = {
+        function()
+          require("harpoon.ui").nav_file(3)
+        end,
+        "Navaigate to file",
+      },
+      ["<A-4>"] = {
+        function()
+          require("harpoon.ui").nav_file(4)
+        end,
+        "Navaigate to file",
+      },
+    },
   },
   macros = {
-    i = {
-    }
+    i = {},
   },
   fab = {
     -- plugin = true,
@@ -180,16 +246,36 @@ M.mappings = {
 
       ["<leader>fr"] = { "<cmd> lua require('telescope.builtin').lsp_references() <CR>", "Find references" },
       ["<leader>fm"] = { "<cmd> Telescope marks <CR>", "Find marks" },
-      ["<leader>ra"] = { function() require("nvchad_ui.renamer").open() end, "LSP rename", },
-      ["<leader>dd"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
-      ["<A-d>"] = { function() vim.diagnostic.open_float { border = "rounded" } end, "Floating diagnostic", },
+      ["<leader>ra"] = {
+        function()
+          require("nvchad_ui.renamer").open()
+        end,
+        "LSP rename",
+      },
+      ["<leader>dd"] = {
+        function()
+          vim.diagnostic.open_float { border = "rounded" }
+        end,
+        "Floating diagnostic",
+      },
+      ["<A-d>"] = {
+        function()
+          vim.diagnostic.open_float { border = "rounded" }
+        end,
+        "Floating diagnostic",
+      },
       ["<leader>s"] = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace under cursor" },
 
       ["<A-j>"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
       ["<A-k>"] = { "<cmd>cprev<CR>zz", "Quickfix previous" },
       ["<leader>k"] = { "<cmd>lnext<CR>zz", "Location next" },
       ["<leader>j"] = { "<cmd>lprev<CR>zz", "Location previous" },
-      ["<C-g>"] = { function () GitSignCodeAction()  end, "Location previous" },
+      ["<C-g>"] = {
+        function()
+          GitSignCodeAction()
+        end,
+        "Location previous",
+      },
 
       ["<leader>gd"] = { "<cmd>Gitsigns diffthis<CR>", "git diff" },
       ["<leader>gq"] = { "<cmd>Gitsigns setqflist<CR>", "git diffs quickfix" },
@@ -198,7 +284,6 @@ M.mappings = {
       ["<leader>gh"] = { "<cmd>DiffviewFileHistory %<CR>", "git history" },
       ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
       ["-"] = { [[<cmd>Oil<CR>]], "Oil" },
-
 
       ["<leader>qc"] = { "<cmd>cclose<CR>", "Quickfix close" },
       ["<leader>qv"] = { "<cmd>cclose<CR><cmd>vert copen 100<CR>", "Quickfix open vertical" },
@@ -210,9 +295,7 @@ M.mappings = {
       ["<leader>r"] = { [[y:%s/<C-R>=escape(@",'/\:.')<esc>//g<Left><Left>]], "Replace selection" },
 
       ["<C-p>"] = { ":diffput<CR>", "Move diff of other view" },
-    }
-
-
+    },
   },
   telescope = {
     plugin = true,
@@ -230,67 +313,169 @@ M.mappings = {
       ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Search git files" },
       ["<leader>fc"] = { "<cmd> Telescope git_status <CR>", "Search git diff" },
       ["<leader>fd"] = { "<cmd> Telescope diagnostics <CR>", "Diagnostics" },
-    }
+    },
   },
   undotree = {
     n = {
       ["<leader>u"] = { vim.cmd.UndotreeToggle, "Undotree" },
-    }
+    },
   },
   dap = {
 
     n = {
-      ["<F5>"] = { function() require('dap').continue() end , "continue" },
-      ["<F9>"] = { function() require('dap').toggle_breakpoint() end , "toogle breakpoint" },
-      ["<F10>"] = { function() require('dap').step_over() end , "step over" },
-      ["<leader><F10>"] = { function() require('dap').run_to_cursor() end , "Run to cursor" },
-      ["<F12>"] = { function() require('dap').step_into() end , "step into" },
-      ["<S-F12>"] = { function() require('dap').step_out() end , "step out" },
-      ["<F11>"] = { function() require('dap').step_into() end , "step into" },
-      ["<S-F11>"] = { function() require('dap').step_out() end , "step out" },
+      ["<F5>"] = {
+        function()
+          require("dap").continue()
+        end,
+        "continue",
+      },
+      ["<F9>"] = {
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        "toogle breakpoint",
+      },
+      ["<F10>"] = {
+        function()
+          require("dap").step_over()
+        end,
+        "step over",
+      },
+      ["<leader><F10>"] = {
+        function()
+          require("dap").run_to_cursor()
+        end,
+        "Run to cursor",
+      },
+      ["<F12>"] = {
+        function()
+          require("dap").step_into()
+        end,
+        "step into",
+      },
+      ["<S-F12>"] = {
+        function()
+          require("dap").step_out()
+        end,
+        "step out",
+      },
+      ["<F11>"] = {
+        function()
+          require("dap").step_into()
+        end,
+        "step into",
+      },
+      ["<S-F11>"] = {
+        function()
+          require("dap").step_out()
+        end,
+        "step out",
+      },
 
-      ["<leader>di"] = { function() require('dap').step_into() end , "step into" },
-      ["<leader>do"] = { function() require('dap').step_out() end , "step out" },
-      ["<leader>du"] = { function() require('dapui').toggle() end , "Toggle Debug UI" },
-      ["<leader>dq"] = { function() require('dap').terminate() end , "Stop debugging" },
-      ["<leader>db"] = { function() require('dap').pause() end , "Pause" },
-      ["<leader>dc"] = { function() require('dap').clear_breakpoints() end , "Clear breakpoints" },
-      ["<leader>dl"] = { function() require('dap').list_breakpoints() end , "List breakpoints" },
-      ["<leader>dr"] = { function() require('dap').repl.toggle() end , "Open repl" },
-      ["<leader>dh"] = { function() require('dap.ui.widgets').hover() end , "Hover" },
-      ["<leader>dp"] = { function() require('dap.ui.widgets').preview() end , "Preview" },
+      ["<leader>di"] = {
+        function()
+          require("dap").step_into()
+        end,
+        "step into",
+      },
+      ["<leader>do"] = {
+        function()
+          require("dap").step_out()
+        end,
+        "step out",
+      },
+      ["<leader>du"] = {
+        function()
+          require("dapui").toggle()
+        end,
+        "Toggle Debug UI",
+      },
+      ["<leader>dq"] = {
+        function()
+          require("dap").terminate()
+        end,
+        "Stop debugging",
+      },
+      ["<leader>db"] = {
+        function()
+          require("dap").pause()
+        end,
+        "Pause",
+      },
+      ["<leader>dc"] = {
+        function()
+          require("dap").clear_breakpoints()
+        end,
+        "Clear breakpoints",
+      },
+      ["<leader>dl"] = {
+        function()
+          require("dap").list_breakpoints()
+        end,
+        "List breakpoints",
+      },
+      ["<leader>dr"] = {
+        function()
+          require("dap").repl.toggle()
+        end,
+        "Open repl",
+      },
+      ["<leader>dh"] = {
+        function()
+          require("dap.ui.widgets").hover()
+        end,
+        "Hover",
+      },
+      ["<leader>dp"] = {
+        function()
+          require("dap.ui.widgets").preview()
+        end,
+        "Preview",
+      },
       ["<leader>dt"] = {
         function()
-          local w = require('dap.ui.widgets');
+          local w = require "dap.ui.widgets"
           w.centered_float(w.threads)
-        end , "Stack frames" },
+        end,
+        "Stack frames",
+      },
       ["<leader>df"] = {
         function()
-          local w = require('dap.ui.widgets');
+          local w = require "dap.ui.widgets"
           w.centered_float(w.frames)
-        end , "Stack frames" },
+        end,
+        "Stack frames",
+      },
       ["<leader>ds"] = {
         function()
-          local w = require('dap.ui.widgets');
+          local w = require "dap.ui.widgets"
           w.centered_float(w.scopes)
-        end , "Variables in Scope" },
+        end,
+        "Variables in Scope",
+      },
       ["<leader>dot"] = {
         function()
-          local w = require('dap.ui.widgets');
+          local w = require "dap.ui.widgets"
           w.sidebar(w.threads).open()
-        end , "Threds in sidebar" },
+        end,
+        "Threds in sidebar",
+      },
       ["<leader>dof"] = {
         function()
-          local w = require('dap.ui.widgets');
+          local w = require "dap.ui.widgets"
           w.sidebar(w.frames).open()
-        end , "Stack frames sidebar" },
+        end,
+        "Stack frames sidebar",
+      },
       ["<leader>dos"] = {
         function()
-          local w = require('dap.ui.widgets');
+          local w = require "dap.ui.widgets"
           w.sidebar(w.scopes).open()
-        end , "Variables in Scope sidebar" },
-    }
-  }
+        end,
+        "Variables in Scope sidebar",
+      },
+    },
+  },
 }
 
 return M
