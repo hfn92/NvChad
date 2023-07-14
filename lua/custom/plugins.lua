@@ -80,7 +80,7 @@ local plugins = {
   {
     "folke/neodev.nvim",
     opts = {},
-    lazy = false,
+    ft = { "lua" },
     config = function()
       require("neodev").setup {
         -- add any options here, or leave empty to use the default settings
