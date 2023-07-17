@@ -24,8 +24,48 @@ function GitSignCodeAction()
   end)
 end
 
+function RunPerf()
+  local cmake = require "cmake-tools"
+  cmake.run { wrap_call = { "perf", "record", "--call-graph", "dwarf" } }
+end
+
+function AnalyzePerf()
+  local cmake = require "cmake-tools"
+  local target = cmake.get_launch_target()
+
+  cmake.get_cmake_launch_targets(function(targets_res)
+    if targets_res == nil then
+      vim.cmd "CMakeGenerate"
+      if targets_res == nil then
+        return
+      end
+    end
+    local targets, targetPaths = targets_res.data.targets, targets_res.data.abs_paths
+    for idx, itarget in ipairs(targets) do
+      if itarget == target then
+        local target_dir = vim.fn.fnamemodify(targetPaths[idx], ":h")
+        local perf = require "perfanno"
+        perf.load_perf_callgraph { fargs = { target_dir .. "/perf.data" } }
+      end
+    end
+  end)
+end
+
+function RunPerfQuick()
+  local cmake = require "cmake-tools"
+  cmake.quick_run { fargs = {}, wrap_call = { "perf", "record", "--call-graph", "dwarf" } }
+end
+
+function RunValgrind()
+  local cmake = require "cmake-tools"
+  cmake.run { wrap_call = { "valgrind", "--leak-check=full" } }
+end
+
 M.ui = {
   theme = "fab",
+  -- hl_override = {
+  --   CursorLine = { bg = "one_bg2" },
+  -- },
   statusline = {
     overriden_modules = function()
       local st_modules = require "nvchad_ui.statusline.default"
@@ -111,12 +151,21 @@ M.mappings = {
       ["<leader>p"] = { '"_dP', "Paste" },
     },
   },
+  trouble = {
+    -- plugin = true,
+    n = {
+      ["<A-n>"] = { [[<cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>]], "Trouble next" },
+      ["<A-m>"] = { [[<cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>]], "Trouble prev" },
+    },
+  },
   cmake = {
     i = {
       ["<C-b>"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
     },
     n = {
+      ["<leader>cy"] = { "<cmd> CMakeSelectBuildType<CR>", "Select build type" },
       ["<leader>ct"] = { "<cmd> CMakeSelectBuildTarget <CR>", "Select CMake target" },
+      ["<leader>cp"] = { "<cmd> CMakeSelectBuildPreset<CR>", "Select CMake preset" },
       ["<leader>cb"] = { "<cmd> CMakeBuild <CR>", "CMake build" },
       ["<leader>cs"] = { "<cmd> CMakeStop <CR>", "CMake stop" },
       ["<leader>cd"] = { "<cmd> CMakeDebug <CR>", "CMake debug" },
@@ -134,6 +183,16 @@ M.mappings = {
       ["<leader>cqb"] = { "<cmd> CMakeQuickBuild <CR>", "CMake quick build" },
       ["<leader>cqd"] = { "<cmd> CMakeQuickDebug <CR>", "CMake quick debug" },
       ["<leader>cqr"] = { "<cmd> CMakeQuickRun <CR>", "CMake quick run" },
+    },
+  },
+  perf = {
+    n = {
+      ["<leader>pr"] = { [[<cmd>lua RunPerf()<CR>]], "Run perf" },
+      ["<leader>pa"] = { [[<cmd>lua AnalyzePerf()<CR>]], "Analyze Perf" },
+      ["<leader>po"] = { [[<cmd>PerfToggleAnnotations<CR>]], "Toggle Perf" },
+      ["<leader>pl"] = { [[<cmd>PerfHottestLines<CR>]], "Hottest Lines" },
+      ["<leader>ps"] = { [[<cmd>PerfHottestSymbols<CR>]], "Hottest Symbols" },
+      ["<leader>pf"] = { [[<cmd>PerfHottestCallersFunction<CR>]], "Hottest Callers" },
     },
   },
   gtest = {

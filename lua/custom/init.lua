@@ -6,6 +6,7 @@ vim.opt.clipboard = ""
 
 vim.filetype.add { extension = { fsh = "glsl" } }
 vim.filetype.add { extension = { vsh = "glsl" } }
+vim.filetype.add { extension = { animation = "toml" } }
 --vim.filetype.add({ extension = { vsh = 'glsl' } })
 
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })

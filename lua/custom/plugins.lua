@@ -26,9 +26,50 @@ local plugins = {
     },
   },
   {
+    "t-troebst/perfanno.nvim",
+    config = function()
+      local util = require "perfanno.util"
+      local bgcolor = vim.fn.synIDattr(vim.fn.hlID "Normal", "bg", "gui")
+      require("perfanno").setup {
+        -- Creates a 10-step RGB color gradient beween bgcolor and "#CC3300"
+        line_highlights = util.make_bg_highlights(bgcolor, "#CC3300", 10),
+        vt_highlight = util.make_fg_highlight "#CC3300",
+
+        -- Automatically annotate files after :PerfLoadFlat and :PerfLoadCallGraph
+        annotate_after_load = true,
+        -- Automatically annotate newly opened buffers if information is available
+        annotate_on_open = true,
+
+        get_path_callback = function()
+          local cmake = require "cmake-tools"
+          local target = cmake.get_launch_target()
+          local res = ""
+          cmake.get_cmake_launch_targets(function(targets_res)
+            if targets_res == nil then
+              vim.cmd "CMakeGenerate"
+              if targets_res == nil then
+                return
+              end
+            end
+            local targets, targetPaths = targets_res.data.targets, targets_res.data.abs_paths
+            for idx, itarget in ipairs(targets) do
+              if itarget == target then
+                res = vim.fn.fnamemodify(targetPaths[idx], ":h") .. "/perf.data"
+              end
+            end
+          end)
+          return res
+        end,
+      }
+    end,
+    cmd = "PerfLoadCallGraph",
+  },
+  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {},
+    opts = {
+      use_diagnostic_signs = true,
+    },
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -288,10 +329,6 @@ local plugins = {
       }
     end,
   },
-  -- {
-  --   'github/copilot.vim',
-  --   lazy = false,
-  -- },
   {
     "mbbill/undotree",
     lazy = false,

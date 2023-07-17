@@ -7,6 +7,7 @@ M.base_30 = {
   black2 = "#232527",
   one_bg = "#2d2f31",
   one_bg2 = "#353b45",
+  -- one_bg2 = "#373737",
   one_bg3 = "#30343c",
   grey = "#6B6D6E",    -- line number
   grey_fg = "#A8ABB0", -- comments
