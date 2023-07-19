@@ -72,6 +72,23 @@ local plugins = {
     },
   },
   {
+    "nvimdev/lspsaga.nvim",
+    cmd = "Lspsaga",
+    config = function()
+      require("lspsaga").setup {
+        symbols_in_winbar = { enable = false },
+        code_action = {
+          num_shortcut = true,
+          extend_gitsigns = true,
+        },
+      }
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup()
@@ -100,7 +117,12 @@ local plugins = {
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("oil").setup()
+      require("oil").setup {
+        view_options = {
+          -- Show files and directories that start with "."
+          show_hidden = true,
+        },
+      }
     end,
   },
   {

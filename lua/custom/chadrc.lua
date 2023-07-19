@@ -158,6 +158,12 @@ M.mappings = {
       ["<A-m>"] = { [[<cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>]], "Trouble prev" },
     },
   },
+  lspsaga = {
+    n = {
+      ["<C-cr>"] = { [[<cmd>Lspsaga peek_definition<CR>]], "Trouble next" },
+      ["<A-m>"] = { [[<cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>]], "Trouble prev" },
+    },
+  },
   cmake = {
     i = {
       ["<C-b>"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
@@ -289,7 +295,8 @@ M.mappings = {
 
     i = {
       --["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Switch Source/Header" },
-      ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
+      -- ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
+      ["<A-cr>"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
       ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
 
       ["<A-j>"] = { "<cmd>cnext<CR>zz", "Quickfix next" },
@@ -300,7 +307,8 @@ M.mappings = {
       ["<C-w>b"] = { "<cmd>%bd|e#<CR>", "Close other buffers" },
       ["K"] = { "<cmd> lua vim.lsp.buf.hover() <CR>", "Hover" },
       ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
-      ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
+      -- ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
+      ["<A-cr>"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
       ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Follow Symbol" },
 
       ["<leader>fr"] = { "<cmd> lua require('telescope.builtin').lsp_references() <CR>", "Find references" },
