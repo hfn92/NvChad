@@ -198,7 +198,7 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "cpp", "c", "cmake", "glsl" },
+      ensure_installed = { "cpp", "c", "cmake", "glsl", "markdown", "markdown_inline", "python" },
     },
   },
   {
@@ -374,6 +374,11 @@ local plugins = {
   {
     "mbbill/undotree",
     lazy = false,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = { "markdown" },
+    build = "cd app && npm install && git reset --hard",
   },
 }
 return plugins

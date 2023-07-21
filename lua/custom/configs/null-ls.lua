@@ -14,6 +14,8 @@ local sources = {
   -- formatting.cmake_lint,
   --formatting.clang_format,
   lint.shellcheck,
+  lint.markdownlint,
+  formatting.markdownlint,
   -- null_ls.builtins.diagnostics.glslc.with {
   --   extra_args = { "--target-env=opengl", "-std=330core", "-fauto-map-locations" }, -- use opengl instead of vulkan1.0
   -- },
