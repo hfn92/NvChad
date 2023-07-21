@@ -19,6 +19,7 @@ require("lspconfig").clangd.setup {
     client.server_capabilities.semanticTokensProvider = nil
   end,
   capabilities = ccapabilities,
+  filetyper = { "c", "cpp" },
   cmd = {
     "clangd",
     "--clang-tidy",
