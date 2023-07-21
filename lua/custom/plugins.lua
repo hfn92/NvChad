@@ -98,6 +98,9 @@ local plugins = {
           num_shortcut = true,
           extend_gitsigns = true,
         },
+        lightbulb = {
+          enable = false,
+        },
       }
     end,
     dependencies = {

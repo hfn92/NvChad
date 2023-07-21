@@ -160,7 +160,7 @@ M.mappings = {
   },
   lspsaga = {
     n = {
-      ["<C-cr>"] = { [[<cmd>Lspsaga peek_definition<CR>]], "Trouble next" },
+      ["sd"] = { [[<cmd>Lspsaga peek_definition<CR>]], "Trouble next" },
       ["<A-m>"] = { [[<cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>]], "Trouble prev" },
     },
   },
