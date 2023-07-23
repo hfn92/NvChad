@@ -162,12 +162,20 @@ local plugins = {
 
   {
     "folke/neodev.nvim",
-    opts = {},
+    opts = {
+      library = {
+        enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
+        -- these settings will be used for your Neovim config directory
+        runtime = true, -- runtime path
+        types = true,   -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+        plugins = true, -- installed opt or start plugins in packpath
+        -- you can also specify the list of plugins to make available as a workspace library
+        -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+      },
+    },
     ft = { "lua" },
     config = function()
-      require("neodev").setup {
-        -- add any options here, or leave empty to use the default settings
-      }
+      require("neodev").setup {}
     end,
   },
   {
@@ -254,6 +262,7 @@ local plugins = {
               [[type summary add -s "[${var.Left}, ${var.Top}, ${var.Width}, ${var.Height}]" -x ^Rect<.+>$]]
             )
             table.insert(cmds, [[type summary add -s "[${var.r%u}, ${var.g%u}, ${var.b%u}, ${var.a%u}]" Color]])
+            table.insert(cmds, [[settings set target.process.thread.step-avoid-regexp '']])
             return cmds
           end,
         }, -- dap configuration, optional
@@ -337,7 +346,9 @@ local plugins = {
     end,
   },
   {
-    "rcarriga/nvim-dap-ui",
+    -- "rcarriga/nvim-dap-ui",
+    "hfn92/nvim-dap-ui",
+    branch = "repl-watches",
     config = function()
       require("dapui").setup {
         layouts = {

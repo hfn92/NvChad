@@ -29,6 +29,24 @@ function RunPerf()
   cmake.run { wrap_call = { "perf", "record", "--call-graph", "dwarf" } }
 end
 
+function RunPerfCacheMisses()
+  local cmake = require "cmake-tools"
+  -- perf stat -e cycles,instructions,cache-references,cache-misses,bus-cycles
+  -- /usr/bin/perf record -e cpu-cycles,cache-misses,branch-misses --call-graph dwarf,4096 -F 250 -o - -- /home/fab/Work/games/endtower/build_RelWithDebInfo/Game/Game PhysicsTest
+  cmake.run {
+    wrap_call = {
+      "perf",
+      "record",
+      "-e",
+      "cpu-cycles,branch-misses,cache-misses",
+      "--call-graph",
+      "dwarf,4096",
+      "-F",
+      "250",
+    },
+  }
+end
+
 function AnalyzePerf()
   local cmake = require "cmake-tools"
   local target = cmake.get_launch_target()
@@ -388,159 +406,79 @@ M.mappings = {
     },
   },
   dap = {
+    --  ?/nat (float) i float = 9999
+    --  ?/nat (char) i char = '\x0f'
+    --  ?vec3 Vec4f = [NaN, 4.59163468E-41, 1.85081948E+13, 3.0611365E-41]
+    --  ?/py hex($i) char[6] = "0x270f"
+    --  ?i int = 9999
 
     n = {
-      ["<F5>"] = {
-        function()
-          require("dap").continue()
-        end,
-        "continue",
-      },
-      ["<F9>"] = {
-        function()
-          require("dap").toggle_breakpoint()
-        end,
-        "toogle breakpoint",
-      },
-      ["<F10>"] = {
-        function()
-          require("dap").step_over()
-        end,
-        "step over",
-      },
-      ["<leader><F10>"] = {
-        function()
-          require("dap").run_to_cursor()
-        end,
-        "Run to cursor",
-      },
-      ["<F12>"] = {
-        function()
-          require("dap").step_into()
-        end,
-        "step into",
-      },
-      ["<S-F12>"] = {
-        function()
-          require("dap").step_out()
-        end,
-        "step out",
-      },
-      ["<F11>"] = {
-        function()
-          require("dap").step_into()
-        end,
-        "step into",
-      },
-      ["<S-F11>"] = {
-        function()
-          require("dap").step_out()
-        end,
-        "step out",
-      },
 
-      ["<leader>di"] = {
-        function()
-          require("dap").step_into()
-        end,
-        "step into",
-      },
-      ["<leader>do"] = {
-        function()
-          require("dap").step_out()
-        end,
-        "step out",
-      },
-      ["<leader>du"] = {
-        function()
-          require("dapui").toggle()
-        end,
-        "Toggle Debug UI",
-      },
-      ["<leader>dq"] = {
-        function()
-          require("dap").terminate()
-        end,
-        "Stop debugging",
-      },
-      ["<leader>db"] = {
-        function()
-          require("dap").pause()
-        end,
-        "Pause",
-      },
-      ["<leader>dc"] = {
-        function()
-          require("dap").clear_breakpoints()
-        end,
-        "Clear breakpoints",
-      },
-      ["<leader>dl"] = {
-        function()
-          require("dap").list_breakpoints()
-        end,
-        "List breakpoints",
-      },
-      ["<leader>dr"] = {
-        function()
-          require("dap").repl.toggle()
-        end,
-        "Open repl",
-      },
-      ["<leader>dh"] = {
-        function()
-          require("dap.ui.widgets").hover()
-        end,
-        "Hover",
-      },
-      ["<leader>dp"] = {
-        function()
-          require("dap.ui.widgets").preview()
-        end,
-        "Preview",
-      },
-      ["<leader>dt"] = {
+      ["<leader>dt"]    = {
         function()
           local w = require "dap.ui.widgets"
           w.centered_float(w.threads)
         end,
         "Stack frames",
       },
-      ["<leader>df"] = {
+      ["<leader>df"]    = {
         function()
           local w = require "dap.ui.widgets"
           w.centered_float(w.frames)
         end,
         "Stack frames",
       },
-      ["<leader>ds"] = {
+      ["<leader>ds"]    = {
         function()
           local w = require "dap.ui.widgets"
           w.centered_float(w.scopes)
         end,
         "Variables in Scope",
       },
-      ["<leader>dot"] = {
+      ["<leader>dg"]    = {
         function()
-          local w = require "dap.ui.widgets"
-          w.sidebar(w.threads).open()
+          local lineNum = vim.api.nvim_win_get_cursor(0)[1]
+          require("dap").goto_(lineNum)
         end,
-        "Threds in sidebar",
+        "Jump to cursor",
       },
-      ["<leader>dof"] = {
+      ["<leader><F9>"]  = {
         function()
-          local w = require "dap.ui.widgets"
-          w.sidebar(w.frames).open()
+          local condition = vim.fn.input "Breakpoint Condition: "
+          local hitcount = vim.fn.input "Hit count: "
+          require("dap").toggle_breakpoint(condition, hitcount)
         end,
-        "Stack frames sidebar",
+        "toogle breakpoint condition",
       },
-      ["<leader>dos"] = {
-        function()
-          local w = require "dap.ui.widgets"
-          w.sidebar(w.scopes).open()
-        end,
-        "Variables in Scope sidebar",
-      },
+
+      -- stylua: ignore start
+      ["<F5>"]          = { function() require("dap").continue() end, "continue", },
+      ["<F6>"]          = { function() require("dap").restart() end, "continue", },
+      ["<F7>"]          = { function() require("dap").run_last() end, "continue", },
+      ["<F9>"]          = { function() require("dap").toggle_breakpoint() end, "toogle breakpoint", },
+      ["<F10>"]         = { function() require("dap").step_over() end, "step over", },
+      ["<leader><F10>"] = { function() require("dap").run_to_cursor() end, "Run to cursor", },
+      ["<F12>"]         = { function() require("dap").step_into() end, "step into", },
+      ["<leader><F12>"] = { function() require("dap").step_out() end, "step out", },
+      ["<F11>"]         = { function() require("dap").step_into() end, "step into", },
+      ["<S-F11>"]       = { function() require("dap").step_out() end, "step out", },
+      ["<A-DOWN>"]      = { function() require("dap").up() end, "go up in stack", },
+      ["<A-UP>"]        = { function() require("dap").down() end, "go down in stack", },
+      ["<leader>di"]    = { function() require("dap").step_into() end, "step into", },
+      ["<leader>do"]    = { function() require("dap").step_out() end, "step out", },
+      ["<leader>du"]    = { function() require("dapui").toggle() end, "Toggle Debug UI", },
+      ["<leader>dq"]    = { function() require("dap").terminate() end, "Stop debugging", },
+      ["<leader>db"]    = { function() require("dap").pause() end, "Pause", },
+      ["<leader>dc"]    = { function() require("dap").clear_breakpoints() end, "Clear breakpoints", },
+      ["<leader>dl"]    = { function() require("dap").list_breakpoints() end, "List breakpoints", },
+      ["<leader>dr"]    = { function() require("dap").repl.toggle() end, "Open repl", },
+      ["<leader>dh"]    = { function() require("dap.ui.widgets").hover() end, "Hover", },
+      ["<leader>dp"]    = { function() require("dap.ui.widgets").preview() end, "Preview", },
+      ["<leader>dz"]    = { function() require("dap.ui.widgets").update_render {} end, "Preview", },
+      -- stylua: ignore end
+      -- ["<leader>dot"] = { function() local w = require "dap.ui.widgets" w.sidebar(w.threads).open() end, "Threds in sidebar", },
+      -- ["<leader>dof"] = { function() local w = require "dap.ui.widgets" w.sidebar(w.frames).open() end, "Stack frames sidebar", },
+      -- ["<leader>dos"] = { function() local w = require "dap.ui.widgets" w.sidebar(w.scopes).open() end, "Variables in Scope sidebar", },
     },
   },
 }
