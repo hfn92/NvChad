@@ -383,6 +383,11 @@ local plugins = {
     end,
   },
   {
+    -- "gaving/vim-textobj-argument",
+    "inkarkat/argtextobj.vim",
+    lazy = false,
+  },
+  {
     "mbbill/undotree",
     lazy = false,
   },
