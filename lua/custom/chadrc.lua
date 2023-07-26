@@ -85,11 +85,54 @@ M.ui = {
   --   CursorLine = { bg = "one_bg2" },
   -- },
   statusline = {
-    overriden_modules = function()
+    theme = "default", -- default/vscode/vscode_colored/minimal
+    overriden_modules = function(modules)
       local st_modules = require "nvchad_ui.statusline.default"
       local cmake = require "cmake-tools"
       --local icons = require "user.icons"
       -- this is just default table of statusline modules
+
+      -- table.insert(
+      --   modules,
+      --   5,
+      --   (function()
+      --     return " between mode and filename ! xD"
+      --   end)()
+      -- )
+      modules[5] = (function()
+        local type = cmake.get_build_type()
+        local run = cmake.get_launch_target()
+        local tgt = cmake.get_build_target()
+        local args = cmake.get_launch_args()
+        local preset = cmake.get_configure_preset()
+        arg = ""
+        if args ~= nil then
+          for _, v in ipairs(args) do
+            arg = arg .. v
+          end
+        end
+
+        type = preset and preset or type
+
+        local str = "%#Hl#"
+            .. "   ["
+            .. (type and type or "None")
+            .. "]"
+            .. "   ["
+            .. (tgt and tgt or "None")
+            .. "]"
+            .. "   ["
+            .. (run and run or "None")
+            .. "]"
+            .. "   <"
+            .. arg
+            .. ">"
+        -- .. "   %@FCmakeSelectTarget@% [" .. (type and type or "None") .. "]"
+        -- .. "   %@FCmakeSelectBuild@% [" .. (tgt and tgt or "None") .. "]"
+        -- .. "   %@FCmakeSelectRun@% [" ..  (run and run or "None") .. "]"
+        -- .. "   <" ..  arg .. ">"
+        return str --cmake.get_build_type()
+      end)()
 
       return {
         LSP_progress = function()
