@@ -220,9 +220,9 @@ local plugins = {
     --    end,
   },
   {
-    "Civitasv/cmake-tools.nvim",
-    -- "hfn92/cmake-tools.nvim",
-    -- branch="CmakeModelInfoMerge",
+    -- "Civitasv/cmake-tools.nvim",
+    "hfn92/cmake-tools.nvim",
+    branch = "vim-notify-support",
     lazy = false,
     config = function()
       require("cmake-tools").setup {
@@ -418,6 +418,7 @@ local plugins = {
       "rcarriga/nvim-notify",
     },
     config = function()
+      require("telescope").load_extension "noice"
       require("noice").setup {
         lsp = {
           signature = { enabled = false },
