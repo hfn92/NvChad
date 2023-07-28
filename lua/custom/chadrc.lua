@@ -174,6 +174,13 @@ M.ui = {
 
 M.plugins = "custom/plugins"
 
+M.disabled = {
+  n = {
+    ["<leader>n"] = "",
+    ["<leader>rn"] = "",
+  },
+}
+
 M.mappings = {
   general = {
     i = {
@@ -197,6 +204,7 @@ M.mappings = {
 
       ["<leader>y"] = { '"+y', "Yank to clipboard" },
       ["<leader>d"] = { '"_d', "Delete to void" },
+      ["<leader>nh"] = { [[<cmd>lua require("notify").history()<CR>]], "Notification history" },
     },
 
     v = {
@@ -221,7 +229,8 @@ M.mappings = {
   },
   lspsaga = {
     n = {
-      ["sd"] = { [[<cmd>Lspsaga peek_definition<CR>]], "Trouble next" },
+      ["sd"] = { [[<cmd>Lspsaga peek_definition<CR>]], "Peek definition" },
+      ["fd"] = { [[<cmd>Lspsaga finder<CR>]], "Finder" },
       ["<A-m>"] = { [[<cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>]], "Trouble prev" },
     },
   },

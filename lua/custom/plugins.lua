@@ -401,6 +401,25 @@ local plugins = {
     lazy = false,
     config = function()
       vim.notify = require "notify"
+      -- require("notify").history()
+      local info = "#a4b595"
+      local error = "#cc6666"
+      local warn = "#DE935F"
+      vim.api.nvim_set_hl(0, "NotifyERRORBorder", { fg = error })
+      vim.api.nvim_set_hl(0, "NotifyWARNBorder", { fg = "#79491D" })
+      vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = "#4F6752" })
+      vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { fg = "#8B8B8B" })
+      vim.api.nvim_set_hl(0, "NotifyTRACEBorder", { fg = "#4F3552" })
+      vim.api.nvim_set_hl(0, "NotifyERRORIcon", { fg = error })
+      vim.api.nvim_set_hl(0, "NotifyWARNIcon", { fg = warn })
+      vim.api.nvim_set_hl(0, "NotifyINFOIcon", { fg = info })
+      vim.api.nvim_set_hl(0, "NotifyDEBUGIcon", { fg = "#8B8B8B" })
+      vim.api.nvim_set_hl(0, "NotifyTRACEIcon", { fg = "#D484FF" })
+      vim.api.nvim_set_hl(0, "NotifyERRORTitle", { fg = error })
+      vim.api.nvim_set_hl(0, "NotifyWARNTitle", { fg = warn })
+      vim.api.nvim_set_hl(0, "NotifyINFOTitle", { fg = info })
+      vim.api.nvim_set_hl(0, "NotifyDEBUGTitle", { fg = "#8B8B8B" })
+      vim.api.nvim_set_hl(0, "NotifyTRACETitle", { fg = "#D484FF" })
     end,
   },
   {
@@ -445,6 +464,10 @@ local plugins = {
           lsp_doc_border = false,       -- add a border to hover docs and signature help
         },
       }
+      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = "#3D3E40" })
+      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitle", { fg = "#C5C8C2" })
+      vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { fg = "#C5C8C2" })
+      vim.api.nvim_set_hl(0, "NoiceCmdlineIconSearch", { fg = "#C5C8C2" })
     end,
   },
 }
