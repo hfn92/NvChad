@@ -27,6 +27,12 @@ require("lspconfig").clangd.setup {
   },
 }
 require("lspconfig").lua_ls.setup {
+  on_attach = function(client, bufnr)
+    -- require("lsp_signature").on_attach(client, bufnr) -- Note: add in lsp client on-attach
+    -- require("lsp-format").on_attach(client, bufnr)
+    -- client.server_capabilities.semanticTokensProvider = nil
+    client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
+  end,
   settings = {
     Lua = {
       runtime = {

@@ -8,18 +8,18 @@ local plugins = {
           i = {
             ["<A-q>"] = require("telescope.actions").send_to_qflist + require("telescope.actions").open_qflist,
             ["<A-S-q>"] = require("telescope.actions").send_selected_to_qflist
-                + require("telescope.actions").open_qflist,
+              + require("telescope.actions").open_qflist,
             ["<A-a>"] = require("telescope.actions").add_to_qflist + require("telescope.actions").open_qflist,
             ["<A-S-a>"] = require("telescope.actions").add_selected_to_qflist
-                + require("telescope.actions").open_qflist,
+              + require("telescope.actions").open_qflist,
           },
           n = {
             ["<A-q>"] = require("telescope.actions").send_to_qflist + require("telescope.actions").open_qflist,
             ["<A-S-q>"] = require("telescope.actions").send_selected_to_qflist
-                + require("telescope.actions").open_qflist,
+              + require("telescope.actions").open_qflist,
             ["<A-a>"] = require("telescope.actions").add_to_qflist + require("telescope.actions").open_qflist,
             ["<A-S-a>"] = require("telescope.actions").add_selected_to_qflist
-                + require("telescope.actions").open_qflist,
+              + require("telescope.actions").open_qflist,
           },
         },
       },
@@ -167,7 +167,7 @@ local plugins = {
         enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
         -- these settings will be used for your Neovim config directory
         runtime = true, -- runtime path
-        types = true,   -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+        types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
         plugins = true, -- installed opt or start plugins in packpath
         -- you can also specify the list of plugins to make available as a workspace library
         -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
@@ -220,28 +220,28 @@ local plugins = {
     --    end,
   },
   {
-    -- "Civitasv/cmake-tools.nvim",
-    "hfn92/cmake-tools.nvim",
-    branch = "vim-notify-support",
+    "Civitasv/cmake-tools.nvim",
+    -- "hfn92/cmake-tools.nvim",
+    -- branch = "vim-notify-support",
     lazy = false,
     config = function()
       require("cmake-tools").setup {
         cmake_command = "cmake",
         cmake_build_directory = "",
-        cmake_build_directory_prefix = "../build_",      -- when cmake_build_directory is "", this option will be activated
+        cmake_build_directory_prefix = "../build_", -- when cmake_build_directory is "", this option will be activated
         cmake_generate_options = { "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=1" },
-        cmake_regenerate_on_save = true,                 -- Saves CMakeLists.txt file only if mofified.
+        cmake_regenerate_on_save = true, -- Saves CMakeLists.txt file only if mofified.
         cmake_launch_from_built_binary_directory = true, -- WIP: see #47 and #34
-        cmake_soft_link_compile_commands = true,         -- if softlink compile commands json file
+        cmake_soft_link_compile_commands = true, -- if softlink compile commands json file
         cmake_build_options = { "-j32" },
-        cmake_console_size = 10,                         -- cmake output window height
-        cmake_console_position = "belowright",           -- "belowright", "aboveleft", ...
-        cmake_show_console = "always",                   -- "always", "only_on_error"
-        -- cmake_quickfix_opts = { -- quickfix settings for cmake, quickfix will be used when `cmake_always_use_terminal` is false
-        --   show = "always", -- "always", "only_on_error"
-        --   position = "vert", -- "bottom", "top"
-        --   size = 50,
-        -- },
+        cmake_console_size = 10, -- cmake output window height
+        cmake_console_position = "belowright", -- "belowright", "aboveleft", ...
+        cmake_show_console = "only_on_error", -- "always", "only_on_error"
+        cmake_quickfix_opts = { -- quickfix settings for cmake, quickfix will be used when `cmake_always_use_terminal` is false
+          show = "only_on_error", -- "always", "only_on_error"
+          -- position = "vert", -- "bottom", "top"
+          -- size = 50,
+        },
         cmake_dap_configuration = {
           name = "cpp",
           type = "codelldb",
@@ -250,7 +250,7 @@ local plugins = {
           runInTerminal = false,
           initCommands = function()
             local script_import =
-            "command script import /home/fab/.conan/data/llvm-core/13.0.0/_/_/source/source/utils/lldbDataFormatters.py"
+              "command script import /home/fab/.conan/data/llvm-core/13.0.0/_/_/source/source/utils/lldbDataFormatters.py"
             local cmds = {}
             table.insert(cmds, script_import)
             table.insert(cmds, [[type summary add -s "size=${svar%#}" -x ^llvm::SmallVector<.+,.+>$]])
@@ -324,22 +324,22 @@ local plugins = {
     lazy = false,
     config = function()
       require("nvim-dap-virtual-text").setup {
-        enabled = true,                     -- enable this plugin (the default)
-        enabled_commands = true,            -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
+        enabled = true, -- enable this plugin (the default)
+        enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
         highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-        highlight_new_as_changed = false,   -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
-        show_stop_reason = true,            -- show stop reason when stopped for exceptions
-        commented = false,                  -- prefix virtual text with comment string
-        only_first_definition = true,       -- only show virtual text at first definition (if there are multiple)
-        all_references = false,             -- show virtual text on all all references of the variable (not only definitions)
+        highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
+        show_stop_reason = true, -- show stop reason when stopped for exceptions
+        commented = false, -- prefix virtual text with comment string
+        only_first_definition = true, -- only show virtual text at first definition (if there are multiple)
+        all_references = false, -- show virtual text on all all references of the variable (not only definitions)
         display_callback = function(variable, _buf, _stackframe, _node)
           return variable.value
         end,
 
         -- experimental features:
-        virt_text_pos = "eol",   -- position of virtual text, see `:h nvim_buf_set_extmark()`
-        all_frames = false,      -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-        virt_lines = false,      -- show virtual lines instead of virtual text (will flicker!)
+        virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
+        all_frames = false, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+        virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
         virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
         -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
       }
@@ -354,9 +354,9 @@ local plugins = {
         layouts = {
           {
             elements = {
-              { id = "repl",        size = 0.25 },
-              { id = "console",     size = 0.25 },
-              { id = "stacks",      size = 0.35 },
+              { id = "repl", size = 0.25 },
+              { id = "console", size = 0.25 },
+              { id = "stacks", size = 0.35 },
               { id = "breakpoints", size = 0.15 },
             },
             position = "bottom",
@@ -364,7 +364,7 @@ local plugins = {
           },
           {
             elements = {
-              { id = "scopes",  size = 0.85 },
+              { id = "scopes", size = 0.85 },
               { id = "watches", size = 0.15 },
             },
             position = "left",
@@ -444,9 +444,9 @@ local plugins = {
           hover = {
             enabled = false,
             silent = false, -- set to true to not show a message if hover is not available
-            view = nil,     -- when nil, use defaults from documentation
+            view = nil, -- when nil, use defaults from documentation
             ---@type NoiceViewOptions
-            opts = {},      -- merged with defaults from documentation
+            opts = {}, -- merged with defaults from documentation
           },
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
@@ -457,11 +457,11 @@ local plugins = {
         },
         -- you can enable a preset for easier configuration
         presets = {
-          bottom_search = true,         -- use a classic bottom cmdline for search
-          command_palette = true,       -- position the cmdline and popupmenu together
+          bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = false,       -- add a border to hover docs and signature help
+          inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false, -- add a border to hover docs and signature help
         },
       }
       vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = "#3D3E40" })

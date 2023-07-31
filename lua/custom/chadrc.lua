@@ -115,18 +115,18 @@ M.ui = {
         type = preset and preset or type
 
         local str = "%#Hl#"
-            .. "   ["
-            .. (type and type or "None")
-            .. "]"
-            .. "   ["
-            .. (tgt and tgt or "None")
-            .. "]"
-            .. "   ["
-            .. (run and run or "None")
-            .. "]"
-            .. "   <"
-            .. arg
-            .. ">"
+          .. "   ["
+          .. (type and type or "None")
+          .. "]"
+          .. "   ["
+          .. (tgt and tgt or "None")
+          .. "]"
+          .. "   ["
+          .. (run and run or "None")
+          .. "]"
+          .. "   <"
+          .. arg
+          .. ">"
         -- .. "   %@FCmakeSelectTarget@% [" .. (type and type or "None") .. "]"
         -- .. "   %@FCmakeSelectBuild@% [" .. (tgt and tgt or "None") .. "]"
         -- .. "   %@FCmakeSelectRun@% [" ..  (run and run or "None") .. "]"
@@ -148,18 +148,18 @@ M.ui = {
           end
 
           local str = "%#Hl#"
-              .. "   ["
-              .. (type and type or "None")
-              .. "]"
-              .. "   ["
-              .. (tgt and tgt or "None")
-              .. "]"
-              .. "   ["
-              .. (run and run or "None")
-              .. "]"
-              .. "   <"
-              .. arg
-              .. ">"
+            .. "   ["
+            .. (type and type or "None")
+            .. "]"
+            .. "   ["
+            .. (tgt and tgt or "None")
+            .. "]"
+            .. "   ["
+            .. (run and run or "None")
+            .. "]"
+            .. "   <"
+            .. arg
+            .. ">"
           -- .. "   %@FCmakeSelectTarget@% [" .. (type and type or "None") .. "]"
           -- .. "   %@FCmakeSelectBuild@% [" .. (tgt and tgt or "None") .. "]"
           -- .. "   %@FCmakeSelectRun@% [" ..  (run and run or "None") .. "]"
@@ -205,6 +205,8 @@ M.mappings = {
       ["<leader>y"] = { '"+y', "Yank to clipboard" },
       ["<leader>d"] = { '"_d', "Delete to void" },
       ["<leader>nh"] = { [[<cmd>lua require("notify").history()<CR>]], "Notification history" },
+      ["<leader>dfs"] = { "<CMD>windo diffthis <CR>", "Diff split" },
+      ["<leader>dfo"] = { "<CMD>windo diffoff <CR>", "Diff off" },
     },
 
     v = {
@@ -259,6 +261,10 @@ M.mappings = {
       ["<leader>cqb"] = { "<cmd> CMakeQuickBuild <CR>", "CMake quick build" },
       ["<leader>cqd"] = { "<cmd> CMakeQuickDebug <CR>", "CMake quick debug" },
       ["<leader>cqr"] = { "<cmd> CMakeQuickRun <CR>", "CMake quick run" },
+      ["<leader>cff"] = { "<cmd> Telescope cmake_tools <CR>", "Find cmake files" },
+      ["<leader>cft"] = { "<cmd> CMakeShowTargetFiles <CR>", "Find cmake target files" },
+      ["<leader>cct"] = { "<cmd> CMakeTargetSettings <CR>", "cmake target settings" },
+      ["<leader>ccs"] = { "<cmd> CMakeSettings <CR>", "cmake settings" },
     },
   },
   perf = {
@@ -466,35 +472,35 @@ M.mappings = {
 
     n = {
 
-      ["<leader>dt"]    = {
+      ["<leader>dt"] = {
         function()
           local w = require "dap.ui.widgets"
           w.centered_float(w.threads)
         end,
         "Stack frames",
       },
-      ["<leader>df"]    = {
+      ["<leader>df"] = {
         function()
           local w = require "dap.ui.widgets"
           w.centered_float(w.frames)
         end,
         "Stack frames",
       },
-      ["<leader>ds"]    = {
+      ["<leader>ds"] = {
         function()
           local w = require "dap.ui.widgets"
           w.centered_float(w.scopes)
         end,
         "Variables in Scope",
       },
-      ["<leader>dg"]    = {
+      ["<leader>dg"] = {
         function()
           local lineNum = vim.api.nvim_win_get_cursor(0)[1]
           require("dap").goto_(lineNum)
         end,
         "Jump to cursor",
       },
-      ["<leader><F9>"]  = {
+      ["<leader><F9>"] = {
         function()
           local condition = vim.fn.input "Breakpoint Condition: "
           local hitcount = vim.fn.input "Hit count: "
