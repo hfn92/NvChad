@@ -534,8 +534,8 @@ M.mappings = {
 
       -- stylua: ignore start
       ["<F5>"]          = { function() require("dap").continue() end, "continue", },
-      ["<F6>"]          = { function() require("dap").restart() end, "continue", },
-      ["<F7>"]          = { function() require("dap").run_last() end, "continue", },
+      ["<F6>"]          = { function() require("dap").restart() end, "restart", },
+      ["<F7>"]          = { function() require("dap").run_last() end, "run last", },
       ["<F9>"]          = { function() require("dap").toggle_breakpoint() end, "toogle breakpoint", },
       ["<F10>"]         = { function() require("dap").step_over() end, "step over", },
       ["<leader><F10>"] = { function() require("dap").run_to_cursor() end, "Run to cursor", },
@@ -556,6 +556,7 @@ M.mappings = {
       ["<leader>dh"]    = { function() require("dap.ui.widgets").hover() end, "Hover", },
       ["<leader>dp"]    = { function() require("dap.ui.widgets").preview() end, "Preview", },
       ["<leader>dz"]    = { function() require("dap.ui.widgets").update_render {} end, "Preview", },
+      ["<leader>de"]    = { function() require('dap').set_exception_breakpoints() end, "Set exceptions breakpoints", },
       -- stylua: ignore end
       -- ["<leader>dot"] = { function() local w = require "dap.ui.widgets" w.sidebar(w.threads).open() end, "Threds in sidebar", },
       -- ["<leader>dof"] = { function() local w = require "dap.ui.widgets" w.sidebar(w.frames).open() end, "Stack frames sidebar", },

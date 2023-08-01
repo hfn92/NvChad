@@ -273,6 +273,7 @@ local plugins = {
             )
             table.insert(cmds, [[type summary add -s "[${var.r%u}, ${var.g%u}, ${var.b%u}, ${var.a%u}]" Color]])
             table.insert(cmds, [[settings set target.process.thread.step-avoid-regexp '']])
+            table.insert(cmds, [[breakpoint name configure --disable cpp_exception]])
             return cmds
           end,
         }, -- dap configuration, optional
