@@ -5,6 +5,63 @@ vim.cmd "function! FCmakeSelectTarget(a,b,c,d) \n CMakeSelectBuildType \n endfun
 vim.cmd "function! FCmakeSelectRun(a,b,c,d) \n CMakeSelectLaunchTarget \n endfunction"
 vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfunction"
 
+-- cmake ideas
+--  open list.txt of curent file
+
+-- vim.api.nvim_buf_set_extmark(
+--   buf,
+--   hl_namespace,
+--   line,
+--   0,
+--   { virt_lines = { content }, virt_lines_above = options.virt_lines_above }
+-- )
+
+function TestVirt()
+  ClearVirt()
+  local errs = vim.fn.getqflist()
+
+  vim.notify(vim.inspect(errs))
+
+  local api = vim.api
+
+  for _, v in ipairs(errs) do
+    local bnr = v.bufnr
+    local ns_id = api.nvim_create_namespace "quickfix-virt-text"
+
+    local line_num = v.lnum - 1
+    local col_num = 0
+
+    local opts = {
+      -- end_line = 10,
+      -- end_row = 0,
+      -- id = 1,
+      -- virt_lines = { { { v.text, "DiagnosticError" } } },
+      -- virt_lines_above = true,
+      virt_text = { { v.text, "DiagnosticError" } },
+      -- virt_text_pos = "eol",
+      -- virt_text_win_col = 20,
+      -- a
+    }
+    -- api.nvim_buf_set_extmark(bnr, ns_id, line_num, 0, opts)
+    local ok, err = pcall(function()
+      api.nvim_buf_set_extmark(bnr, ns_id, line_num, 0, opts)
+    end)
+    -- vim.notify(vim.inspect(v.type))
+    -- if ok == false then
+    --   vim.notify(vim.inspect(v.text))
+    --   vim.notify(vim.inspect(bnr))
+    --   vim.notify(vim.inspect(err))
+    -- end
+  end
+end
+
+function ClearVirt()
+  local ns_id = vim.api.nvim_create_namespace "quickfix-virt-text"
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    vim.api.nvim_buf_clear_namespace(buf, ns_id, 0, -1)
+  end
+end
+
 function GitSignCodeAction()
   local ok, gitsigns_actions = pcall(require("gitsigns").get_actions)
   if not ok or not gitsigns_actions then
@@ -133,41 +190,6 @@ M.ui = {
         -- .. "   <" ..  arg .. ">"
         return str --cmake.get_build_type()
       end)()
-
-      return {
-        LSP_progress = function()
-          local type = cmake.get_build_type()
-          local run = cmake.get_launch_target()
-          local tgt = cmake.get_build_target()
-          local args = cmake.get_launch_args()
-          arg = ""
-          if args ~= nil then
-            for _, v in ipairs(args) do
-              arg = arg .. v
-            end
-          end
-
-          local str = "%#Hl#"
-            .. "   ["
-            .. (type and type or "None")
-            .. "]"
-            .. "   ["
-            .. (tgt and tgt or "None")
-            .. "]"
-            .. "   ["
-            .. (run and run or "None")
-            .. "]"
-            .. "   <"
-            .. arg
-            .. ">"
-          -- .. "   %@FCmakeSelectTarget@% [" .. (type and type or "None") .. "]"
-          -- .. "   %@FCmakeSelectBuild@% [" .. (tgt and tgt or "None") .. "]"
-          -- .. "   %@FCmakeSelectRun@% [" ..  (run and run or "None") .. "]"
-          -- .. "   <" ..  arg .. ">"
-          return st_modules.LSP_progress() .. str --cmake.get_build_type()
-          -- or just return "" to hide this module
-        end,
-      }
     end,
   },
 }
@@ -431,6 +453,7 @@ M.mappings = {
       ["<leader>qc"] = { "<cmd>cclose<CR>", "Quickfix close" },
       ["<leader>qv"] = { "<cmd>cclose<CR><cmd>vert copen 100<CR>", "Quickfix open vertical" },
       ["<leader>qb"] = { "<cmd>cclose<CR><cmd>bot copen 12<CR>", "Quickfix open bottom" },
+      ["<leader>qe"] = { "<cmd>cexpr []<CR>", "Quickfix clear" },
     },
 
     v = {

@@ -210,6 +210,16 @@ local plugins = {
     },
   },
   {
+    "hfn92/qf-virtual-text.nvim",
+    -- dir = "/home/fab/Work/nvim/qf-virtual-text.nvim/",
+    -- dev = true,
+    lazy = false,
+    -- on cfopen?
+    config = function()
+      require("qf-virtual-text").setup {}
+    end,
+  },
+  {
     "hfn92/cmake-gtest.nvim",
     lazy = false,
     --  dir = '/home/fab/Desktop/cmake-gtest.nvim/',
@@ -338,7 +348,7 @@ local plugins = {
 
         -- experimental features:
         virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-        all_frames = false, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+        all_frames = true, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
         virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
         virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
         -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
