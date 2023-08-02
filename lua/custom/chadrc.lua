@@ -7,6 +7,8 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 
 -- cmake ideas
 --  open list.txt of curent file
+--  write protect out of Source
+--  build current project by file
 
 -- vim.api.nvim_buf_set_extmark(
 --   buf,
@@ -407,7 +409,18 @@ M.mappings = {
       ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
       -- ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
       ["<A-cr>"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
-      ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Follow Symbol" },
+      -- ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Follow Symbol" },
+      ["<F2>"] = {
+        function()
+          vim.lsp.buf.declaration { on_list = function() end }
+          vim.lsp.buf.definition {
+            on_list = function()
+              vim.cmd "Telescope lsp_definitions"
+            end,
+          }
+        end,
+        "Follow Symbol",
+      },
 
       ["<leader>fr"] = { "<cmd> lua require('telescope.builtin').lsp_references() <CR>", "Find references" },
       ["<leader>fm"] = { "<cmd> Telescope marks <CR>", "Find marks" },
