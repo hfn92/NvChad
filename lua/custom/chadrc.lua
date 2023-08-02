@@ -140,9 +140,13 @@ end
 
 M.ui = {
   theme = "fab",
-  -- hl_override = {
-  --   CursorLine = { bg = "one_bg2" },
-  -- },
+  hl_override = {
+    -- CursorLine = { bg = "one_bg2" },
+    DiffAdd = { fg = "#97B77B", bg = "#2a2b2b" },
+    DiffText = { fg = "#FFFFFF", bg = "#F06E6E" },
+    DiffDelete = { fg = "#593B3B" },
+    -- DiffChange = { fg = "#593B3B" },
+  },
   statusline = {
     theme = "default", -- default/vscode/vscode_colored/minimal
     overriden_modules = function(modules)

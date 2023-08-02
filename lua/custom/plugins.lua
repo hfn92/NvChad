@@ -26,7 +26,8 @@ local plugins = {
     },
   },
   {
-    "t-troebst/perfanno.nvim",
+    -- "t-troebst/perfanno.nvim",
+    "hfn92/perfanno.nvim",
     config = function()
       local util = require "perfanno.util"
       local bgcolor = vim.fn.synIDattr(vim.fn.hlID "Normal", "bg", "gui")

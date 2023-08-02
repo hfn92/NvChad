@@ -19,6 +19,8 @@ vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpo
 vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DapLogPoint", numhl = "DapLogPoint" })
 vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", numhl = "DapStopped" })
 
+vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#a4b595", bg = "#2a2b2b" })
+
 --vim.opt.runtimepath:prepend("/home/fab/Desktop/cmake-gtest.nvim")
 
 vim.g.lua_snippets_path = vim.fn.stdpath "config" .. "/snippets"

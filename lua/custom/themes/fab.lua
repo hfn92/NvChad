@@ -9,7 +9,7 @@ M.base_30 = {
   one_bg2 = "#353b45",
   -- one_bg2 = "#373737",
   one_bg3 = "#30343c",
-  grey = "#6B6D6E",    -- line number
+  grey = "#6B6D6E", -- line number
   grey_fg = "#A8ABB0", -- comments
   grey_fg2 = "#616875",
   light_grey = "#676e7b",
@@ -35,7 +35,7 @@ M.base_30 = {
 }
 
 M.base_16 = {
-  base00 = "#2E2F30",
+  base00 = "#2E2F30", -- bg
   base01 = "#3B3C3C",
   base02 = "#1D545C", -- selection
   base03 = "#969896",
