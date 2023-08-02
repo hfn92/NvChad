@@ -138,14 +138,20 @@ function RunValgrind()
   cmake.run { wrap_call = { "valgrind", "--leak-check=full" } }
 end
 
+-- local info = "#a4b595"
+-- local error = "#cc6666"
+-- local warn = "#DE935F"
+
 M.ui = {
   theme = "fab",
   hl_override = {
-    -- CursorLine = { bg = "one_bg2" },
+    -- CursorLine = { bg = "#2a2b2b" },
     DiffAdd = { fg = "#97B77B", bg = "#2a2b2b" },
-    DiffText = { fg = "#FFFFFF", bg = "#F06E6E" },
-    DiffDelete = { fg = "#593B3B" },
-    -- DiffChange = { fg = "#593B3B" },
+    DiffText = { fg = "#d6cf9a", bg = "#793B3B" },
+    -- DiffText = { fg = "#cc6666", bg = "#2a2b2b" },
+    DiffDelete = { fg = "#793B3B", bg = "#2a2b2b" },
+    DiffChange = { fg = "#d6cf9a", bg = "#2a2b2b" },
+    -- GitSignsAdd = { fg = "#893B3B" },
   },
   statusline = {
     theme = "default", -- default/vscode/vscode_colored/minimal

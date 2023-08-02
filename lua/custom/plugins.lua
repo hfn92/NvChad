@@ -236,53 +236,7 @@ local plugins = {
     -- branch = "vim-notify-support",
     lazy = false,
     config = function()
-      require("cmake-tools").setup {
-        cmake_command = "cmake",
-        cmake_build_directory = "",
-        cmake_build_directory_prefix = "../build_", -- when cmake_build_directory is "", this option will be activated
-        cmake_generate_options = { "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=1" },
-        cmake_regenerate_on_save = true, -- Saves CMakeLists.txt file only if mofified.
-        cmake_launch_from_built_binary_directory = true, -- WIP: see #47 and #34
-        cmake_soft_link_compile_commands = true, -- if softlink compile commands json file
-        cmake_build_options = { "-j32" },
-        cmake_console_size = 10, -- cmake output window height
-        cmake_console_position = "belowright", -- "belowright", "aboveleft", ...
-        cmake_show_console = "only_on_error", -- "always", "only_on_error"
-        cmake_quickfix_opts = { -- quickfix settings for cmake, quickfix will be used when `cmake_always_use_terminal` is false
-          show = "only_on_error", -- "always", "only_on_error"
-          -- position = "vert", -- "bottom", "top"
-          -- size = 50,
-        },
-        cmake_dap_configuration = {
-          name = "cpp",
-          type = "codelldb",
-          request = "launch",
-          stopOnEntry = false,
-          runInTerminal = false,
-          initCommands = function()
-            local script_import =
-              "command script import /home/fab/.conan/data/llvm-core/13.0.0/_/_/source/source/utils/lldbDataFormatters.py"
-            local cmds = {}
-            table.insert(cmds, script_import)
-            table.insert(cmds, [[type summary add -s "size=${svar%#}" -x ^llvm::SmallVector<.+,.+>$]])
-            table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}]" -x ^glm::vec<2.*>$]])
-            table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}, ${var.z}]" -x ^glm::vec<3.*>$]])
-            table.insert(cmds, [[type summary add -s "[${var.x}, ${var.y}, ${var.z}, ${var.w}]" -x ^glm::vec<4.*>$]])
-            table.insert(
-              cmds,
-              [[type summary add -s "[${var.Left}, ${var.Top}, ${var.Width}, ${var.Height}]" -x ^Rect<.+>$]]
-            )
-            table.insert(cmds, [[type summary add -s "[${var.r%u}, ${var.g%u}, ${var.b%u}, ${var.a%u}]" Color]])
-            table.insert(cmds, [[settings set target.process.thread.step-avoid-regexp '']])
-            table.insert(cmds, [[breakpoint name configure --disable cpp_exception]])
-            return cmds
-          end,
-        }, -- dap configuration, optional
-        cmake_variants_message = {
-          short = { show = true },
-          long = { show = true, max_length = 40 },
-        },
-      }
+      require "custom.configs.cmake-tools"
     end,
   },
   {
@@ -441,45 +395,11 @@ local plugins = {
       -- add any options here
     },
     dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     },
     config = function()
-      require("telescope").load_extension "noice"
-      require("noice").setup {
-        lsp = {
-          signature = { enabled = false },
-          hover = {
-            enabled = false,
-            silent = false, -- set to true to not show a message if hover is not available
-            view = nil, -- when nil, use defaults from documentation
-            ---@type NoiceViewOptions
-            opts = {}, -- merged with defaults from documentation
-          },
-          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-          override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
-            ["vim.lsp.util.stylize_markdown"] = false,
-            ["cmp.entry.get_documentation"] = false,
-          },
-        },
-        -- you can enable a preset for easier configuration
-        presets = {
-          bottom_search = true, -- use a classic bottom cmdline for search
-          command_palette = true, -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = false, -- add a border to hover docs and signature help
-        },
-      }
-      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = "#3D3E40" })
-      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitle", { fg = "#C5C8C2" })
-      vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { fg = "#C5C8C2" })
-      vim.api.nvim_set_hl(0, "NoiceCmdlineIconSearch", { fg = "#C5C8C2" })
+      require "custom.configs.noice"
     end,
   },
   {
@@ -493,61 +413,7 @@ local plugins = {
     dependencies = { "litee.nvim" },
     keys = "<leader>gb",
     config = function()
-      vim.notify "hi"
-      require("litee.gh").setup {
-        icon_set = "nerd",
-      }
-      local wk = require "which-key"
-      wk.register({
-        g = {
-          name = "+Git",
-          b = {
-            name = "+Github",
-            c = {
-              name = "+Commits",
-              c = { "<cmd>GHCloseCommit<cr>", "Close" },
-              e = { "<cmd>GHExpandCommit<cr>", "Expand" },
-              o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
-              p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
-              z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
-            },
-            i = {
-              name = "+Issues",
-              p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
-            },
-            l = {
-              name = "+Litee",
-              t = { "<cmd>LTPanel<cr>", "Toggle Panel" },
-            },
-            r = {
-              name = "+Review",
-              b = { "<cmd>GHStartReview<cr>", "Begin" },
-              c = { "<cmd>GHCloseReview<cr>", "Close" },
-              d = { "<cmd>GHDeleteReview<cr>", "Delete" },
-              e = { "<cmd>GHExpandReview<cr>", "Expand" },
-              s = { "<cmd>GHSubmitReview<cr>", "Submit" },
-              z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
-            },
-            p = {
-              name = "+Pull Request",
-              c = { "<cmd>GHClosePR<cr>", "Close" },
-              d = { "<cmd>GHPRDetails<cr>", "Details" },
-              e = { "<cmd>GHExpandPR<cr>", "Expand" },
-              o = { "<cmd>GHOpenPR<cr>", "Open" },
-              p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
-              r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
-              t = { "<cmd>GHOpenToPR<cr>", "Open To" },
-              z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
-            },
-            t = {
-              name = "+Threads",
-              c = { "<cmd>GHCreateThread<cr>", "Create" },
-              n = { "<cmd>GHNextThread<cr>", "Next" },
-              t = { "<cmd>GHToggleThread<cr>", "Toggle" },
-            },
-          },
-        },
-      }, { prefix = "<leader>" })
+      require "custom.configs.gh"
     end,
   },
 }
