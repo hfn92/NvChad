@@ -525,14 +525,14 @@ M.mappings = {
         end,
         "Stack frames",
       },
-      ["<leader>df"] = {
+      ["<leader>ds"] = {
         function()
           local w = require "dap.ui.widgets"
           w.centered_float(w.frames)
         end,
         "Stack frames",
       },
-      ["<leader>ds"] = {
+      ["<leader>dv"] = {
         function()
           local w = require "dap.ui.widgets"
           w.centered_float(w.scopes)
