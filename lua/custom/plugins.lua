@@ -242,73 +242,14 @@ local plugins = {
   {
     "mfussenegger/nvim-dap",
     config = function()
-      local dap = require "dap"
-
-      dap.adapters.lldb = {
-        type = "executable",
-        command = "/usr/bin/lldb-vscode", -- adjust as needed, must be absolute path
-        name = "lldb",
-      }
-
-      local mason_registry = require "mason-registry"
-      local codelldb = mason_registry.get_package "codelldb" -- note that this will error if you provide a non-existent package name
-
-      dap.adapters.codelldb = {
-        stopOnEntry = false,
-        type = "server",
-        port = "${port}",
-        executable = {
-          -- CHANGE THIS to your path!
-          -- command = '/home/fab/Desktop/codelldb-x86_64-linux.vsix_FILES/extension/adapter/codelldb',
-          command = codelldb:get_install_path() .. "/extension/adapter/codelldb",
-          args = { "--port", "${port}" },
-
-          -- On windows you may have to uncomment this:
-          -- detached = false,
-        },
-      }
-      dap.configurations.cpp = {
-        {
-          name = "launch",
-          type = "codelldb",
-          request = "launch",
-          program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-          end,
-          cwd = "${workspaceFolder}",
-          stopOnEntry = false,
-          args = {},
-          runInTerminal = false,
-        },
-      }
-      dap.configurations.c = dap.configurations.cpp
-      dap.configurations.rust = dap.configurations.cpp
+      require "custom.configs.nvim-dap"
     end,
   },
   {
     "theHamsta/nvim-dap-virtual-text",
     lazy = false,
     config = function()
-      require("nvim-dap-virtual-text").setup {
-        enabled = true, -- enable this plugin (the default)
-        enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
-        highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-        highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
-        show_stop_reason = true, -- show stop reason when stopped for exceptions
-        commented = false, -- prefix virtual text with comment string
-        only_first_definition = true, -- only show virtual text at first definition (if there are multiple)
-        all_references = false, -- show virtual text on all all references of the variable (not only definitions)
-        display_callback = function(variable, _buf, _stackframe, _node)
-          return variable.value
-        end,
-
-        -- experimental features:
-        virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-        all_frames = true, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-        virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
-        virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
-        -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
-      }
+      require "custom.configs.nvim-dap-virtual-text"
     end,
   },
   {

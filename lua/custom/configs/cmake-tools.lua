@@ -33,9 +33,18 @@ require("cmake-tools").setup {
         end
       end
 
+      local scan = require "plenary.scandir"
+      local path = require "plenary.path"
+      local reply_directory = path:new "./tools/debughelpers/lldb/"
+      if reply_directory:exists() then
+        local files = scan.scan_dir(reply_directory.filename, {})
+        for _, v in ipairs(files) do
+          table.insert(cmds, "command script import " .. v)
+        end
+      end
+
       table.insert(cmds, [[settings set target.process.thread.step-avoid-regexp '']])
       table.insert(cmds, [[breakpoint name configure --disable cpp_exception]])
-      vim.notify(vim.inspect(cmds))
       return cmds
     end,
   }, -- dap configuration, optional
