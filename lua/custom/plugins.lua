@@ -112,9 +112,34 @@ local plugins = {
   {
     "williamboman/mason-lspconfig.nvim",
     config = function()
-      require("mason-lspconfig").setup()
+      require("mason-lspconfig").setup {
+        ensure_installed = {
+          "lua_ls",
+          "clangd",
+          "cmake",
+          "pylsp",
+        },
+      }
     end,
     lazy = false,
+  },
+  {
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
+    config = function()
+      require("mason-null-ls").setup {
+        ensure_installed = {
+          "stylua",
+          "cmakelang",
+          "markdownlint",
+          "codelldb",
+        },
+      }
+    end,
   },
   {
     "ThePrimeagen/harpoon",
@@ -174,7 +199,8 @@ local plugins = {
         -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
       },
     },
-    ft = { "lua" },
+    lazy = false,
+    -- ft = { "lua" },
     config = function()
       require("neodev").setup {}
     end,

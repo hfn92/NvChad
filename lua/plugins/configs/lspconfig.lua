@@ -41,6 +41,9 @@ M.capabilities.textDocument.completion.completionItem = {
   },
 }
 
+-- load before lspconfig
+require("neodev").setup {}
+
 require("lspconfig").lua_ls.setup {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
