@@ -16,6 +16,7 @@ local sources = {
   lint.shellcheck,
   lint.markdownlint,
   formatting.markdownlint,
+  formatting.autopep8,
   -- null_ls.builtins.diagnostics.glslc.with {
   --   extra_args = { "--target-env=opengl", "-std=330core", "-fauto-map-locations" }, -- use opengl instead of vulkan1.0
   -- },
