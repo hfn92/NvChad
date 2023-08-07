@@ -306,7 +306,7 @@ local plugins = {
   {
     -- "rcarriga/nvim-dap-ui",
     "hfn92/nvim-dap-ui",
-    branch = "repl-watches",
+    branch = "custom_scopes",
     config = function()
       require("dapui").setup {
         layouts = {
