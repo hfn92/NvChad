@@ -46,6 +46,7 @@ require("lspconfig").lua_ls.setup {
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -55,6 +56,7 @@ require("lspconfig").lua_ls.setup {
   },
 }
 require("lspconfig").cmake.setup {}
+require("lspconfig").asm_lsp.setup {}
 require("lspconfig").pylsp.setup {}
 -- require("lspconfig").taplo.setup {}
 -- require'lspconfig'.glslls.setup{ cmd =  { "/home/fab/Desktop/build_Debug/glslls", "--stdin", "-l", "/tmp/log.txt", "-v", "--target-env=opengl4.5", "--target-spv=spv1.0" } }

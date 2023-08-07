@@ -6,7 +6,7 @@ require("nvim-dap-virtual-text").setup {
   show_stop_reason = true, -- show stop reason when stopped for exceptions
   commented = false, -- prefix virtual text with comment string
   only_first_definition = false, -- only show virtual text at first definition (if there are multiple)
-  all_references = true, -- show virtual text on all all references of the variable (not only definitions)
+  all_references = false, -- show virtual text on all all references of the variable (not only definitions)
   display_callback = function(variable, _buf, _stackframe, _node)
     return variable.name .. "=" .. variable.value
   end,

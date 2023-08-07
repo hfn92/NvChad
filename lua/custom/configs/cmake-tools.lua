@@ -35,9 +35,9 @@ require("cmake-tools").setup {
 
       local scan = require "plenary.scandir"
       local path = require "plenary.path"
-      local reply_directory = path:new "./tools/debughelpers/lldb/"
-      if reply_directory:exists() then
-        local files = scan.scan_dir(reply_directory.filename, {})
+      local dbh_path = path:new "./tools/debughelpers/lldb/"
+      if dbh_path:exists() then
+        local files = scan.scan_dir(dbh_path.filename, {})
         for _, v in ipairs(files) do
           table.insert(cmds, "command script import " .. v)
         end

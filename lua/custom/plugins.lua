@@ -41,6 +41,12 @@ local plugins = {
         -- Automatically annotate newly opened buffers if information is available
         annotate_on_open = true,
 
+        formats = {
+          { percent = true, format = "%.2f%%", minimum = 0.5 },
+          { percent = true, format = "%.2f%%", minimum = 0.1 },
+          { percent = false, format = "%d", minimum = 1 },
+        },
+
         get_path_callback = function()
           local cmake = require "cmake-tools"
           local target = cmake.get_launch_target()
@@ -235,6 +241,25 @@ local plugins = {
     opts = {
       ensure_installed = { "cpp", "c", "cmake", "glsl", "markdown", "markdown_inline", "python" },
     },
+  },
+  {
+    "hfn92/dissassembly.nvim",
+    -- dir = "/home/fab/Work/nvim/dissassembly.nvim/",
+    -- dev = true,
+    cmd = { "DisassembleFunction", "DisassembleFile" },
+    -- on cfopen?
+    config = function()
+      require("disassembly").setup {
+        build_directory = function()
+          local cmake = require "cmake-tools"
+          return cmake.get_config().build_directory:expand()
+        end,
+        compile_commands_path = function()
+          local cmake = require "cmake-tools"
+          return cmake.get_config().build_directory:expand()
+        end,
+      }
+    end,
   },
   {
     "hfn92/qf-virtual-text.nvim",

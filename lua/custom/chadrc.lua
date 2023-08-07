@@ -521,7 +521,7 @@ M.mappings = {
       ["<leader>dt"] = {
         function()
           local w = require "dap.ui.widgets"
-          w.centered_float(w.threads)
+          w.sidebar(w.threads).open()
         end,
         "Stack frames",
       },
@@ -578,7 +578,7 @@ M.mappings = {
       ["<leader>dr"]    = { function() require("dap").repl.toggle() end, "Open repl", },
       ["<leader>dh"]    = { function() require("dap.ui.widgets").hover() end, "Hover", },
       ["<leader>dp"]    = { function() require("dap.ui.widgets").preview() end, "Preview", },
-      ["<leader>dz"]    = { function() require("dap.ui.widgets").update_render {} end, "Preview", },
+      ["<leader>dz"]    = { function() require("dap.ui.widgets").update_render() {} end, "Refresh", },
       ["<leader>de"]    = { function() require('dap').set_exception_breakpoints() end, "Set exceptions breakpoints", },
       -- stylua: ignore end
       -- ["<leader>dot"] = { function() local w = require "dap.ui.widgets" w.sidebar(w.threads).open() end, "Threds in sidebar", },
