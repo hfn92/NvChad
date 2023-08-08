@@ -246,8 +246,8 @@ M.mappings = {
     v = {
       ["J"] = { ":m '>+1<CR>gv=gv", "Move down" },
       ["K"] = { ":m '<-2<CR>gv=gv", "Move Up" },
-      ["<S-Down>"] = { ":m '>+1<CR>gv=gv", "Move down" },
-      ["<S-Up>"] = { ":m '<-2<CR>gv=gv", "Move Up" },
+      -- ["<S-Down>"] = { ":m '>+1<CR>gv=gv", "Move down" },
+      -- ["<S-Up>"] = { ":m '<-2<CR>gv=gv", "Move Up" },
 
       ["<leader>y"] = { '"+y', "Yank to clipboard" },
       ["<leader>d"] = { '"_d', "Delete to void" },
