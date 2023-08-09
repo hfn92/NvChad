@@ -17,6 +17,74 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 --   0,
 --   { virt_lines = { content }, virt_lines_above = options.virt_lines_above }
 -- )
+--
+--
+function Doc()
+  local ts_utils = require "nvim-treesitter.ts_utils"
+  local current_node = ts_utils.get_node_at_cursor()
+  -- local current = vim.api.nvim_win_get_cursor(0)[1]
+  -- local current_node = ts_utils.get_root_for_position(current, 0)
+  if not current_node then
+    return ""
+  end
+
+  local expr = current_node
+
+  vim.notify(vim.inspect(expr:type()))
+  while expr do
+    -- if expr:type() == "function_declarator" or expr:type() == "function_definition" then
+    if expr:type() == "declaration" then
+      break
+    end
+    expr = expr:parent()
+  end
+
+  if not expr then
+    return ""
+  end
+
+  local rettype = nil
+  if expr:child(0) and expr:child(0) == "primitive_type" then
+    rettype = expr:child(0)
+  end
+
+  local decl = nil
+  if expr:child(1) and expr:child(1) == "function_declarator" then
+    decl = expr:child(1)
+  end
+
+  if not rettype or not decl then
+    return
+  end
+
+  vim.notify(vim.inspect(expr:type()))
+  vim.notify(vim.inspect(expr:child(1):type()))
+  vim.notify(vim.inspect(vim.treesitter.get_node_text(expr:child(0), 0)))
+  -- vim.notify(vim.treesitter.get_node_text(expr:child(1):child(1):child(1):type(), 0))
+  local function_node = expr
+
+  -- if function_node then
+  --   -- Extract function arguments
+  --   local function_args = {}
+  --   local function_args_node = function_node:child(1) -- Function arguments node is the first child
+  --   for _, arg_node in ipairs(function_args_node:children()) do
+  --     table.insert(function_args, arg_node:text())
+  --   end
+  --
+  --   -- Extract function return value
+  --   local function_return = {}
+  --   local function_return_node = function_node:child(2) -- Function return value node is the second child
+  --   for _, return_node in ipairs(function_return_node:children()) do
+  --     table.insert(function_return, return_node:text())
+  --   end
+  --
+  --   -- Print the results
+  --   print("Function arguments: " .. table.concat(function_args, ", "))
+  --   print("Function return value: " .. table.concat(function_return, ", "))
+  -- end
+
+  return vim.treesitter.get_node_text(expr:child(1), 0)
+end
 
 function TestVirt()
   ClearVirt()
@@ -241,6 +309,10 @@ M.mappings = {
       ["<leader>nh"] = { [[<cmd>lua require("notify").history()<CR>]], "Notification history" },
       ["<leader>dfs"] = { "<CMD>windo diffthis <CR>", "Diff split" },
       ["<leader>dfo"] = { "<CMD>windo diffoff <CR>", "Diff off" },
+      ["<leader>doc"] = { "<CMD>Neogen<CR>", "Document under cursor" },
+      ["<A-n>"] = { "<CMD>tabnew<CR>", "new tab" },
+      ["<A-l>"] = { "<CMD>tabnext<CR>", "next tab" },
+      ["<A-c>"] = { "<CMD>tabclose<CR>", "close tab" },
     },
 
     v = {

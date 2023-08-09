@@ -408,5 +408,36 @@ local plugins = {
       require "custom.configs.gh"
     end,
   },
+  {
+    "nvim-treesitter/playground",
+    cmd = { "TSPlaygroundToggle" },
+  },
+  {
+    "hfn92/neogen",
+    branch = "cpp_alt_comment_style",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    cmd = { "Neogen" },
+    config = function()
+      require("neogen").setup {
+        snippet_engine = "luasnip",
+
+        placeholders_text = {
+          ["description"] = "",
+          ["tparam"] = "",
+          ["parameter"] = "",
+          ["return"] = "",
+          ["class"] = "",
+          ["throw"] = "",
+          ["varargs"] = "",
+          ["type"] = "",
+          ["attribute"] = "",
+          ["args"] = "",
+          ["kwargs"] = "",
+        },
+      }
+    end,
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = "*"
+  },
 }
 return plugins
