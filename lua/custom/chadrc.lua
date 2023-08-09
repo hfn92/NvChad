@@ -310,7 +310,7 @@ M.mappings = {
       ["<leader>dfs"] = { "<CMD>windo diffthis <CR>", "Diff split" },
       ["<leader>dfo"] = { "<CMD>windo diffoff <CR>", "Diff off" },
       ["<leader>doc"] = { "<CMD>Neogen<CR>", "Document under cursor" },
-      ["<A-n>"] = { "<CMD>tabnew<CR>", "new tab" },
+      ["<A-t>"] = { "<CMD>tabnew<CR>", "new tab" },
       ["<A-l>"] = { "<CMD>tabnext<CR>", "next tab" },
       ["<A-c>"] = { "<CMD>tabclose<CR>", "close tab" },
     },
