@@ -280,6 +280,12 @@ M.disabled = {
   n = {
     ["<leader>n"] = "",
     ["<leader>rn"] = "",
+    ["<S-Up>"] = "",
+    ["<S-Down>"] = "",
+  },
+  v = {
+    ["<S-Up>"] = "",
+    ["<S-Down>"] = "",
   },
 }
 
@@ -290,6 +296,8 @@ M.mappings = {
       ["<A-Right>"] = { "<C-i>", "Navigate Forwards" },
       ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
       ["<C-S-s>"] = { "<cmd> wa <CR>", "Save all files" },
+      ["<S-Down>"] = { "<Down>", "Move down" },
+      ["<S-Up>"] = { "<Up>", "Move Up" },
     },
 
     n = {
@@ -313,6 +321,15 @@ M.mappings = {
       ["<A-t>"] = { "<CMD>tabnew<CR>", "new tab" },
       ["<A-l>"] = { "<CMD>tabnext<CR>", "next tab" },
       ["<A-c>"] = { "<CMD>tabclose<CR>", "close tab" },
+      ["<leader>\\"] = {
+        function()
+          return vim.fn["codeium#Clear"]()
+        end,
+        "close tab",
+      },
+
+      ["<S-Down>"] = { "<Down>", "Move down" },
+      ["<S-Up>"] = { "<Up>", "Move Up" },
     },
 
     v = {
@@ -320,6 +337,8 @@ M.mappings = {
       ["K"] = { ":m '<-2<CR>gv=gv", "Move Up" },
       -- ["<S-Down>"] = { ":m '>+1<CR>gv=gv", "Move down" },
       -- ["<S-Up>"] = { ":m '<-2<CR>gv=gv", "Move Up" },
+      ["<S-Down>"] = { "<Down>", "Move down" },
+      ["<S-Up>"] = { "<Up>", "Move Up" },
 
       ["<leader>y"] = { '"+y', "Yank to clipboard" },
       ["<leader>d"] = { '"_d', "Delete to void" },
