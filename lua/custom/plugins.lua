@@ -101,7 +101,10 @@ local plugins = {
     cmd = "Lspsaga",
     config = function()
       require("lspsaga").setup {
-        symbols_in_winbar = { enable = true },
+        symbols_in_winbar = {
+          enable = true,
+          folder_level = 3,
+        },
         code_action = {
           num_shortcut = true,
           extend_gitsigns = true,
