@@ -214,11 +214,18 @@ M.ui = {
   theme = "fab",
   hl_override = {
     -- CursorLine = { bg = "#2a2b2b" },
-    DiffAdd = { fg = "#97B77B", bg = "#2a2b2b" },
-    DiffText = { fg = "#d6cf9a", bg = "#793B3B" },
+    --
+    -- DiffAdd    = { fg = "#97B77B", bg = "#2a2b2b" },
+    -- DiffText   = { fg = "#d6cf9a", bg = "#793B3B" },
+    -- DiffDelete = { fg = "#793B3B", bg = "#2a2b2b" },
+    -- DiffChange = { fg = "#d6cf9a", bg = "#2a2b2b" },
+    --
+    DiffAdd = { fg = "NONE", bg = "#2D382B" },
+    DiffText = { fg = "NONE", bg = "#542F2F" },
+    DiffDelete = { fg = "#542F2F", bg = "#2a2b2b" },
+    DiffChange = { fg = "NONE", bg = "NONE" },
+
     -- DiffText = { fg = "#cc6666", bg = "#2a2b2b" },
-    DiffDelete = { fg = "#793B3B", bg = "#2a2b2b" },
-    DiffChange = { fg = "#d6cf9a", bg = "#2a2b2b" },
     -- GitSignsAdd = { fg = "#893B3B" },
   },
   statusline = {
@@ -321,12 +328,6 @@ M.mappings = {
       ["<A-t>"] = { "<CMD>tabnew<CR>", "new tab" },
       ["<A-l>"] = { "<CMD>tabnext<CR>", "next tab" },
       ["<A-c>"] = { "<CMD>tabclose<CR>", "close tab" },
-      ["<leader>\\"] = {
-        function()
-          return vim.fn["codeium#Clear"]()
-        end,
-        "close tab",
-      },
 
       ["<S-Down>"] = { "<Down>", "Move down" },
       ["<S-Up>"] = { "<Up>", "Move Up" },

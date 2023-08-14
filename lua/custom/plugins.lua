@@ -531,5 +531,9 @@ local plugins = {
   --   "Exafunction/codeium",
   --   lazy = false,
   -- },
+  {
+    "chrisbra/vim-diff-enhanced",
+    cmd = { "EnhancedDiff" },
+  },
 }
 return plugins
