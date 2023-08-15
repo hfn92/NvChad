@@ -224,7 +224,7 @@ M.ui = {
     DiffText = { fg = "NONE", bg = "#542F2F" },
     DiffDelete = { fg = "#542F2F", bg = "#2a2b2b" },
     DiffChange = { fg = "NONE", bg = "NONE" },
-
+    -- GitSignsDeleteVirtLn = { fg = "#cc6666", bg = "#FFFFFF" },
     -- DiffText = { fg = "#cc6666", bg = "#2a2b2b" },
     -- GitSignsAdd = { fg = "#893B3B" },
   },
@@ -557,6 +557,9 @@ M.mappings = {
         "Location previous",
       },
 
+      ["<A-p>"] = { "<cmd>Gitsigns preview_hunk_inline<CR>", "git preview hunk inline" },
+      ["<leader>gs"] = { "<cmd>Gitsigns stage_hunk<CR>", "git stage hunk" },
+      ["<leader>gu"] = { "<cmd>Gitsigns undo_stage_hunk<CR>", "git unstage hunk" },
       ["<leader>gd"] = { "<cmd>Gitsigns diffthis<CR>", "git diff" },
       ["<leader>gq"] = { "<cmd>Gitsigns setqflist<CR>", "git diffs quickfix" },
       ["<leader>gv"] = { "<cmd>DiffviewOpen<CR>", "Open diff view" },

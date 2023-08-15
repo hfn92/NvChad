@@ -49,6 +49,7 @@ vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31
 vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapStopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "GitSignsChange", { ctermbg = 0, fg = "#676e7b", bg = "#2E2F30" })
+vim.api.nvim_set_hl(0, "GitSignsDeleteVirtLn", { ctermbg = 0, fg = "None", bg = "#542F2F" })
 
 vim.api.nvim_set_hl(0, "DapUIType", { ctermbg = 0, fg = "#6B6D6E" })
 vim.api.nvim_set_hl(0, "DapUILineNumber", { link = "Comment" })
