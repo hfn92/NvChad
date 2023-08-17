@@ -151,6 +151,10 @@ function GitSignCodeAction()
   end)
 end
 
+function CdCurrentFile()
+  vim.cmd "cd %:p:h"
+end
+
 function RunPerf()
   local cmake = require "cmake-tools"
   cmake.run { wrap_call = { "perf", "record", "--call-graph", "dwarf" } }
