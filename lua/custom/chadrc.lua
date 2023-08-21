@@ -228,6 +228,7 @@ M.ui = {
     DiffText = { fg = "NONE", bg = "#542F2F" },
     DiffDelete = { fg = "#542F2F", bg = "#2a2b2b" },
     DiffChange = { fg = "NONE", bg = "NONE" },
+    Search = { fg = "#2a2b2b", bg = "#97B77B" },
     -- GitSignsDeleteVirtLn = { fg = "#cc6666", bg = "#FFFFFF" },
     -- DiffText = { fg = "#cc6666", bg = "#2a2b2b" },
     -- GitSignsAdd = { fg = "#893B3B" },
