@@ -236,7 +236,7 @@ M.ui = {
   statusline = {
     theme = "default", -- default/vscode/vscode_colored/minimal
     overriden_modules = function(modules)
-      local st_modules = require "nvchad_ui.statusline.default"
+      -- local st_modules = require "nvchad_ui.statusline.default"
       local cmake = require "cmake-tools"
       --local icons = require "user.icons"
       -- this is just default table of statusline modules
