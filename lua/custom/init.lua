@@ -9,6 +9,8 @@ vim.filetype.add { extension = { vsh = "glsl" } }
 vim.filetype.add { extension = { animation = "toml" } }
 --vim.filetype.add({ extension = { vsh = 'glsl' } })
 
+vim.opt.fillchars:append { diff = "╱" }
+
 -- vim.cmd([[
 -- hi default link DapUINormal Normal
 -- hi default link DapUIVariable Normal

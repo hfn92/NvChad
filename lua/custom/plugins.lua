@@ -527,10 +527,30 @@ local plugins = {
   -- {
   --   "Exafunction/codeium",
   --   lazy = false,
+  --   config = function()
+  --     vim.g.codeium_disable_bindings = true
+  --     vim.g.codeium_no_map_tab = true
+  --     vim.g["codeium_no_map_tab"] = 1
+  --     vim.g.codeium_manual = true
+  --     vim.keymap.set("i", "<C-a>", function()
+  --       return vim.fn["codeium#Accept"]()
+  --     end, { expr = true })
+  --     vim.keymap.set("i", "<C-x>", function()
+  --       return vim.fn["codeium#Complete"]()
+  --     end, { expr = true })
+  --   end,
   -- },
   {
     "chrisbra/vim-diff-enhanced",
     cmd = { "EnhancedDiff" },
+  },
+  {
+    "stevearc/overseer.nvim",
+    setup = function()
+      require("overseer").setup()
+    end,
+    lazy = false,
+    -- cmd = { "OverseerRun", "OverseerToggle" },
   },
 }
 return plugins

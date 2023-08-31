@@ -217,7 +217,7 @@ end
 M.ui = {
   theme = "fab",
   hl_override = {
-    -- CursorLine = { bg = "#2a2b2b" },
+    CursorLine = { bg = "#2a2b2b" },
     --
     -- DiffAdd    = { fg = "#97B77B", bg = "#2a2b2b" },
     -- DiffText   = { fg = "#d6cf9a", bg = "#793B3B" },
@@ -349,6 +349,7 @@ M.mappings = {
 
       ["<leader>y"] = { '"+y', "Yank to clipboard" },
       ["<leader>d"] = { '"_d', "Delete to void" },
+      ["<leader>b"] = { ":DiffviewFileHistory<CR>", "Git history" },
     },
     x = {
       ["<leader>p"] = { '"_dP', "Paste" },

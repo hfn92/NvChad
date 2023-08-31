@@ -5,11 +5,15 @@ require("cmake-tools").setup {
   cmake_build_options = { "-j32" },
 
   cmake_executor = { -- executor to use
+    name = "overseer",
     default_opts = { -- a list of default and possible values for executors
       quickfix = {
         show = "only_on_error", -- "always", "only_on_error"
       },
     },
+  },
+  cmake_terminal = {
+    name = "overseer",
   },
 
   cmake_dap_configuration = {
