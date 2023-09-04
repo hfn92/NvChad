@@ -11,6 +11,8 @@ vim.filetype.add { extension = { animation = "toml" } }
 
 vim.opt.fillchars:append { diff = "╱" }
 
+vim.lsp.set_log_level "off"
+
 -- vim.cmd([[
 -- hi default link DapUINormal Normal
 -- hi default link DapUIVariable Normal

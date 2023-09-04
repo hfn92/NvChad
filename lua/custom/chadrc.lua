@@ -320,6 +320,7 @@ M.mappings = {
       ["n"] = { "nzzzv", "next (search)" },
       ["N"] = { "Nzzzv", "previous (search)" },
       ["J"] = { "mzJ`z", "Move next line back" },
+      ["<C-r>"] = { "<cmd> CMakeRun <CR>", "CMake run" },
 
       ["<A-Left>"] = { "<C-o>", "Navigate Backwards" },
       ["<A-Right>"] = { "<C-i>", "Navigate Forwards" },
@@ -337,8 +338,11 @@ M.mappings = {
 
       ["<S-Down>"] = { "<Down>", "Move down" },
       ["<S-Up>"] = { "<Up>", "Move Up" },
+      ["<C-,>"] = { "<CMD>vertical resize -5<CR>", "Resize vsplit -5" },
+      ["<C-.>"] = { "<CMD>vertical resize +5<CR>", "Resize vsplit +5" },
+      ["<C-;>"] = { "<CMD>resize -5<CR>", "Resize split -5" },
+      ["<C-'>"] = { "<CMD>resize +5<CR>", "Resize split +5" },
     },
-
     v = {
       ["J"] = { ":m '>+1<CR>gv=gv", "Move down" },
       ["K"] = { ":m '<-2<CR>gv=gv", "Move Up" },
@@ -609,6 +613,16 @@ M.mappings = {
   undotree = {
     n = {
       ["<leader>u"] = { vim.cmd.UndotreeToggle, "Undotree" },
+    },
+  },
+
+  overseer = {
+    n = {
+      ["<leader>of"] = { "<CMD> OverseerQuickAction open float<CR>", "Overseet open float " },
+      ["<leader>oh"] = { "<CMD> OverseerQuickAction open hsplit<CR>", "Overseet open hsplit" },
+      ["<leader>ov"] = { "<CMD> OverseerQuickAction open vsplit<CR>", "Overseet open vsplit" },
+      ["<leader>oq"] = { "<CMD> OverseerQuickAction open output in quickfix<CR>", "Overseet open quickfix" },
+      ["<leader>oo"] = { "<CMD> OverseerToggle<CR>", "Overseet open quickfix" },
     },
   },
   dap = {

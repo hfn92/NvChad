@@ -546,11 +546,10 @@ local plugins = {
   },
   {
     "stevearc/overseer.nvim",
-    setup = function()
+    config = function()
       require("overseer").setup()
     end,
-    lazy = false,
-    -- cmd = { "OverseerRun", "OverseerToggle" },
+    cmd = { "OverseerRun", "OverseerToggle", "OverseerQuickAction" },
   },
 }
 return plugins

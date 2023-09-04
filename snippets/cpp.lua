@@ -49,6 +49,7 @@ return {
   s("!mu", fmt("std::make_unique<{}>({})", { i(1), i(2) })),
   s("!ms", fmt("std::make_shared<{}>({})", { i(1), i(2) })),
   s("!op", fmt("std::optional<{}>", { i(1) })),
+  s("!ve", fmt("std::vector<{}>", { i(1) })),
   s("!sm", fmt("SmallVector<{}, {}>", { i(1), i(2) })),
   s("!mv", fmt("std::move({})", { i(1) }, { delimiters = "{}" })),
   s("!ar", fmt("std::array<{}, {}>", { i(1), i(2) }, { delimiters = "{}" })),

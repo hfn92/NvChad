@@ -156,13 +156,13 @@ local default_plugins = {
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI", ext_opts = {} },
         config = function(_, opts)
-          local types = require("luasnip.util.types")
+          local types = require "luasnip.util.types"
           opts.ext_opts = {
             [types.choiceNode] = {
               active = {
-                virt_text = {{ "<-", "Error" }}
-              }
-            }
+                virt_text = { { "<-", "Error" } },
+              },
+            },
           }
           require("plugins.configs.others").luasnip(opts)
         end,
@@ -260,7 +260,7 @@ local default_plugins = {
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
-    keys = { "<leader>", "<c-r>", '"', "'", "`", "c", "v", "g" },
+    keys = { "<leader>", '"', "'", "`", "c", "v", "g" },
     init = function()
       require("core.utils").load_mappings "whichkey"
     end,
@@ -279,4 +279,4 @@ if #config.plugins > 0 then
 end
 
 require("lazy").setup(default_plugins, config.lazy_nvim)
-require("telescope").load_extension("ui-select")
+require("telescope").load_extension "ui-select"
