@@ -86,6 +86,37 @@ function Doc()
   return vim.treesitter.get_node_text(expr:child(1), 0)
 end
 
+function GitDiffRange()
+  local commits = vim.fn.systemlist "git log --oneline"
+  local from = nil
+  local to = nil
+
+  vim.ui.select(
+    commits,
+    { prompt = "Select commit 1" },
+    vim.schedule_wrap(function(_, idx)
+      if not idx then
+        return
+      end
+      from = commits[idx]:match "^%w+"
+      vim.ui.select(
+        commits,
+        { prompt = "Select commit 2" },
+        vim.schedule_wrap(function(_, idx)
+          if not idx then
+            return
+          end
+          to = commits[idx]:match "^%w+"
+
+          if from and to then
+            vim.cmd("DiffviewOpen " .. from .. ".." .. to)
+          end
+        end)
+      )
+    end)
+  )
+end
+
 function TestVirt()
   ClearVirt()
   local errs = vim.fn.getqflist()
@@ -577,6 +608,7 @@ M.mappings = {
       ["<leader>gc"] = { "<cmd>DiffviewClose<CR>", "Close diff view" },
       ["<leader>gh"] = { "<cmd>DiffviewFileHistory %<CR>", "git history" },
       ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
+      ["<leader>gr"] = { "<cmd>lua GitDiffRange()<CR>", "git diff range" },
       ["-"] = { [[<cmd>Oil<CR>]], "Oil" },
 
       ["<leader>qc"] = { "<cmd>cclose<CR>", "Quickfix close" },
