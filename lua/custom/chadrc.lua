@@ -539,7 +539,7 @@ M.mappings = {
       ["<leader>fm"] = { "<cmd> Telescope marks <CR>", "Find marks" },
       ["<leader>ra"] = {
         function()
-          require("nvchad_ui.renamer").open()
+          require("nvchad.renamer").open()
         end,
         "LSP rename",
       },
