@@ -1,8 +1,8 @@
 require("cmake-tools").setup {
-  cmake_build_directory_prefix = "../build_", -- when cmake_build_directory is "", this option will be activated
+  cmake_build_directory_prefix = "./build/", -- when cmake_build_directory is "", this option will be activated
   cmake_regenerate_on_save = true, -- Saves CMakeLists.txt file only if mofified.
-  cmake_soft_link_compile_commands = false, -- if softlink compile commands json file
-  cmake_compile_commands_from_lsp = true,
+  cmake_soft_link_compile_commands = true, -- if softlink compile commands json file
+  -- cmake_compile_commands_from_lsp = true,
   cmake_build_options = { "-j32" },
 
   cmake_executor = { -- executor to use

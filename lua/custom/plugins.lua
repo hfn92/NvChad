@@ -459,6 +459,8 @@ local plugins = {
   },
   {
     "ldelossa/gh.nvim",
+    "hfn92/gh.nvim",
+    branch = "windows_support",
     dependencies = { "litee.nvim" },
     keys = "<leader>gb",
     config = function()
