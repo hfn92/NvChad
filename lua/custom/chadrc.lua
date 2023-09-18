@@ -602,13 +602,13 @@ M.mappings = {
       ["<A-p>"] = { "<cmd>Gitsigns preview_hunk_inline<CR>", "git preview hunk inline" },
       ["<leader>gs"] = { "<cmd>Gitsigns stage_hunk<CR>", "git stage hunk" },
       ["<leader>gu"] = { "<cmd>Gitsigns undo_stage_hunk<CR>", "git unstage hunk" },
-      ["<leader>gd"] = { "<cmd>Gitsigns diffthis<CR>", "git diff" },
       ["<leader>gq"] = { "<cmd>Gitsigns setqflist<CR>", "git diffs quickfix" },
       ["<leader>gv"] = { "<cmd>DiffviewOpen<CR>", "Open diff view" },
       ["<leader>gc"] = { "<cmd>DiffviewClose<CR>", "Close diff view" },
       ["<leader>gh"] = { "<cmd>DiffviewFileHistory %<CR>", "git history" },
       ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
-      ["<leader>gr"] = { "<cmd>lua GitDiffRange()<CR>", "git diff range" },
+      ["<leader>gdr"] = { "<cmd>lua GitDiffRange()<CR>", "git diff range" },
+      ["<leader>gdb"] = { "<cmd>lua GitDiffBranch*() <CR>", "git diff branch" },
       ["-"] = { [[<cmd>Oil<CR>]], "Oil" },
 
       ["<leader>qc"] = { "<cmd>cclose<CR>", "Quickfix close" },
@@ -737,3 +737,4 @@ M.mappings = {
 }
 
 return M
+
