@@ -19,147 +19,73 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 -- )
 --
 --
-function Doc()
-  local ts_utils = require "nvim-treesitter.ts_utils"
-  local current_node = ts_utils.get_node_at_cursor()
-  -- local current = vim.api.nvim_win_get_cursor(0)[1]
-  -- local current_node = ts_utils.get_root_for_position(current, 0)
-  if not current_node then
-    return ""
+
+function GitDiffRange(from, to)
+  if from and to then
+    vim.cmd("DiffviewOpen " .. from .. ".." .. to)
   end
 
-  local expr = current_node
-
-  vim.notify(vim.inspect(expr:type()))
-  while expr do
-    -- if expr:type() == "function_declarator" or expr:type() == "function_definition" then
-    if expr:type() == "declaration" then
-      break
-    end
-    expr = expr:parent()
-  end
-
-  if not expr then
-    return ""
-  end
-
-  local rettype = nil
-  if expr:child(0) and expr:child(0) == "primitive_type" then
-    rettype = expr:child(0)
-  end
-
-  local decl = nil
-  if expr:child(1) and expr:child(1) == "function_declarator" then
-    decl = expr:child(1)
-  end
-
-  if not rettype or not decl then
-    return
-  end
-
-  vim.notify(vim.inspect(expr:type()))
-  vim.notify(vim.inspect(expr:child(1):type()))
-  vim.notify(vim.inspect(vim.treesitter.get_node_text(expr:child(0), 0)))
-  -- vim.notify(vim.treesitter.get_node_text(expr:child(1):child(1):child(1):type(), 0))
-  local function_node = expr
-
-  -- if function_node then
-  --   -- Extract function arguments
-  --   local function_args = {}
-  --   local function_args_node = function_node:child(1) -- Function arguments node is the first child
-  --   for _, arg_node in ipairs(function_args_node:children()) do
-  --     table.insert(function_args, arg_node:text())
-  --   end
-  --
-  --   -- Extract function return value
-  --   local function_return = {}
-  --   local function_return_node = function_node:child(2) -- Function return value node is the second child
-  --   for _, return_node in ipairs(function_return_node:children()) do
-  --     table.insert(function_return, return_node:text())
-  --   end
-  --
-  --   -- Print the results
-  --   print("Function arguments: " .. table.concat(function_args, ", "))
-  --   print("Function return value: " .. table.concat(function_return, ", "))
-  -- end
-
-  return vim.treesitter.get_node_text(expr:child(1), 0)
-end
-
-function GitDiffRange()
   local commits = vim.fn.systemlist "git log --oneline"
-  local from = nil
-  local to = nil
 
-  vim.ui.select(
-    commits,
-    { prompt = "Select commit 1" },
-    vim.schedule_wrap(function(_, idx)
-      if not idx then
-        return
-      end
-      from = commits[idx]:match "^%w+"
-      vim.ui.select(
-        commits,
-        { prompt = "Select commit 2" },
-        vim.schedule_wrap(function(_, idx)
-          if not idx then
-            return
-          end
-          to = commits[idx]:match "^%w+"
+  if not from then
+    return vim.ui.select(
+      commits,
+      { prompt = "Select commit 1" },
+      vim.schedule_wrap(function(_, idx)
+        if not idx then
+          return
+        end
+        GitDiffRange(commits[idx]:match "^%w+", to)
+      end)
+    )
+  end
 
-          if from and to then
-            vim.cmd("DiffviewOpen " .. from .. ".." .. to)
-          end
-        end)
-      )
-    end)
-  )
-end
-
-function TestVirt()
-  ClearVirt()
-  local errs = vim.fn.getqflist()
-
-  vim.notify(vim.inspect(errs))
-
-  local api = vim.api
-
-  for _, v in ipairs(errs) do
-    local bnr = v.bufnr
-    local ns_id = api.nvim_create_namespace "quickfix-virt-text"
-
-    local line_num = v.lnum - 1
-    local col_num = 0
-
-    local opts = {
-      -- end_line = 10,
-      -- end_row = 0,
-      -- id = 1,
-      -- virt_lines = { { { v.text, "DiagnosticError" } } },
-      -- virt_lines_above = true,
-      virt_text = { { v.text, "DiagnosticError" } },
-      -- virt_text_pos = "eol",
-      -- virt_text_win_col = 20,
-      -- a
-    }
-    -- api.nvim_buf_set_extmark(bnr, ns_id, line_num, 0, opts)
-    local ok, err = pcall(function()
-      api.nvim_buf_set_extmark(bnr, ns_id, line_num, 0, opts)
-    end)
-    -- vim.notify(vim.inspect(v.type))
-    -- if ok == false then
-    --   vim.notify(vim.inspect(v.text))
-    --   vim.notify(vim.inspect(bnr))
-    --   vim.notify(vim.inspect(err))
-    -- end
+  if not to then
+    return vim.ui.select(
+      commits,
+      { prompt = "Select commit 2" },
+      vim.schedule_wrap(function(_, idx)
+        if not idx then
+          return
+        end
+        GitDiffRange(from, commits[idx]:match "^%w+")
+      end)
+    )
   end
 end
 
-function ClearVirt()
-  local ns_id = vim.api.nvim_create_namespace "quickfix-virt-text"
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    vim.api.nvim_buf_clear_namespace(buf, ns_id, 0, -1)
+function GitDiffBranch(from, to)
+  if from and to then
+    vim.cmd("DiffviewOpen " .. from .. ".." .. to)
+  end
+
+  local commits = vim.fn.systemlist [[git branch -a --format '%(refname:short)']]
+  table.insert(commits, 1, "HEAD")
+
+  if not from then
+    return vim.ui.select(
+      commits,
+      { prompt = "Select branch 1" },
+      vim.schedule_wrap(function(_, idx)
+        if not idx then
+          return
+        end
+        GitDiffBranch(commits[idx], to)
+      end)
+    )
+  end
+
+  if not to then
+    return vim.ui.select(
+      commits,
+      { prompt = "Select branch 2" },
+      vim.schedule_wrap(function(_, idx)
+        if not idx then
+          return
+        end
+        GitDiffBranch(from, commits[idx])
+      end)
+    )
   end
 end
 
@@ -323,6 +249,7 @@ M.disabled = {
   n = {
     ["<leader>n"] = "",
     ["<leader>rn"] = "",
+    ["<leader>gb"] = "",
     ["<S-Up>"] = "",
     ["<S-Down>"] = "",
   },
@@ -331,6 +258,11 @@ M.disabled = {
     ["<S-Down>"] = "",
   },
 }
+
+function CpFilePath()
+  vim.api.nvim_call_function("setreg", { "+", (vim.fn.expand "%:p") })
+  vim.notify("Copied " .. vim.fn.expand "%:p")
+end
 
 M.mappings = {
   general = {
@@ -608,7 +540,7 @@ M.mappings = {
       ["<leader>gh"] = { "<cmd>DiffviewFileHistory %<CR>", "git history" },
       ["<leader>gl"] = { "<cmd>LazyGit<CR>", "LazyGit" },
       ["<leader>gdr"] = { "<cmd>lua GitDiffRange()<CR>", "git diff range" },
-      ["<leader>gdb"] = { "<cmd>lua GitDiffBranch*() <CR>", "git diff branch" },
+      ["<leader>gdb"] = { "<cmd>lua GitDiffBranch()<CR>", "git diff branch" },
       ["-"] = { [[<cmd>Oil<CR>]], "Oil" },
 
       ["<leader>qc"] = { "<cmd>cclose<CR>", "Quickfix close" },
@@ -737,4 +669,3 @@ M.mappings = {
 }
 
 return M
-
