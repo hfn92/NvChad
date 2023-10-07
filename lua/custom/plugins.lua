@@ -178,6 +178,9 @@ local plugins = {
           -- Show files and directories that start with "."
           show_hidden = true,
         },
+        columns = {
+          "icon",
+        },
       }
     end,
   },
@@ -458,7 +461,6 @@ local plugins = {
     end,
   },
   {
-    "ldelossa/gh.nvim",
     "hfn92/gh.nvim",
     branch = "windows_support",
     dependencies = { "litee.nvim" },
@@ -549,9 +551,33 @@ local plugins = {
   {
     "stevearc/overseer.nvim",
     config = function()
-      require("overseer").setup()
+      require("overseer").setup {
+        templates = { "builtin", "user.conan_install_debug", "user.conan_install_reldeb" },
+      }
     end,
     cmd = { "OverseerRun", "OverseerToggle", "OverseerQuickAction" },
   },
+  -- {
+  --   "ThePrimeagen/git-worktree.nvim",
+  --   lazy = false,
+  --   config = function()
+  --     require("git-worktree").setup {}
+  --     require("telescope").load_extension "git_worktree"
+  --     local Worktree = require "git-worktree"
+  --
+  --     Worktree.on_tree_change(function(op, metadata)
+  --       if op == Worktree.Operations.Switch then
+  --         vim.cmd("CMakeSelectCmd " .. metadata.path)
+  --         vim.notify("Git Worktree switched from " .. metadata.prev_path .. " to " .. metadata.path)
+  --       end
+  --       if op == Worktree.Operations.Created then
+  --         vim.notify("Git Worktree created: " .. metadata.path .. " Branch:" .. metadata.branch)
+  --       end
+  --       if op == Worktree.Operations.Delete then
+  --         vim.notify("Git Worktree deleted: " .. metadata.path)
+  --       end
+  --     end)
+  --   end,
+  -- },
 }
 return plugins

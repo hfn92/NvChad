@@ -242,6 +242,7 @@ M.ui = {
     end,
   },
 }
+OIL_TOOGLE = true
 
 M.plugins = "custom/plugins"
 
@@ -542,11 +543,31 @@ M.mappings = {
       ["<leader>gdr"] = { "<cmd>lua GitDiffRange()<CR>", "git diff range" },
       ["<leader>gdb"] = { "<cmd>lua GitDiffBranch()<CR>", "git diff branch" },
       ["-"] = { [[<cmd>Oil<CR>]], "Oil" },
+      ["<leader>-"] = {
+        function()
+          local m = require "oil"
+          if OIL_TOOGLE then
+            m.set_columns {
+              "icon",
+              "permissions",
+              "size",
+              "mtime",
+            }
+            OIL_TOOGLE = false
+          else
+            m.set_columns {
+              "icon",
+            }
+            OIL_TOOGLE = true
+          end
+        end,
+        "Oil",
+      },
 
       ["<leader>qc"] = { "<cmd>cclose<CR>", "Quickfix close" },
       ["<leader>qv"] = { "<cmd>cclose<CR><cmd>vert copen 100<CR>", "Quickfix open vertical" },
       ["<leader>qb"] = { "<cmd>cclose<CR><cmd>bot copen 12<CR>", "Quickfix open bottom" },
-      ["<leader>qe"] = { "<cmd>cexpr []<CR>", "Quickfix clear" },
+      ["<leader>qe"] = { "<cmd>cexpr []<CR><cmd>cclose<CR>", "Quickfix clear" },
     },
 
     v = {

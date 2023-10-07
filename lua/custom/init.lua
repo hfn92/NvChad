@@ -6,7 +6,9 @@ vim.opt.clipboard = ""
 
 vim.filetype.add { extension = { fsh = "glsl" } }
 vim.filetype.add { extension = { vsh = "glsl" } }
+vim.filetype.add { extension = { gsh = "glsl" } }
 vim.filetype.add { extension = { animation = "toml" } }
+vim.filetype.add { extension = { ani = "lua" } }
 --vim.filetype.add({ extension = { vsh = 'glsl' } })
 
 vim.opt.fillchars:append { diff = "╱" }
