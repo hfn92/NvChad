@@ -23,6 +23,7 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 function GitDiffRange(from, to)
   if from and to then
     vim.cmd("DiffviewOpen " .. from .. ".." .. to)
+    vim.cmd("DiffviewOpen " .. to .. ".." .. from)
   end
 
   local commits = vim.fn.systemlist "git log --oneline"
@@ -57,6 +58,7 @@ end
 function GitDiffBranch(from, to)
   if from and to then
     vim.cmd("DiffviewOpen " .. from .. ".." .. to)
+    vim.cmd("DiffviewOpen " .. to .. ".." .. from)
   end
 
   local commits = vim.fn.systemlist [[git branch -a --format '%(refname:short)']]
@@ -174,6 +176,7 @@ end
 M.ui = {
   theme = "fab",
   hl_override = {
+    St_gitIcons = { fg = "#6B6D6E" },
     CursorLine = { bg = "#2a2b2b" },
     --
     -- DiffAdd    = { fg = "#97B77B", bg = "#2a2b2b" },
@@ -221,6 +224,7 @@ M.ui = {
         type = preset and preset or type
 
         local str = "%#Hl#"
+        local str = "%#St_gitIcons#"
           .. "   ["
           .. (type and type or "None")
           .. "]"
@@ -568,6 +572,10 @@ M.mappings = {
       ["<leader>qv"] = { "<cmd>cclose<CR><cmd>vert copen 100<CR>", "Quickfix open vertical" },
       ["<leader>qb"] = { "<cmd>cclose<CR><cmd>bot copen 12<CR>", "Quickfix open bottom" },
       ["<leader>qe"] = { "<cmd>cexpr []<CR><cmd>cclose<CR>", "Quickfix clear" },
+      ["<leader>qr"] = {
+        [[:cdo s///g | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        "quickfix replace",
+      },
     },
 
     v = {
