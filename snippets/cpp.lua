@@ -36,6 +36,7 @@ end
 return {
   -- Shorthand
   -- ls.parser.parse_snippet({trig = "lsp"}, "$1 xFFF is ${2|hard,easy,challenging|}"),
+  s("[]", fmt("[](auto& i){<>}", { i(1) }, { delimiters = "<>" })),
   s("!en", { t "std::endl" }),
   s("sv", { t "std::string_view" }),
   s("st", { t "std::string" }),
@@ -45,6 +46,7 @@ return {
   s("!sp", fmt("std::shared_ptr<{}>", { i(1) }, { delimiters = "{}" })),
   s("!wp", fmt("std::weak_ptr<{}>", { i(1) }, { delimiters = "{}" })),
   s("!um", fmt("std::unordered_map<{}, {}>", { i(1), i(2) })),
+  s("!pr", fmt("std::pair<{}, {}>", { i(1), i(2) })),
   s("!om", fmt("std::map<{}, {}>", { i(1), i(2) })),
   s("!mu", fmt("std::make_unique<{}>({})", { i(1), i(2) })),
   s("!ms", fmt("std::make_shared<{}>({})", { i(1), i(2) })),

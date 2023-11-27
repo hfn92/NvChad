@@ -22,7 +22,6 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 
 function GitDiffRange(from, to)
   if from and to then
-    vim.cmd("DiffviewOpen " .. from .. ".." .. to)
     vim.cmd("DiffviewOpen " .. to .. ".." .. from)
   end
 
@@ -57,7 +56,6 @@ end
 
 function GitDiffBranch(from, to)
   if from and to then
-    vim.cmd("DiffviewOpen " .. from .. ".." .. to)
     vim.cmd("DiffviewOpen " .. to .. ".." .. from)
   end
 
@@ -223,7 +221,6 @@ M.ui = {
 
         type = preset and preset or type
 
-        local str = "%#Hl#"
         local str = "%#St_gitIcons#"
           .. "   ["
           .. (type and type or "None")
@@ -346,6 +343,7 @@ M.mappings = {
       ["<C-b>"] = { "<cmd> CMakeBuild <CR>", "CMake [b]uild" },
     },
     n = {
+      ["<leader>cg"] = { "<cmd> CMakeGenerate<CR>", "CMake Generate" },
       ["<leader>cy"] = { "<cmd> CMakeSelectBuildType<CR>", "Select build type" },
       ["<leader>ct"] = { "<cmd> CMakeSelectBuildTarget <CR>", "Select CMake target" },
       ["<leader>cp"] = { "<cmd> CMakeSelectBuildPreset<CR>", "Select CMake preset" },
@@ -485,13 +483,14 @@ M.mappings = {
     },
 
     n = {
+      ["ff"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
       ["<C-w>b"] = { "<cmd>%bd|e#<CR>", "Close other buffers" },
       ["K"] = { "<cmd> lua vim.lsp.buf.hover() <CR>", "Hover" },
       ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch Source/Header" },
       -- ["<A-cr>"] = { "<cmd> lua vim.lsp.buf.code_action() <CR>", "Code Action" },
       ["<A-cr>"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
       -- ["<F2>"] = { "<cmd> lua vim.lsp.buf.declaration() <CR><cmd> lua vim.lsp.buf.definition() <CR>", "Follow Symbol" },
-      ["<F2>"] = {
+      ["cc"] = {
         function()
           vim.lsp.buf.declaration { on_list = function() end }
           vim.lsp.buf.definition {
@@ -571,6 +570,7 @@ M.mappings = {
       ["<leader>qc"] = { "<cmd>cclose<CR>", "Quickfix close" },
       ["<leader>qv"] = { "<cmd>cclose<CR><cmd>vert copen 100<CR>", "Quickfix open vertical" },
       ["<leader>qb"] = { "<cmd>cclose<CR><cmd>bot copen 12<CR>", "Quickfix open bottom" },
+      ["<leader>qu"] = { "<cmd>cclose<CR><cmd>belowright copen 12<CR>", "Quickfix open bottom right" },
       ["<leader>qe"] = { "<cmd>cexpr []<CR><cmd>cclose<CR>", "Quickfix clear" },
       ["<leader>qr"] = {
         [[:cdo s///g | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
@@ -601,6 +601,7 @@ M.mappings = {
       ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Search git files" },
       ["<leader>fc"] = { "<cmd> Telescope git_status <CR>", "Search git diff" },
       ["<leader>fd"] = { "<cmd> Telescope diagnostics <CR>", "Diagnostics" },
+      ["<leader>fu"] = { "<cmd> Telescope grep_string <CR>", "Grep string under cursor" },
     },
   },
   undotree = {
@@ -665,6 +666,10 @@ M.mappings = {
       },
 
       -- stylua: ignore start
+      ["<F2>"]          = { function() require("dap").step_into() end, "step into", },
+      ["<F3>"]          = { function() require("dap").step_out() end, "step out", },
+      ["<leader><F1>"]  = { function() require("dap").run_to_cursor() end, "Run to cursor", },
+      ["<F1>"]          = { function() require("dap").step_over() end, "step over", },
       ["<F5>"]          = { function() require("dap").continue() end, "continue", },
       ["<F6>"]          = { function() require("dap").restart() end, "restart", },
       ["<F7>"]          = { function() require("dap").run_last() end, "run last", },
