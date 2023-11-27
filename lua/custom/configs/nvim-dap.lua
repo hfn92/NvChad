@@ -37,3 +37,53 @@ dap.configurations.cpp = {
 }
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
+
+-- local wk = require "which-key"
+--
+-- local register_key = function()
+--   wk.register({
+--     ["J"] = {
+--       function()
+--         require("dap").run_to_cursor()
+--       end,
+--       "step over",
+--     },
+--     ["j"] = {
+--       function()
+--         require("dap").step_over()
+--       end,
+--       "step over",
+--     },
+--     ["k"] = {
+--       function()
+--         require("dap").step_into()
+--       end,
+--       "step into",
+--     },
+--     ["l"] = {
+--       function()
+--         require("dap").step_out()
+--       end,
+--       "step out",
+--     },
+--   }, { mode = "n" })
+-- end
+--
+-- local unregister_key = function()
+--   vim.cmd "unmap j"
+--   vim.cmd "unmap k"
+--   vim.cmd "unmap l"
+--   wk.register({
+--     ["J"] = { "mzJ`z", "Move next line back" },
+--   }, { mode = "n" })
+-- end
+--
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+--   register_key()
+-- end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+--   unregister_key()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+--   unregister_key()
+-- end

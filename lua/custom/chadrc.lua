@@ -18,7 +18,102 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 --   { virt_lines = { content }, virt_lines_above = options.virt_lines_above }
 -- )
 --
+
+local dec = require "custom.deco.deco"
+-- dec.init()
+
+function DecoOff()
+  dec.disable()
+end
+
+function Deco()
+  dec.Clear()
+  dec.Test(0)
+end
+
+local function ttraversetraversetraversetraversetraversetraversetraversetraversetraversetraversetraver(
+  node,
+  lines,
+  test,
+  test
+)
+end
 --
+-- local function traverse(node, lines)
+--   local ts = vim.treesitter
+--
+--   if node:type() == "function_declaration" then
+--     local start_row, _, end_row, _ = ts.get_node_range(node)
+--     table.insert(lines, { start_row, start_row })
+--   end
+--
+--   if node:type() == "function_declarator" then
+--     local start_row, _, end_row, _ = ts.get_node_range(node)
+--     table.insert(lines, { start_row, end_row })
+--   end
+--
+--   for a = 0, node:named_child_count() - 1, 1 do
+--     traverse(node:named_child(a), lines)
+--   end
+-- end
+--
+-- function Clear()
+--   local ns_id = vim.api.nvim_create_namespace "xDDD"
+--   local buffer_id = vim.api.nvim_get_current_buf()
+--   vim.api.nvim_buf_clear_namespace(buffer_id, ns_id, 0, -1)
+-- end
+--
+-- function Test()
+--   local ts_utils = require "nvim-treesitter.ts_utils"
+--   local ts = vim.treesitter
+--   local current_node = vim.treesitter.get_parser(0):parse()[1]:root()
+--   if not current_node then
+--     return ""
+--   end
+--
+--   local lines = {}
+--   traverse(current_node, lines)
+--   -- vim.notify(vim.inspect(lines))
+--
+--   local ns_id = vim.api.nvim_create_namespace "xDDD"
+--   local buffer_id = vim.api.nvim_get_current_buf()
+--
+--   vim.api.nvim_set_hl(0, "FuncBg", { ctermbg = 0, bg = "#333333" })
+--   vim.api.nvim_buf_clear_namespace(buffer_id, ns_id, 0, -1)
+--   for key, value in pairs(lines) do
+--     -- vim.highlight.range(buffer_id, ns_id, "FuncBg", { value[1], 0 }, { value[2], 120 })
+--     vim.api.nvim_buf_set_extmark(
+--       buffer_id,
+--       ns_id,
+--       value[1],
+--       0,
+--       { end_row = value[2] + 1, hl_group = "FuncBg", hl_eol = true, end_col = 0 }
+--     )
+--     --
+--     local opts = {
+--       virt_lines_above = true,
+--       virt_lines = {
+--         {
+--           {
+--             -- "------------------------------------------------------------------------------------------------------------------------",
+--             "                                                                                                                        ",
+--             "FuncBg",
+--           },
+--         },
+--       },
+--     }
+--
+--     pcall(function()
+--       vim.api.nvim_buf_set_extmark(buffer_id, ns_id, value[1], 0, opts)
+--     end)
+--
+--     opts.virt_lines_above = false
+--
+--     pcall(function()
+--       vim.api.nvim_buf_set_extmark(buffer_id, ns_id, value[2], 0, opts)
+--     end)
+--   end
+-- end
 
 function GitDiffRange(from, to)
   if from and to then

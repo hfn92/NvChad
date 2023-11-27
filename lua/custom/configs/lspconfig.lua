@@ -65,4 +65,15 @@ require("lspconfig").cmake.setup {}
 require("lspconfig").asm_lsp.setup {}
 require("lspconfig").pylsp.setup {}
 -- require("lspconfig").taplo.setup {}
--- require'lspconfig'.glslls.setup{ cmd =  { "/home/fab/Desktop/build_Debug/glslls", "--stdin", "-l", "/tmp/log.txt", "-v", "--target-env=opengl4.5", "--target-spv=spv1.0" } }
+-- require("lspconfig").glslls.setup {
+--   cmd = {
+--     "/home/fab/Desktop/glsl-language-server/build/Debug/glslls",
+--     "--stdin",
+--     "-l",
+--     "/tmp/log.txt",
+--     "-v",
+--     "--target-env",
+--     "opengl",
+--     -- "--target-spv=spv1.0"
+--   },
+-- }
