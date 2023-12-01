@@ -152,14 +152,6 @@ local plugins = {
     end,
   },
   {
-    "ThePrimeagen/harpoon",
-    config = function()
-      require("harpoon").setup {}
-      require("telescope").load_extension "harpoon"
-    end,
-    lazy = false,
-  },
-  {
     "chentoast/marks.nvim",
     lazy = false,
     config = function()
