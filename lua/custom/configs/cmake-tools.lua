@@ -13,9 +13,20 @@ require("cmake-tools").setup {
       },
     },
   },
-  -- cmake_terminal = {
-  --   name = "overseer",
-  -- },
+  cmake_runner = {
+    name = "overseer",
+
+    opts = { -- a list of default and possible values for runners
+      new_task_opts = {
+        strategy = {
+          "terminal",
+          direction = "horizontal",
+          autos_croll = true,
+          quit_on_exit = "success",
+        },
+      }, -- options to pass into the `overseer.new_task` command
+    },
+  },
 
   cmake_dap_configuration = {
     name = "cpp",

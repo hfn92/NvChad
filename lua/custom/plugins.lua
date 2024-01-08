@@ -281,9 +281,9 @@ local plugins = {
     --    end,
   },
   {
-    -- "Civitasv/cmake-tools.nvim",
-    "hfn92/cmake-tools.nvim",
-    branch = "overseer_terminal",
+    "Civitasv/cmake-tools.nvim",
+    -- "hfn92/cmake-tools.nvim",
+    -- branch = "overseer_terminal",
     lazy = false,
     config = function()
       require "custom.configs.cmake-tools"
@@ -344,6 +344,23 @@ local plugins = {
   --   "inkarkat/argtextobj.vim",
   --   lazy = false,
   -- },
+  {
+    "RRethy/nvim-treesitter-textsubjects",
+    lazy = false,
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        textsubjects = {
+          enable = true,
+          prev_selection = ",", -- (Optional) keymap to select the previous selection
+          keymaps = {
+            ["."] = "textsubjects-smart",
+            [";"] = "textsubjects-container-outer",
+            ["i;"] = "textsubjects-container-inner",
+          },
+        },
+      }
+    end,
+  },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = false,
