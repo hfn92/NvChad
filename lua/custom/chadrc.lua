@@ -38,21 +38,16 @@ end
 
 function Query()
   local query = parse_query_save(
-    "cpp",
+    "lua",
     [[
 [
-(function_definition)
+(function_declaration)
 ] @function
-
-[
-(class_specifier)
-(struct_specifier)
-] @class
 ]]
   )
 
   local bufnr = vim.api.nvim_get_current_buf()
-  local language_tree = vim.treesitter.get_parser(bufnr, "cpp")
+  local language_tree = vim.treesitter.get_parser(bufnr, "lua")
   local syntax_tree = language_tree:parse()
   local root = syntax_tree[1]:root()
   local win_view = vim.fn.winsaveview()

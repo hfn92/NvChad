@@ -591,15 +591,10 @@ local plugins = {
   --
   --#region
   {
-    -- config = function()
-    --   local dir = vim.fn.stdpath "config" .. "/plugins/decorator"
-    --   print(dir)
-    -- end,
     dir = vim.fn.stdpath "config" .. "/plugins/decorator",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
-    ft = { "cpp" },
-    -- lazy = false,
+    ft = { "cpp", "lua", "markdown" },
   },
   {
     "glacambre/firenvim",
