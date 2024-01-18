@@ -93,12 +93,15 @@ vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", numhl = 
 
 vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#a4b595", bg = "#2a2b2b" })
 
+-- local clr = require "custom.themes.fab"
+
 local clr = {
   text = "#D6CF9A",
   text2 = "#D6BB9A",
   pink = "#ff9ca3",
   red = "#FF8080",
-  keyword = "#45C6D6",
+  keyword = "#9acfd6",
+  -- keyword = "#45C6D6",
   -- keyword = "#5FACDE",
   -- keyword = "#497896",
   -- keyword = "#9aa7d6",

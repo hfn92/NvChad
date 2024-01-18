@@ -190,7 +190,7 @@ function M.init()
     },
   }
 
-  vim.api.nvim_create_autocmd({ "FileChangedShellPost", "Syntax", "TextChanged", "InsertLeave" }, {
+  vim.api.nvim_create_autocmd({ "FileChangedShellPost", "Syntax", "TextChanged", "TextChangedI", "InsertLeave" }, {
     group = M.group,
     -- pattern = { "cpp" },
     -- buffer = test.bufnr,

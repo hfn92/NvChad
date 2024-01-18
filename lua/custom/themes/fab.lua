@@ -35,7 +35,7 @@ M.base_30 = {
   test = "",
 }
 
-local clr = {
+M._clr = {
   text = "#D6CF9A",
   text2 = "#D6BB9A",
   pink = "#ff9ca3",
@@ -43,9 +43,12 @@ local clr = {
   -- blue = "#45C6D6",
   -- keyword = "#5FACDE",
   -- keyword = "#9aa7d6",
-  keyword = "#45C6D6",
+  -- keyword = "#45C6D6",
+  keyword = "#9acfd6",
   test = "#FF0000",
 }
+
+local clr = M._clr
 
 M.base_16 = {
   base00 = "#2E2F30", -- bg

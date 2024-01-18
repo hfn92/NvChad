@@ -142,7 +142,7 @@ for ({} {} : {})
   end),
 
   postfix(
-    { trig = ",cr", match_pattern = reg_match_var },
+    { trig = ",cr", match_pattern = "[%w%.%_%-*:<>{}]+$" },
     { f(function(_, parent)
       return "const " .. parent.snippet.env.POSTFIX_MATCH .. "& "
     end, {}) }
