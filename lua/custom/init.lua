@@ -93,6 +93,51 @@ vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", numhl = 
 
 vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#a4b595", bg = "#2a2b2b" })
 
+local clr = {
+  text = "#D6CF9A",
+  text2 = "#D6BB9A",
+  pink = "#ff9ca3",
+  red = "#FF8080",
+  keyword = "#45C6D6",
+  -- keyword = "#5FACDE",
+  -- keyword = "#497896",
+  -- keyword = "#9aa7d6",
+  -- keyword = "#FF8080",
+  test = "#FF0000",
+}
+
+vim.api.nvim_set_hl(0, "@namespace.cpp", { ctermbg = 0, fg = clr.text })
+vim.api.nvim_set_hl(0, "@type.qualifier.cpp", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@property.cpp", { ctermbg = 0, fg = clr.text })
+vim.api.nvim_set_hl(0, "@parameter.cpp", { ctermbg = 0, fg = clr.text })
+vim.api.nvim_set_hl(0, "@constant.cpp", { ctermbg = 0, fg = clr.text })
+vim.api.nvim_set_hl(0, "@Field.cpp", { ctermbg = 0, fg = clr.text })
+vim.api.nvim_set_hl(0, "@constructor.cpp", { ctermbg = 0, fg = clr.text })
+vim.api.nvim_set_hl(0, "@variable.builtin.cpp", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@keyword.return.cpp", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@conditional.cpp", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@repeat.cpp", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@variable.cpp", { ctermbg = 0, fg = clr.text2 })
+vim.api.nvim_set_hl(0, "@operator.cpp", { ctermbg = 0, fg = clr.text2 })
+
+vim.api.nvim_set_hl(0, "@function.builtin.cmake", { ctermbg = 0, fg = clr.text2 })
+vim.api.nvim_set_hl(0, "@constant.cmake", { ctermbg = 0, fg = clr.red })
+
+vim.api.nvim_set_hl(0, "@punctuation.special.markdown", { ctermbg = 0, fg = clr.red })
+
+vim.api.nvim_set_hl(0, "@text.title.1.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.2.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.3.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.4.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.5.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+
+vim.api.nvim_set_hl(0, "@text.title.1.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.2.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.3.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.4.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.5.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@text.title.5.markdown", { ctermbg = 0, fg = clr.keyword })
+
 --vim.opt.runtimepath:prepend("/home/fab/Desktop/cmake-gtest.nvim")
 
 vim.g.lua_snippets_path = vim.fn.stdpath "config" .. "/snippets"

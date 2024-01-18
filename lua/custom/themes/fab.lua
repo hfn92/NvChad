@@ -35,25 +35,43 @@ M.base_30 = {
   test = "",
 }
 
+local clr = {
+  text = "#D6CF9A",
+  text2 = "#D6BB9A",
+  pink = "#ff9ca3",
+  red = "#FF8080",
+  -- blue = "#45C6D6",
+  -- keyword = "#5FACDE",
+  -- keyword = "#9aa7d6",
+  keyword = "#45C6D6",
+  test = "#FF0000",
+}
+
 M.base_16 = {
   base00 = "#2E2F30", -- bg
   base01 = "#3B3C3C",
   base02 = "#1D545C", -- selection
   base03 = "#969896",
   base04 = "#b4b7b4",
-  base05 = "#d6cf9a", -- text color
+  base05 = clr.text, -- text color
   base06 = "#e0e0e0",
   base07 = "#ffffff",
-  base08 = "#D6CF9A",
+  base08 = clr.text,
   base09 = "#de935f",
   base0A = "#FF8080",
   base0B = "#D69545",
   base0C = "#8abeb7",
-  base0D = "#D6CF9A",
-  base0E = "#45C6D6",
-  base0F = "#D6CF9A", -- parantheses ()
+  base0D = clr.text,
+  base0E = clr.keyword,
+  base0F = clr.text, -- parantheses ()
 }
 
 M.type = "dark"
+
+M.polish_hl = {
+  -- syntax-related highlight groups
+  ["@type.builtin.cpp"] = { fg = M.base_30.purple },
+  ["@keyword.cpp"] = { bg = M.base_30.purple },
+}
 
 return M

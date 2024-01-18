@@ -47,6 +47,8 @@ local function GetClassName()
   return vim.treesitter.get_node_text(expr:child(1), 0)
 end
 
+local reg_match_var = "[%w%.%_%-*:<>{}()]+$"
+
 return {
   -- Shorthand
   -- ls.parser.parse_snippet({trig = "lsp"}, "$1 xFFF is ${2|hard,easy,challenging|}"),
@@ -140,26 +142,26 @@ for ({} {} : {})
   end),
 
   postfix(
-    { trig = ",cr", match_pattern = "[%w%.%_%-:<>]+$" },
+    { trig = ",cr", match_pattern = reg_match_var },
     { f(function(_, parent)
       return "const " .. parent.snippet.env.POSTFIX_MATCH .. "& "
     end, {}) }
   ),
 
   postfix(
-    { trig = "!cr", match_pattern = "[%w%.%_%-:<>]+$" },
+    { trig = "!cr", match_pattern = reg_match_var },
     { f(function(_, parent)
       return "const " .. parent.snippet.env.POSTFIX_MATCH .. "& "
     end, {}) }
   ),
 
-  postfix({ trig = ".cr", match_pattern = "[%w%.%_%-:<>]+$" }, {
+  postfix({ trig = ".cr", match_pattern = reg_match_var }, {
     f(function(_, parent)
       return "const " .. parent.snippet.env.POSTFIX_MATCH .. "& "
     end, {}),
   }),
 
-  postfix({ trig = ".re", match_pattern = "[%w%.%_%-:<>{}()]+$" }, {
+  postfix({ trig = ".re", match_pattern = reg_match_var }, {
     f(function(_, parent)
       return "return " .. parent.snippet.env.POSTFIX_MATCH .. ";"
     end, {}),
@@ -175,6 +177,12 @@ for ({} {} : {})
     f(function(_, parent)
       return "return std::move(" .. parent.snippet.env.POSTFIX_MATCH .. ");"
     end, {}),
+  }),
+
+  postfix({ trig = ".var", match_pattern = reg_match_var }, {
+    d(1, function(_, parent)
+      return sn(nil, fmt(string.format([[auto {} = %s;]], parent.env.POSTFIX_MATCH), { i(1) }))
+    end),
   }),
 
   postfix(".sc", {
@@ -195,6 +203,35 @@ for ({} {} : {})
     end),
   }),
 
+  treesitter_postfix(
+    {
+      trig = ".xx",
+      matchTSNode = postfix_builtin.tsnode_matcher.find_topmost_types {
+        "call_expression",
+        "identifier",
+      },
+      -- matchTSNode = {
+      --   query = [[
+      --       [
+      --         (call_expression)
+      --         (identifier)
+      --         (template_function)
+      --         (subscript_expression)
+      --         (field_expression)
+      --         (user_defined_literal)
+      --       ] @prefix
+      --   ]],
+      -- },
+    },
+    f(function(_, parent)
+      print "xDDD"
+      print(parent.snippet.env.LS_TSMATCH)
+      -- local node_content = table.concat(parent.snippet.env.LS_TSMATCH, '\n')
+      -- local replaced_content = ("std::move(%s)"):format(node_content)
+      -- return vim.split(ret_str, "\n", { trimempty = false })
+    end)
+  ),
+
   -- treesitter_postfix({
   --   matchTSNode = postfix_builtin.tsnode_matcher.find_topmost_types {
   --     "call_expression",
@@ -209,7 +246,7 @@ for ({} {} : {})
   --   l(string.format("std::move(%s)", l.LS_TSMATCH)),
   -- }),
 
-  postfix(".eq", {
+  postfix({ trig = ".eq", match_pattern = reg_match_var }, {
     d(1, function(_, parent)
       return sn(
         nil,
@@ -229,7 +266,7 @@ if (%s == <>)
     end),
   }),
 
-  postfix(".if", {
+  postfix({ trig = ".if", match_pattern = reg_match_var }, {
     d(1, function(_, parent)
       return sn(
         nil,
@@ -249,7 +286,7 @@ if (%s)
     end),
   }),
 
-  postfix(".for", {
+  postfix({ trig = ".for", match_pattern = reg_match_var }, {
     d(1, function(_, parent)
       return sn(
         nil,

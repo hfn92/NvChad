@@ -19,18 +19,81 @@ vim.cmd "function! FCmakeSelectBuild(a,b,c,d) \n CMakeSelectBuildTarget \n endfu
 -- )
 --
 
-local dec = require "custom.deco.deco"
--- dec.init()
+----
+-----
+---
+---
 
-function DecoOff()
-  dec.disable()
+local q = require "vim.treesitter.query"
+
+local parse_query_save = function(language, query)
+  -- vim.treesitter.query.parse_query() is deprecated, use vim.treesitter.query.parse() instead
+  local ok, parsed_query = pcall(vim.treesitter.query.parse, language, query)
+  if not ok then
+    print(parsed_query)
+    return nil
+  end
+  return parsed_query
 end
 
-function Deco()
-  dec.Clear()
-  dec.Test(0)
+function Query()
+  local query = parse_query_save(
+    "cpp",
+    [[
+[
+(function_definition)
+] @function
+
+[
+(class_specifier)
+(struct_specifier)
+] @class
+]]
+  )
+
+  local bufnr = vim.api.nvim_get_current_buf()
+  local language_tree = vim.treesitter.get_parser(bufnr, "cpp")
+  local syntax_tree = language_tree:parse()
+  local root = syntax_tree[1]:root()
+  local win_view = vim.fn.winsaveview()
+  local left_offset = win_view.leftcol
+  local width = vim.api.nvim_win_get_width(0)
+  local last_fat_headline = -1
+
+  local t = vim.loop.hrtime()
+  for _, match, metadata in query:iter_matches(root, bufnr) do
+    for id, node in pairs(match) do
+      local capture = query.captures[id]
+      local start_row, start_column, end_row, _ =
+        unpack(vim.tbl_extend("force", { node:range() }, (metadata[id] or {}).range or {}))
+      print(capture .. " " .. start_row .. " " .. start_column .. " " .. end_row)
+    end
+  end
+
+  local dt = vim.loop.hrtime() - t
+  print("" .. dt / 1000 / 1000)
 end
 
+----
+-----
+---
+---
+
+-- local dec = require "custom.deco.deco"
+-- -- -- dec.init()
+-- --
+-- function DecoOn()
+--   dec.init()
+-- end
+-- function DecoOff()
+--   dec.disable()
+-- end
+--
+-- function Deco()
+--   dec.Clear()
+--   dec.Test(0)
+-- end
+--
 local function ttraversetraversetraversetraversetraversetraversetraversetraversetraversetraversetraver(
   node,
   lines,
@@ -285,6 +348,8 @@ M.ui = {
     -- GitSignsDeleteVirtLn = { fg = "#cc6666", bg = "#FFFFFF" },
     -- DiffText = { fg = "#cc6666", bg = "#2a2b2b" },
     -- GitSignsAdd = { fg = "#893B3B" },
+    -- QuickFixLine = { fg = "#893B3B" },
+    ["@keyword.cpp"] = { bg = "#FF0011" },
   },
   statusline = {
     theme = "default", -- default/vscode/vscode_colored/minimal

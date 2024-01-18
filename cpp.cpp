@@ -1,12 +1,13 @@
 void TestxDD() {}
-
 void TestxDD22(std::string, std::string, std::vector<std::string>,
                std::vector<std::vector<std::vector<std::string>>>, std::string);
 
 void TestxDD22(std::string, std::string, std::vector<std::string>,
                std::vector<std::vector<std::vector<std::string>>>,
                std::string) {}
+
 class MyClass {
+
 public:
   MyClass();
   MyClass(MyClass &&) = default;
@@ -18,14 +19,14 @@ public:
   void memmber();
 
   void memmber() {
+    int i;
+
     int;
     void;
   }
-
-private:
 };
 
-MyClass::MyClass() {
+testve MyClass::MyClass(const int &) {
   void;
   void;
 }
@@ -53,4 +54,40 @@ private:
 
 MyClass::MyClass() {}
 
-MyClass::~MyClass() {}
+void(const int &) {}
+
+MyClass::~MyClass(){}
+
+    [test]
+
+    {}[test]
+
+    {}[test]
+
+    {}[test]
+
+      [test]
+
+      [test]
+
+      [test] {}
+
+void tresst() {
+  int xddd;
+  for (auto &i :) {
+  }
+  std::vector<int> std::vector<
+      std::vector<std::vector<std::stringstd::string_view>>> return xddd;
+}
+
+void() {}
+
+std::vector<int> v;
+
+for (auto &i : v) {
+  return std::move(tst);
+  static_cast<>(test)
+}
+
+if (test.bla.test()) {
+}

@@ -186,7 +186,6 @@ M.config = {
 }
 
 local ts = vim.treesitter
-M.group = vim.api.nvim_create_augroup("codedecorator", { clear = true })
 
 function M.Test2(bufnr)
   local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
@@ -245,6 +244,8 @@ function M.Test2(bufnr)
 end
 
 function M.init()
+  -- print "init"
+  M.group = vim.api.nvim_create_augroup("codedecorator", { clear = true })
   M.config = {
     cpp = {
       query = parse_query_save(
@@ -296,7 +297,7 @@ function M.init()
   -- vim.api.nvim_create_autocmd({ "TextChangedI", "TextChanged" }, {
   vim.api.nvim_create_autocmd({ "FileChangedShellPost", "Syntax", "TextChanged", "InsertLeave" }, {
     group = M.group,
-    -- pattern = "cpp",
+    -- pattern = { "cpp" },
     -- buffer = test.bufnr,
     callback = function(i)
       -- print "dec"
@@ -312,7 +313,13 @@ function M.init()
   -- })
 end
 
+function M.setup()
+  -- vim.notify "tete"
+  M.init()
+end
+
 function M.disable()
+  -- vim.notify "tete2"
   vim.api.nvim_del_augroup_by_id(M.group)
   M.Clear()
 end

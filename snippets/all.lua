@@ -9,7 +9,9 @@ local d = ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
-
+local l = require("luasnip.extras").lambda
+local treesitter_postfix = require("luasnip.extras.treesitter_postfix").treesitter_postfix
+local postfix = require("luasnip.extras.postfix").postfix
 -- print("xxxxxxxxxxxxxx")
 --
 vim.keymap.set({ "i", "s" }, "<A-j>", function()
@@ -35,10 +37,39 @@ vim.keymap.set({ "i", "s" }, "<A-k>", function()
   end
 end)
 
+local e = {
+  tter = 1,
+  -- %w+tmap
+  -- trafo%d+
+}
+
 return {
   -- Shorthand
   -- ls.parser.parse_snippet({trig = "lsp"}, "$1 xFFF is ${2|hard,easy,challenging|}"),
   s("!cc", {
     t "//----------------------------------------------------------------------------------------------------------------------",
   }),
+
+  -- treesitter_postfix({
+  --   trig = ".mv",
+  --   matchTSNode = {
+  --     query = [[
+  --           [
+  --             (call_expression)
+  --             (identifier)
+  --             (template_function)
+  --             (subscript_expression)
+  --             (field_expression)
+  --             (user_defined_literal)
+  --           ] @prefix
+  --       ]],
+  --     query_lang = "cpp",
+  --   },
+  -- }, {
+  --   f(function(_, parent)
+  --     local node_content = table.concat(parent.snippet.env.LS_TSMATCH, "\n")
+  --     local replaced_content = ("std::move(%s)"):format(node_content)
+  --     return vim.split(ret_str, "\n", { trimempty = false })
+  --   end),
+  -- }),
 }

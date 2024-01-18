@@ -591,6 +591,17 @@ local plugins = {
   --
   --#region
   {
+    -- config = function()
+    --   local dir = vim.fn.stdpath "config" .. "/plugins/decorator"
+    --   print(dir)
+    -- end,
+    dir = vim.fn.stdpath "config" .. "/plugins/decorator",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
+    ft = { "cpp" },
+    -- lazy = false,
+  },
+  {
     "glacambre/firenvim",
 
     -- Lazy load firenvim
@@ -600,5 +611,71 @@ local plugins = {
       vim.fn["firenvim#install"](0)
     end,
   },
+  -- {
+  --   "ashfinal/qfview.nvim",
+  --   event = "UIEnter",
+  --   config = true,
+  -- },
+  -- {
+  --   "kevinhwang91/nvim-bqf",
+  --   lazy = false,
+  --   config = function()
+  --     require("bqf").setup()
+  --     -- require("pqf").setup()
+  --     -- require("pqf").setup {
+  --     --   signs = {
+  --     --     error = "E",
+  --     --     warning = "W",
+  --     --     info = "I",
+  --     --     hint = "H",
+  --     --   },
+  --     --
+  --     --   -- By default, only the first line of a multi line message will be shown. --
+  --     --   -- When this is true, multiple lines will be shown for an entry, separated by a
+  --     --   -- space
+  --     --   show_multiple_lines = false,
+  --     --
+  --     --   -- How long filenames in the quickfix are allowed to be. 0 means no limit.
+  --     --   -- Filenames above this limit will be truncated from the beginning with [...]
+  --     -- max_filename_length = 0,
+  --     -- }
+  --   end,
+  -- },
+  -- {
+  --   "yorickpeterse/nvim-pqf",
+  --   lazy = false,
+  --   config = function()
+  --     -- require("pqf").setup()
+  --     require("pqf").setup {
+  --       signs = {
+  --         error = "E",
+  --         warning = "W",
+  --         info = "I",
+  --         hint = "H",
+  --       },
+  --
+  --       -- By default, only the first line of a multi line message will be shown. --
+  --       -- When this is true, multiple lines will be shown for an entry, separated by a
+  --       -- space
+  --       show_multiple_lines = false,
+  --
+  --       -- How long filenames in the quickfix are allowed to be. 0 means no limit.
+  --       -- Filenames above this limit will be truncated from the beginning with [...]
+  --       max_filename_length = 0,
+  --     }
+  --   end,
+  -- },
+  -- {
+  --   "fole/styler.nvim",
+  --   lazy = false,
+  --   config = function()
+  --     require("styler").setup {
+  --       themes = {
+  --         lua = { colorscheme = "gruvbox" },
+  --         help = { colorscheme = "catppuccin-mocha", background = "dark" },
+  --       },
+  --     }
+  --   end,
+  -- },
 }
 return plugins
