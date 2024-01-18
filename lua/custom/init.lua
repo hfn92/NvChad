@@ -109,6 +109,8 @@ local clr = {
   test = "#FF0000",
 }
 
+vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#FF8080" })
+
 vim.api.nvim_set_hl(0, "@namespace.cpp", { ctermbg = 0, fg = clr.text })
 vim.api.nvim_set_hl(0, "@type.qualifier.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@property.cpp", { ctermbg = 0, fg = clr.text })
