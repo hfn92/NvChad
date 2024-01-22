@@ -72,25 +72,25 @@ return {
   s(",sc", fmt("static_cast<{}>({})", { i(1), i(2) })),
   s(",rc", fmt("reinterpret_cast<{}>({})", { i(1), i(2) })),
   s(",dc", fmt("dynamic_cast<{}>({})", { i(1), i(2) })),
-  s("!en", { t "std::endl" }),
-  s("!sv", { t "std::string_view" }),
-  s("!st", { t "std::string" }),
-  s("!up", fmt("std::unique_ptr<{}>", { i(1) }, { delimiters = "{}" })),
-  s("!sp", fmt("std::shared_ptr<{}>", { i(1) }, { delimiters = "{}" })),
-  s("!wp", fmt("std::weak_ptr<{}>", { i(1) }, { delimiters = "{}" })),
-  s("!um", fmt("std::unordered_map<{}, {}>", { i(1), i(2) })),
-  s("!pr", fmt("std::pair<{}, {}>", { i(1), i(2) })),
-  s("!om", fmt("std::map<{}, {}>", { i(1), i(2) })),
-  s("!mu", fmt("std::make_unique<{}>({})", { i(1), i(2) })),
-  s("!ms", fmt("std::make_shared<{}>({})", { i(1), i(2) })),
-  s("!op", fmt("std::optional<{}>", { i(1) })),
-  s("!ve", fmt("std::vector<{}>", { i(1) })),
-  s("!sm", fmt("SmallVector<{}, {}>", { i(1), i(2) })),
-  s("!mv", fmt("std::move({})", { i(1) }, { delimiters = "{}" })),
-  s("!ar", fmt("std::array<{}, {}>", { i(1), i(2) }, { delimiters = "{}" })),
-  s("!sc", fmt("static_cast<{}>({})", { i(1), i(2) })),
-  s("!rc", fmt("reinterpret_cast<{}>({})", { i(1), i(2) })),
-  s("!dc", fmt("dynamic_cast<{}>({})", { i(1), i(2) })),
+  -- s("!en", { t "std::endl" }),
+  -- s("!sv", { t "std::string_view" }),
+  -- s("!st", { t "std::string" }),
+  -- s("!up", fmt("std::unique_ptr<{}>", { i(1) }, { delimiters = "{}" })),
+  -- s("!sp", fmt("std::shared_ptr<{}>", { i(1) }, { delimiters = "{}" })),
+  -- s("!wp", fmt("std::weak_ptr<{}>", { i(1) }, { delimiters = "{}" })),
+  -- s("!um", fmt("std::unordered_map<{}, {}>", { i(1), i(2) })),
+  -- s("!pr", fmt("std::pair<{}, {}>", { i(1), i(2) })),
+  -- s("!om", fmt("std::map<{}, {}>", { i(1), i(2) })),
+  -- s("!mu", fmt("std::make_unique<{}>({})", { i(1), i(2) })),
+  -- s("!ms", fmt("std::make_shared<{}>({})", { i(1), i(2) })),
+  -- s("!op", fmt("std::optional<{}>", { i(1) })),
+  -- s("!ve", fmt("std::vector<{}>", { i(1) })),
+  -- s("!sm", fmt("SmallVector<{}, {}>", { i(1), i(2) })),
+  -- s("!mv", fmt("std::move({})", { i(1) }, { delimiters = "{}" })),
+  -- s("!ar", fmt("std::array<{}, {}>", { i(1), i(2) }, { delimiters = "{}" })),
+  -- s("!sc", fmt("static_cast<{}>({})", { i(1), i(2) })),
+  -- s("!rc", fmt("reinterpret_cast<{}>({})", { i(1), i(2) })),
+  -- s("!dc", fmt("dynamic_cast<{}>({})", { i(1), i(2) })),
   s(
     "fora",
     fmt(
@@ -246,6 +246,46 @@ for ({} {} : {})
   --   l(string.format("std::move(%s)", l.LS_TSMATCH)),
   -- }),
 
+  postfix({ trig = ".not", match_pattern = reg_match_var }, {
+    d(1, function(_, parent)
+      return sn(
+        nil,
+        fmt(
+          string.format(
+            [[
+if (!%s)
+{
+  <>
+}]],
+            parent.env.POSTFIX_MATCH
+          ),
+          { i(1) },
+          { delimiters = "<>" }
+        )
+      )
+    end),
+  }),
+
+  postfix({ trig = ".ne", match_pattern = reg_match_var }, {
+    d(1, function(_, parent)
+      return sn(
+        nil,
+        fmt(
+          string.format(
+            [[
+if (%s != <>)
+{
+  <>
+}]],
+            parent.env.POSTFIX_MATCH
+          ),
+          { i(1), i(2) },
+          { delimiters = "<>" }
+        )
+      )
+    end),
+  }),
+
   postfix({ trig = ".eq", match_pattern = reg_match_var }, {
     d(1, function(_, parent)
       return sn(
@@ -254,6 +294,26 @@ for ({} {} : {})
           string.format(
             [[
 if (%s == <>)
+{
+  <>
+}]],
+            parent.env.POSTFIX_MATCH
+          ),
+          { i(1), i(2) },
+          { delimiters = "<>" }
+        )
+      )
+    end),
+  }),
+
+  postfix({ trig = ".initif", match_pattern = reg_match_var }, {
+    d(1, function(_, parent)
+      return sn(
+        nil,
+        fmt(
+          string.format(
+            [[
+if (auto <> = %s)
 {
   <>
 }]],

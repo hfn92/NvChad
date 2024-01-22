@@ -107,6 +107,7 @@ local clr = {
   -- keyword = "#9aa7d6",
   -- keyword = "#FF8080",
   test = "#FF0000",
+  grey = "#969896",
 }
 
 vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#FF8080" })
@@ -120,10 +121,14 @@ vim.api.nvim_set_hl(0, "@Field.cpp", { ctermbg = 0, fg = clr.text })
 vim.api.nvim_set_hl(0, "@constructor.cpp", { ctermbg = 0, fg = clr.text })
 vim.api.nvim_set_hl(0, "@variable.builtin.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@keyword.return.cpp", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@keyword.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@conditional.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@repeat.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@variable.cpp", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "@operator.cpp", { ctermbg = 0, fg = clr.text2 })
+
+vim.api.nvim_set_hl(0, "qfFileName", { ctermbg = 0, fg = clr.text2 })
+vim.api.nvim_set_hl(0, "qfLineNr", { ctermbg = 0, fg = clr.keyword })
 
 vim.api.nvim_set_hl(0, "@function.builtin.cmake", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "@constant.cmake", { ctermbg = 0, fg = clr.red })
