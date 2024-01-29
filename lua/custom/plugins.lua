@@ -281,9 +281,9 @@ local plugins = {
     --    end,
   },
   {
-    "Civitasv/cmake-tools.nvim",
-    -- "hfn92/cmake-tools.nvim",
-    -- branch = "overseer_terminal",
+    -- "Civitasv/cmake-tools.nvim",
+    "hfn92/cmake-tools.nvim",
+    branch = "overseer_terminal",
     lazy = false,
     config = function()
       require "custom.configs.cmake-tools"

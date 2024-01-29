@@ -503,6 +503,7 @@ M.mappings = {
       ["<leader>ct"] = { "<cmd> CMakeSelectBuildTarget <CR>", "Select CMake target" },
       ["<leader>cp"] = { "<cmd> CMakeSelectBuildPreset<CR>", "Select CMake preset" },
       ["<leader>cb"] = { "<cmd> CMakeBuild <CR>", "CMake build" },
+      -- ["<leader>cs"] = { "<cmd> CMakeStopE <CR>", "CMake stop" },
       ["<leader>cs"] = { "<cmd> CMakeStop <CR>", "CMake stop" },
       ["<leader>cd"] = { "<cmd> CMakeDebug <CR>", "CMake debug" },
       ["<leader>ca"] = {
@@ -653,6 +654,7 @@ M.mappings = {
         [[:cdo s///g | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         "quickfix replace",
       },
+      ["<leader>qd"] = { ":cdo delete", "Quickfix delete all matches" },
     },
 
     v = {
