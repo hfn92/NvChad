@@ -164,6 +164,7 @@ local default_plugins = {
               },
             },
           }
+          opts.ft_func = require("luasnip.extras.filetype_functions").from_cursor_pos
           require("plugins.configs.others").luasnip(opts)
         end,
       },

@@ -7,6 +7,7 @@ vim.opt.clipboard = ""
 vim.filetype.add { extension = { fsh = "glsl" } }
 vim.filetype.add { extension = { vsh = "glsl" } }
 vim.filetype.add { extension = { gsh = "glsl" } }
+vim.filetype.add { extension = { shader = "lua" } }
 vim.filetype.add { extension = { animation = "toml" } }
 vim.filetype.add { extension = { ani = "lua" } }
 --vim.filetype.add({ extension = { vsh = 'glsl' } })
@@ -127,8 +128,7 @@ vim.api.nvim_set_hl(0, "@repeat.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@variable.cpp", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "@operator.cpp", { ctermbg = 0, fg = clr.text2 })
 
-if true then
-end
+-- vim.api.nvim_set_hl(0, "@variable.glsl", { link = "@variable.cpp" })
 
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { ctermbg = 0, fg = clr.red })
 vim.api.nvim_set_hl(0, "qfFileName", { ctermbg = 0, fg = clr.text2 })
@@ -155,3 +155,4 @@ vim.api.nvim_set_hl(0, "@text.title.5.markdown", { ctermbg = 0, fg = clr.keyword
 --vim.opt.runtimepath:prepend("/home/fab/Desktop/cmake-gtest.nvim")
 
 vim.g.lua_snippets_path = vim.fn.stdpath "config" .. "/snippets"
+vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/snippets"
