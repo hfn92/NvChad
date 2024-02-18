@@ -171,6 +171,7 @@ M.ui = {
     -- DiffText   = { fg = "#d6cf9a", bg = "#793B3B" },
     -- DiffDelete = { fg = "#793B3B", bg = "#2a2b2b" },
     -- DiffChange = { fg = "#d6cf9a", bg = "#2a2b2b" },
+    -- StatusWarning = { fg = "#FF8080", bg = "#FF8080" },
     --
     DiffAdd = { fg = "NONE", bg = "#2D382B" },
     DiffText = { fg = "NONE", bg = "#542F2F" },
@@ -213,7 +214,14 @@ M.ui = {
 
         type = preset and preset or type
 
-        local str = "%#St_gitIcons#"
+        local recordig = ""
+
+        if vim.fn.reg_recording() and vim.fn.reg_recording() ~= "" then
+          recordig = "%#DiagnosticUnnecessary# RECORDING MACRO [" .. vim.fn.reg_recording() .. "]"
+        end
+
+        local str = recordig
+          .. "%#St_gitIcons#"
           .. "   ["
           .. (type and type or "None")
           .. "]"

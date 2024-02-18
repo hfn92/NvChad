@@ -76,6 +76,7 @@ M.polish_hl = {
   -- syntax-related highlight groups
   ["@type.builtin.cpp"] = { fg = M.base_30.purple },
   ["@keyword.cpp"] = { bg = M.base_30.purple },
+  ["@keyword.import"] = { bg = clr.text },
 }
 
 return M

@@ -128,6 +128,10 @@ vim.api.nvim_set_hl(0, "@repeat.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@variable.cpp", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "@operator.cpp", { ctermbg = 0, fg = clr.text2 })
 
+vim.api.nvim_set_hl(0, "@keyword.import", { ctermbg = 0, fg = clr.text })
+
+-- vim.api.nvim_set_hl(0, "@constructor.lua", { ctermbg = 0, fg = clr.text })
+
 vim.api.nvim_set_hl(0, "@type.qualifier.glsl", { ctermbg = 0, fg = clr.keyword })
 
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { ctermbg = 0, fg = clr.red })

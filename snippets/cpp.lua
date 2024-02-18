@@ -138,12 +138,12 @@ for ({} {} : {})
     )
   ),
 
-  gen_postfix(".ve", function(m)
+  gen_postfix("/ve", function(m)
     return "std::vector<" .. m .. ">"
   end),
 
   postfix(
-    { trig = ",cr", match_pattern = "[%w%.%_%-*:<>{}]+$" },
+    { trig = "/cr", match_pattern = "[%w%.%_%-*:<>{}]+$" },
     { f(function(_, parent)
       return "const " .. parent.snippet.env.POSTFIX_MATCH .. "& "
     end, {}) }
@@ -210,6 +210,10 @@ for ({} {} : {})
       matchTSNode = postfix_builtin.tsnode_matcher.find_topmost_types {
         "call_expression",
         "identifier",
+        "template_function",
+        "subscript_expression",
+        "field_expression",
+        "user_defined_literal",
       },
       -- matchTSNode = {
       --   query = [[
