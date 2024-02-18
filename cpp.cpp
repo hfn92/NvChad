@@ -91,3 +91,6 @@ for (auto &i : v) {
 
 if (test.bla.test()) {
 }
+
+return test;
+void const(bla &) {}

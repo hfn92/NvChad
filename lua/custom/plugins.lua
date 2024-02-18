@@ -553,10 +553,10 @@ local plugins = {
   --     end, { expr = true })
   --   end,
   -- },
-  {
-    "chrisbra/vim-diff-enhanced",
-    cmd = { "EnhancedDiff" },
-  },
+  -- {
+  --   "chrisbra/vim-diff-enhanced",
+  --   cmd = { "EnhancedDiff" },
+  -- },
   {
     "stevearc/overseer.nvim",
     config = function()
