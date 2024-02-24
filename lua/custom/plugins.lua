@@ -238,7 +238,18 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "cpp", "c", "cmake", "glsl", "markdown", "markdown_inline", "python" },
+      ensure_installed = {
+        "cpp",
+        "c",
+        "cmake",
+        "glsl",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "lua",
+        "xml",
+        "c_sharp",
+      },
     },
   },
   {
@@ -423,32 +434,32 @@ local plugins = {
     ft = { "markdown" },
     build = "cd app && npm install && git reset --hard",
   },
-  {
-    "rcarriga/nvim-notify",
-    lazy = false,
-    config = function()
-      vim.notify = require "notify"
-      -- require("notify").history()
-      local info = "#a4b595"
-      local error = "#cc6666"
-      local warn = "#DE935F"
-      vim.api.nvim_set_hl(0, "NotifyERRORBorder", { fg = error })
-      vim.api.nvim_set_hl(0, "NotifyWARNBorder", { fg = "#79491D" })
-      vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = "#4F6752" })
-      vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { fg = "#8B8B8B" })
-      vim.api.nvim_set_hl(0, "NotifyTRACEBorder", { fg = "#4F3552" })
-      vim.api.nvim_set_hl(0, "NotifyERRORIcon", { fg = error })
-      vim.api.nvim_set_hl(0, "NotifyWARNIcon", { fg = warn })
-      vim.api.nvim_set_hl(0, "NotifyINFOIcon", { fg = info })
-      vim.api.nvim_set_hl(0, "NotifyDEBUGIcon", { fg = "#8B8B8B" })
-      vim.api.nvim_set_hl(0, "NotifyTRACEIcon", { fg = "#D484FF" })
-      vim.api.nvim_set_hl(0, "NotifyERRORTitle", { fg = error })
-      vim.api.nvim_set_hl(0, "NotifyWARNTitle", { fg = warn })
-      vim.api.nvim_set_hl(0, "NotifyINFOTitle", { fg = info })
-      vim.api.nvim_set_hl(0, "NotifyDEBUGTitle", { fg = "#8B8B8B" })
-      vim.api.nvim_set_hl(0, "NotifyTRACETitle", { fg = "#D484FF" })
-    end,
-  },
+  -- {
+  --   "rcarriga/nvim-notify",
+  --   lazy = false,
+  --   config = function()
+  --     vim.notify = require "notify"
+  --     -- require("notify").history()
+  --     local info = "#a4b595"
+  --     local error = "#cc6666"
+  --     local warn = "#DE935F"
+  --     vim.api.nvim_set_hl(0, "NotifyERRORBorder", { fg = error })
+  --     vim.api.nvim_set_hl(0, "NotifyWARNBorder", { fg = "#79491D" })
+  --     vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = "#4F6752" })
+  --     vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { fg = "#8B8B8B" })
+  --     vim.api.nvim_set_hl(0, "NotifyTRACEBorder", { fg = "#4F3552" })
+  --     vim.api.nvim_set_hl(0, "NotifyERRORIcon", { fg = error })
+  --     vim.api.nvim_set_hl(0, "NotifyWARNIcon", { fg = warn })
+  --     vim.api.nvim_set_hl(0, "NotifyINFOIcon", { fg = info })
+  --     vim.api.nvim_set_hl(0, "NotifyDEBUGIcon", { fg = "#8B8B8B" })
+  --     vim.api.nvim_set_hl(0, "NotifyTRACEIcon", { fg = "#D484FF" })
+  --     vim.api.nvim_set_hl(0, "NotifyERRORTitle", { fg = error })
+  --     vim.api.nvim_set_hl(0, "NotifyWARNTitle", { fg = warn })
+  --     vim.api.nvim_set_hl(0, "NotifyINFOTitle", { fg = info })
+  --     vim.api.nvim_set_hl(0, "NotifyDEBUGTitle", { fg = "#8B8B8B" })
+  --     vim.api.nvim_set_hl(0, "NotifyTRACETitle", { fg = "#D484FF" })
+  --   end,
+  -- },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -457,7 +468,7 @@ local plugins = {
     },
     dependencies = {
       "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
+      -- "rcarriga/nvim-notify",
     },
     config = function()
       require "custom.configs.noice"
@@ -595,6 +606,13 @@ local plugins = {
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
     ft = { "cpp", "lua", "markdown" },
+  },
+  {
+    dir = vim.fn.stdpath "config" .. "/plugins/progress_bar",
+    dependencies = "folke/noice.nvim",
+    config = function()
+      require("progress_bar").setup {}
+    end,
   },
   {
     "glacambre/firenvim",

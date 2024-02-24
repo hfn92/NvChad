@@ -61,4 +61,19 @@ require("cmake-tools").setup {
       return cmds
     end,
   },
+
+  hooks = {
+    on_progress = function(prog)
+      -- vim.notify(vim.inspect(prog))
+      require("progress_bar").progress {
+        client_id = 999901,
+        result = {
+          token = 0,
+          client = "cmake",
+          value = prog,
+        },
+      }
+      -- vim.notify(vim.inspect(prog))
+    end,
+  },
 }

@@ -425,6 +425,19 @@ M.mappings = {
         "Follow Symbol",
       },
 
+      ["[d"] = {
+        function()
+          vim.diagnostic.goto_prev { float = { border = "rounded" } }
+        end,
+        "Goto prev",
+      },
+
+      ["]d"] = {
+        function()
+          vim.diagnostic.goto_next { float = { border = "rounded" } }
+        end,
+        "Goto next",
+      },
       ["<leader>fr"] = { "<cmd> lua require('telescope.builtin').lsp_references() <CR>", "Find references" },
       ["<leader>fm"] = { "<cmd> Telescope marks <CR>", "Find marks" },
       ["<leader>ra"] = {

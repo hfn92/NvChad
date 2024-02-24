@@ -101,6 +101,7 @@ local clr = {
   text2 = "#D6BB9A",
   pink = "#ff9ca3",
   red = "#FF8080",
+  macro = "#D982CE",
   keyword = "#9acfd6",
   -- keyword = "#45C6D6",
   -- keyword = "#5FACDE",
@@ -127,6 +128,10 @@ vim.api.nvim_set_hl(0, "@conditional.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@repeat.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@variable.cpp", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "@operator.cpp", { ctermbg = 0, fg = clr.text2 })
+vim.api.nvim_set_hl(0, "Structure", { ctermbg = 0, fg = clr.red })
+vim.api.nvim_set_hl(0, "@lsp.type.class.cpp", { ctermbg = 0, fg = clr.red })
+vim.api.nvim_set_hl(0, "@lsp.type.namespace.cpp", { ctermbg = 0, fg = clr.red })
+vim.api.nvim_set_hl(0, "@lsp.type.macro.cpp", { ctermbg = 0, fg = clr.macro })
 
 vim.api.nvim_set_hl(0, "@keyword.import", { ctermbg = 0, fg = clr.text })
 
@@ -141,7 +146,17 @@ vim.api.nvim_set_hl(0, "qfLineNr", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@function.builtin.cmake", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "@constant.cmake", { ctermbg = 0, fg = clr.red })
 
+-- vim.api.nvim_set_hl(0, "xmlTagName", { ctermbg = 0, fg = clr.keyword })
+-- vim.api.nvim_set_hl(0, "xmlTag", { ctermbg = 0, fg = clr.keyword })
+
 vim.api.nvim_set_hl(0, "@punctuation.special.markdown", { ctermbg = 0, fg = clr.red })
+vim.api.nvim_set_hl(0, "@markup.list.markdown", { ctermbg = 0, fg = clr.red })
+
+vim.api.nvim_set_hl(0, "@markup.heading.1.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@markup.heading.2.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@markup.heading.3.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@markup.heading.4.marker.markdown", { ctermbg = 0, fg = clr.keyword })
+vim.api.nvim_set_hl(0, "@markup.heading.5.marker.markdown", { ctermbg = 0, fg = clr.keyword })
 
 vim.api.nvim_set_hl(0, "@text.title.1.marker.markdown", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@text.title.2.marker.markdown", { ctermbg = 0, fg = clr.keyword })
