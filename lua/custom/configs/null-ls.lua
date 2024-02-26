@@ -7,7 +7,6 @@ local sources = {
   null_ls.builtins.code_actions.refactoring.with {
     filetypes = { "cpp", "c" },
   },
-  formatting.cmake_format,
   -- formatting.prettier,
   formatting.stylua,
   formatting.cmake_format,
@@ -15,6 +14,7 @@ local sources = {
   --formatting.clang_format,
   lint.shellcheck,
   lint.markdownlint,
+  -- lint.misspll,
   formatting.markdownlint,
   formatting.autopep8,
   -- null_ls.builtins.diagnostics.glslc.with {

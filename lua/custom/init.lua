@@ -110,6 +110,7 @@ local clr = {
   -- keyword = "#FF8080",
   test = "#FF0000",
   grey = "#969896",
+  red_fade = "#965758",
 }
 
 vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#FF8080" })
@@ -130,7 +131,8 @@ vim.api.nvim_set_hl(0, "@variable.cpp", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "@operator.cpp", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "Structure", { ctermbg = 0, fg = clr.red })
 vim.api.nvim_set_hl(0, "@lsp.type.class.cpp", { ctermbg = 0, fg = clr.red })
-vim.api.nvim_set_hl(0, "@lsp.type.namespace.cpp", { ctermbg = 0, fg = clr.red })
+vim.api.nvim_set_hl(0, "@lsp.typemod.enum.deduced.cpp", { ctermbg = 0, fg = clr.red })
+vim.api.nvim_set_hl(0, "@lsp.type.namespace.cpp", { ctermbg = 0, fg = clr.red_fade })
 vim.api.nvim_set_hl(0, "@lsp.type.macro.cpp", { ctermbg = 0, fg = clr.macro })
 
 vim.api.nvim_set_hl(0, "@keyword.import", { ctermbg = 0, fg = clr.text })
