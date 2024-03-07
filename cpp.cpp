@@ -1,3 +1,16 @@
+
+void tet() { //
+
+  std::vector<int> test;
+  if (test) {
+  }
+  for (auto &i : test) {
+  }
+
+  std::vector<std::string> { "", " " }
+}
+
+//
 void TestxDD() {}
 void TestxDD22(std::string, std::string, std::vector<std::string>,
                std::vector<std::vector<std::vector<std::string>>>, std::string);
@@ -36,7 +49,9 @@ MyClass::~MyClass() {
   int lol;
 }
 
-struct MyStruct {};
+const cooltest &
+
+    struct MyStruct {};
 
 class MyClass
     : public xddddd,
@@ -51,10 +66,8 @@ public:
 
 private:
 };
-
-MyClass::MyClass() {}
-
-void(const int &) {}
+const test &MyClass::MyClass() {}
+const test &void(const int &) {}
 
 MyClass::~MyClass(){}
 
@@ -94,3 +107,4 @@ if (test.bla.test()) {
 
 return test;
 void const(bla &) {}
+std::move(test)

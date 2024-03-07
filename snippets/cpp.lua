@@ -49,6 +49,59 @@ end
 
 local reg_match_var = "[%w%.%_%-*:<>{}()]+$"
 
+local function _create_ts_postfix(trigger, fn)
+  return treesitter_postfix({
+    trig = trigger,
+    matchTSNode = postfix_builtin.tsnode_matcher.find_topmost_types {
+      "call_expression",
+      "identifier",
+      "template_function",
+      "subscript_expression",
+      "field_expression",
+      "user_defined_literal",
+      -- types?
+      "primitive_type",
+      "qualified_identifier",
+      "expression_statement",
+    },
+    -- matchTSNode = {
+    --   query = [[
+    --       [
+    --         (call_expression)
+    --         (identifier)
+    --         (template_function)
+    --         (subscript_expression)
+    --         (field_expression)
+    --         (user_defined_literal)
+    --       ] @prefix
+    --   ]],
+    -- },
+  }, fn)
+end
+
+local function create_ts_postfix(trigger, fn)
+  return _create_ts_postfix(trigger, {
+    f(function(_, parent)
+      if type(parent.snippet.env.LS_TSMATCH) == "table" then
+        local node_content = table.concat(parent.snippet.env.LS_TSMATCH, "\n")
+        return fn(node_content)
+      end
+    end),
+  })
+end
+
+local function create_ts_postfix_d(trigger, fn)
+  return _create_ts_postfix(trigger, {
+    d(1, function(_, parent)
+      if type(parent.snippet.env.LS_TSMATCH) == "table" then
+        local node_content = table.concat(parent.snippet.env.LS_TSMATCH, "\n")
+        return fn(node_content)
+      end
+      return fn ""
+    end),
+  })
+end
+
 return {
   -- Shorthand
   -- ls.parser.parse_snippet({trig = "lsp"}, "$1 xFFF is ${2|hard,easy,challenging|}"),
@@ -138,235 +191,160 @@ for ({} {} : {})
     )
   ),
 
-  gen_postfix("/ve", function(m)
+  create_ts_postfix("/ve", function(m)
     return "std::vector<" .. m .. ">"
   end),
 
-  postfix(
-    { trig = "/cr", match_pattern = "[%w%.%_%-*:<>{}]+$" },
-    { f(function(_, parent)
-      return "const " .. parent.snippet.env.POSTFIX_MATCH .. "& "
-    end, {}) }
-  ),
+  create_ts_postfix("/cr", function(m)
+    return "const " .. m .. "& "
+  end),
 
-  postfix(
-    { trig = "!cr", match_pattern = reg_match_var },
-    { f(function(_, parent)
-      return "const " .. parent.snippet.env.POSTFIX_MATCH .. "& "
-    end, {}) }
-  ),
+  create_ts_postfix("/re", function(m)
+    return "return " .. m .. ";"
+  end),
 
-  postfix({ trig = "/cr", match_pattern = reg_match_var }, {
-    f(function(_, parent)
-      return "const " .. parent.snippet.env.POSTFIX_MATCH .. "& "
-    end, {}),
-  }),
+  create_ts_postfix("/mv", function(m)
+    return "std::move(" .. m .. ")"
+  end),
 
-  postfix({ trig = "/re", match_pattern = reg_match_var }, {
-    f(function(_, parent)
-      return "return " .. parent.snippet.env.POSTFIX_MATCH .. ";"
-    end, {}),
-  }),
+  create_ts_postfix_d("/var", function(m)
+    return sn(nil, fmt(string.format([[auto {} = %s;]], m), { i(1) }))
+  end),
 
-  postfix("/mv", {
-    f(function(_, parent)
-      return "std::move(" .. parent.snippet.env.POSTFIX_MATCH .. ")"
-    end, {}),
-  }),
+  create_ts_postfix_d("/sc", function(m)
+    return sn(nil, fmt(string.format([[static_cast<{}>(%s)]], m), { i(1) }))
+  end),
 
-  postfix("/rmv", {
-    f(function(_, parent)
-      return "return std::move(" .. parent.snippet.env.POSTFIX_MATCH .. ");"
-    end, {}),
-  }),
+  create_ts_postfix_d("/dc", function(m)
+    return sn(nil, fmt(string.format([[dynamic_cast<{}>(%s)]], m), { i(1) }))
+  end),
 
-  postfix({ trig = "/var", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(nil, fmt(string.format([[auto {} = %s;]], parent.env.POSTFIX_MATCH), { i(1) }))
-    end),
-  }),
+  create_ts_postfix_d("/rc", function(m)
+    return sn(nil, fmt(string.format([[reinterpret_cast<{}>(%s)]], m), { i(1) }))
+  end),
 
-  postfix("/sc", {
-    d(1, function(_, parent)
-      return sn(nil, fmt(string.format([[static_cast<{}>(%s)]], parent.env.POSTFIX_MATCH), { i(1) }))
-    end),
-  }),
-
-  postfix("/dc", {
-    d(1, function(_, parent)
-      return sn(nil, fmt(string.format([[dynamic_cast<{}>(%s)]], parent.env.POSTFIX_MATCH), { i(1) }))
-    end),
-  }),
-
-  postfix("/rc", {
-    d(1, function(_, parent)
-      return sn(nil, fmt(string.format([[reinterpret_cast<{}>(%s)]], parent.env.POSTFIX_MATCH), { i(1) }))
-    end),
-  }),
-
-  treesitter_postfix(
-    {
-      trig = "/xx",
-      matchTSNode = postfix_builtin.tsnode_matcher.find_topmost_types {
-        "call_expression",
-        "identifier",
-        "template_function",
-        "subscript_expression",
-        "field_expression",
-        "user_defined_literal",
-      },
-      -- matchTSNode = {
-      --   query = [[
-      --       [
-      --         (call_expression)
-      --         (identifier)
-      --         (template_function)
-      --         (subscript_expression)
-      --         (field_expression)
-      --         (user_defined_literal)
-      --       ] @prefix
-      --   ]],
-      -- },
-    },
-    f(function(_, parent)
-      print "xDDD"
-      print(parent.snippet.env.LS_TSMATCH)
-      -- local node_content = table.concat(parent.snippet.env.LS_TSMATCH, '\n')
-      -- local replaced_content = ("std::move(%s)"):format(node_content)
-      -- return vim.split(ret_str, "\n", { trimempty = false })
-    end)
-  ),
-
-  -- treesitter_postfix({
-  --   matchTSNode = postfix_builtin.tsnode_matcher.find_topmost_types {
-  --     "call_expression",
-  --     "identifier",
-  --     "template_function",
-  --     "subscript_expression",
-  --     "field_expression",
-  --     "user_defined_literal",
-  --   },
-  --   trig = ".mvv",
-  -- }, {
-  --   l(string.format("std::move(%s)", l.LS_TSMATCH)),
-  -- }),
-
-  postfix({ trig = "/not", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(
-        nil,
-        fmt(
-          string.format(
-            [[
+  create_ts_postfix_d("/not", function(m)
+    return sn(
+      nil,
+      fmt(
+        string.format(
+          [[
 if (!%s)
 {
   <>
 }]],
-            parent.env.POSTFIX_MATCH
-          ),
-          { i(1) },
-          { delimiters = "<>" }
-        )
+          m
+        ),
+        { i(1) },
+        { delimiters = "<>" }
       )
-    end),
-  }),
+    )
+  end),
 
-  postfix({ trig = "/ne", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(
-        nil,
-        fmt(
-          string.format(
-            [[
+  create_ts_postfix_d("/ne", function(m)
+    return sn(
+      nil,
+      fmt(
+        string.format(
+          [[
 if (%s != <>)
 {
   <>
 }]],
-            parent.env.POSTFIX_MATCH
-          ),
-          { i(1), i(2) },
-          { delimiters = "<>" }
-        )
+          m
+        ),
+        { i(1), i(2) },
+        { delimiters = "<>" }
       )
-    end),
-  }),
+    )
+  end),
 
-  postfix({ trig = "/eq", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(
-        nil,
-        fmt(
-          string.format(
-            [[
+  create_ts_postfix_d("/eq", function(m)
+    return sn(
+      nil,
+      fmt(
+        string.format(
+          [[
 if (%s == <>)
 {
   <>
 }]],
-            parent.env.POSTFIX_MATCH
-          ),
-          { i(1), i(2) },
-          { delimiters = "<>" }
-        )
+          m
+        ),
+        { i(1), i(2) },
+        { delimiters = "<>" }
       )
-    end),
-  }),
+    )
+  end),
 
-  postfix({ trig = "/initif", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(
-        nil,
-        fmt(
-          string.format(
-            [[
-if (auto <> = %s)
-{
-  <>
-}]],
-            parent.env.POSTFIX_MATCH
-          ),
-          { i(1), i(2) },
-          { delimiters = "<>" }
-        )
-      )
-    end),
-  }),
-
-  postfix({ trig = "/if", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(
-        nil,
-        fmt(
-          string.format(
-            [[
+  create_ts_postfix_d("/if", function(m)
+    return sn(
+      nil,
+      fmt(
+        string.format(
+          [[
 if (%s)
 {
   <>
 }]],
-            parent.env.POSTFIX_MATCH
-          ),
-          { i(1) },
-          { delimiters = "<>" }
-        )
+          m
+        ),
+        { i(1) },
+        { delimiters = "<>" }
       )
-    end),
-  }),
+    )
+  end),
 
-  postfix({ trig = "/for", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(
-        nil,
-        fmt(
-          string.format(
-            [[
+  create_ts_postfix_d("/initif", function(m)
+    return sn(
+      nil,
+      fmt(
+        string.format(
+          [[
+if (auto <> = %s)
+{
+  <>
+}]],
+          m
+        ),
+        { i(1), i(2) },
+        { delimiters = "<>" }
+      )
+    )
+  end),
+
+  create_ts_postfix_d("/if", function(m)
+    return sn(
+      nil,
+      fmt(
+        string.format(
+          [[
+if (%s)
+{
+  <>
+}]],
+          m
+        ),
+        { i(1) },
+        { delimiters = "<>" }
+      )
+    )
+  end),
+
+  create_ts_postfix_d("/for", function(m)
+    return sn(
+      nil,
+      fmt(
+        string.format(
+          [[
 for ({} {} : %s)
 {{
   {}
 }}]],
-            parent.env.POSTFIX_MATCH
-          ),
-          { i(1, "auto&"), i(2, "i"), i(3) }
-        )
+          m
+        ),
+        { i(1, "auto&"), i(2, "i"), i(3) }
       )
-    end),
-  }),
+    )
+  end),
 }
