@@ -61,6 +61,7 @@ local function _create_ts_postfix(trigger, fn)
       "user_defined_literal",
       -- types?
       "primitive_type",
+      "type_identifier",
       "qualified_identifier",
       "expression_statement",
     },

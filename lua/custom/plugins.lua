@@ -292,22 +292,22 @@ local plugins = {
     -- end,
     config = function()
       require("cmake-gtest").setup {
-        hooks = {
-          ---@param testsuite string name of testsuite being run
-          ---@param test string? name of the test being run. nil when whole testsuite is run
-          ---@param cwd string working directory for command execution
-          ---@param cmd string the command to execute
-          ---@param args string[] function args
-          ---@param env { [string] : string } environment variables
-          run = function(testsuite, test, cwd, cmd, args, env)
-            vim.notify("testsuite " .. vim.inspect(testsuite))
-            vim.notify("test" .. vim.inspect(test))
-            vim.notify("cwd " .. vim.inspect(cwd))
-            vim.notify("cmd " .. vim.inspect(cmd))
-            vim.notify("args " .. vim.inspect(args))
-            vim.notify("env " .. vim.inspect(env))
-          end,
-        },
+        -- hooks = {
+        --   ---@param testsuite string name of testsuite being run
+        --   ---@param test string? name of the test being run. nil when whole testsuite is run
+        --   ---@param cwd string working directory for command execution
+        --   ---@param cmd string the command to execute
+        --   ---@param args string[] function args
+        --   ---@param env { [string] : string } environment variables
+        --   run = function(testsuite, test, cwd, cmd, args, env)
+        --     vim.notify("testsuite " .. vim.inspect(testsuite))
+        --     vim.notify("test" .. vim.inspect(test))
+        --     vim.notify("cwd " .. vim.inspect(cwd))
+        --     vim.notify("cmd " .. vim.inspect(cmd))
+        --     vim.notify("args " .. vim.inspect(args))
+        --     vim.notify("env " .. vim.inspect(env))
+        --   end,
+        -- },
       }
     end,
   },

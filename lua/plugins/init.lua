@@ -153,7 +153,7 @@ local default_plugins = {
       {
         -- snippet plugin
         "hfn92/LuaSnip",
-        branch = "fix"
+        branch = "fix",
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI", ext_opts = {} },
         config = function(_, opts)
