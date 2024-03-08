@@ -15,15 +15,6 @@ local postfix_builtin = require("luasnip.extras.treesitter_postfix").builtin
 local extras = require "luasnip.extras"
 local l = extras.lambda
 
-local function gen_postfix(trigger, fn)
-  return postfix(
-    { trig = trigger, match_pattern = "[%w%.%_%-:<>]+$" },
-    { f(function(_, parent)
-      return fn(parent.snippet.env.POSTFIX_MATCH)
-    end, {}) }
-  )
-end
-
 local function GetClassName()
   local ts_utils = require "nvim-treesitter.ts_utils"
   local current_node = ts_utils.get_node_at_cursor()
@@ -46,8 +37,6 @@ local function GetClassName()
 
   return vim.treesitter.get_node_text(expr:child(1), 0)
 end
-
-local reg_match_var = "[%w%.%_%-*:<>{}()]+$"
 
 local function _create_ts_postfix(trigger, fn)
   return treesitter_postfix({
@@ -102,6 +91,25 @@ local function create_ts_postfix_d(trigger, fn)
     end),
   })
 end
+
+local function gen_postfix_trigger(k, v)
+  return create_ts_postfix(k, function(m)
+    return string.format(v, m)
+  end)
+end
+
+local pf = gen_postfix_trigger
+
+local function gen_postfix_trigger_d(k, v, idx)
+  if not idx then
+    idx = { i(1) }
+  end
+  return create_ts_postfix_d(k, function(m)
+    return sn(nil, fmt(string.format(v, m), idx))
+  end)
+end
+
+local pfd = gen_postfix_trigger_d
 
 return {
   -- Shorthand
@@ -192,45 +200,33 @@ for ({} {} : {})
     )
   ),
 
-  create_ts_postfix("/ve", function(m)
-    return "std::vector<" .. m .. ">"
-  end),
+  pf("/cr", "const %s& "),
+  pf("/ve", "std::vector<%s>"),
+  pf("/re", "retrn %s;"),
+  pf("/st", "std::string(%s)"),
+  pf("/mv", "std::move(%s)"),
 
-  create_ts_postfix("/cr", function(m)
-    return "const " .. m .. "& "
-  end),
+  pfd("/tpl", "{}<%s>"),
+  pfd("/var", "auto {} = %s"),
+  pfd("/sc", [[static_cast<{}>(%s)]]),
+  pfd("/dc", [[dynamic_cast<{}>(%s)]]),
+  pfd("/rc", [[reinterpret_cast<{}>(%s)]]),
 
-  create_ts_postfix("/re", function(m)
-    return "return " .. m .. ";"
-  end),
+  s(",fmt", fmt([[fmt::format("{}",{});]], { i(1), i(2) })),
+  pfd("/fmt", [[fmt::format("{{}}{}", %s);]]),
 
-  create_ts_postfix("/st", function(m)
-    return "std::string(" .. m .. ")"
-  end),
-
-  create_ts_postfix("/mv", function(m)
-    return "std::move(" .. m .. ")"
-  end),
-
-  create_ts_postfix_d("/tpl", function(m)
-    return sn(nil, fmt(string.format([[{}<%s>]], m), { i(1) }))
-  end),
-
-  create_ts_postfix_d("/var", function(m)
-    return sn(nil, fmt(string.format([[auto {} = %s;]], m), { i(1) }))
-  end),
-
-  create_ts_postfix_d("/sc", function(m)
-    return sn(nil, fmt(string.format([[static_cast<{}>(%s)]], m), { i(1) }))
-  end),
-
-  create_ts_postfix_d("/dc", function(m)
-    return sn(nil, fmt(string.format([[dynamic_cast<{}>(%s)]], m), { i(1) }))
-  end),
-
-  create_ts_postfix_d("/rc", function(m)
-    return sn(nil, fmt(string.format([[reinterpret_cast<{}>(%s)]], m), { i(1) }))
-  end),
+  s(",gt", fmt("EXPECT_TRUE({});", { i(1) })),
+  s(",gf", fmt("EXPECT_FALSE({});", { i(1) })),
+  s(",geq", fmt("EXPECT_EQ({}, {});", { i(1), i(2) })),
+  s(",gne", fmt("EXPECT_NE({}, {});", { i(1), i(2) })),
+  s(",ggt", fmt("EXPECT_GT({}, {});", { i(1), i(2) })),
+  s(",glt", fmt("EXPECT_LT({}, {});", { i(1), i(2) })),
+  pf("/gt", "EXPECT_TRUE(%s);"),
+  pf("/gf", "EXPECT_FALSE(%s);"),
+  pfd("/geq", "EXPECT_EQ({}, %s);"),
+  pfd("/gne", "EXPECT_NE({}, %s);"),
+  pfd("/ggt", "EXPECT_GT({}, %s);"),
+  pfd("/glt", "EXPECT_LT({}, %s);"),
 
   create_ts_postfix_d("/not", function(m)
     return sn(
@@ -240,12 +236,12 @@ for ({} {} : {})
           [[
 if (!%s)
 {
-  <>
+  @^
 }]],
           m
         ),
         { i(1) },
-        { delimiters = "<>" }
+        { delimiters = "@^" }
       )
     )
   end),
@@ -256,14 +252,14 @@ if (!%s)
       fmt(
         string.format(
           [[
-if (%s != <>)
+if (%s != @^)
 {
-  <>
+  @^
 }]],
           m
         ),
         { i(1), i(2) },
-        { delimiters = "<>" }
+        { delimiters = "@^" }
       )
     )
   end),
@@ -274,14 +270,14 @@ if (%s != <>)
       fmt(
         string.format(
           [[
-if (%s == <>)
+if (%s == @^)
 {
-  <>
+  @^
 }]],
           m
         ),
         { i(1), i(2) },
-        { delimiters = "<>" }
+        { delimiters = "@^" }
       )
     )
   end),
@@ -294,12 +290,12 @@ if (%s == <>)
           [[
 if (%s)
 {
-  <>
+  @^
 }]],
           m
         ),
         { i(1) },
-        { delimiters = "<>" }
+        { delimiters = "@^" }
       )
     )
   end),
@@ -310,14 +306,14 @@ if (%s)
       fmt(
         string.format(
           [[
-if (auto <> = %s)
+if (auto @^ = %s)
 {
-  <>
+  @^
 }]],
           m
         ),
         { i(1), i(2) },
-        { delimiters = "<>" }
+        { delimiters = "@^" }
       )
     )
   end),
@@ -330,12 +326,12 @@ if (auto <> = %s)
           [[
 if (%s)
 {
-  <>
+  @^
 }]],
           m
         ),
         { i(1) },
-        { delimiters = "<>" }
+        { delimiters = "@^" }
       )
     )
   end),
@@ -346,13 +342,14 @@ if (%s)
       fmt(
         string.format(
           [[
-for ({} {} : %s)
-{{
-  {}
-}}]],
+for (@^ @^ : %s)
+{
+  @^
+}]],
           m
         ),
-        { i(1, "auto&"), i(2, "i"), i(3) }
+        { i(1, "auto&"), i(2, "i"), i(3) },
+        { delimiters = "@^" }
       )
     )
   end),
