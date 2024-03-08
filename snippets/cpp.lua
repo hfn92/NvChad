@@ -204,8 +204,16 @@ for ({} {} : {})
     return "return " .. m .. ";"
   end),
 
+  create_ts_postfix("/st", function(m)
+    return "std::string(" .. m .. ")"
+  end),
+
   create_ts_postfix("/mv", function(m)
     return "std::move(" .. m .. ")"
+  end),
+
+  create_ts_postfix_d("/tpl", function(m)
+    return sn(nil, fmt(string.format([[{}<%s>]], m), { i(1) }))
   end),
 
   create_ts_postfix_d("/var", function(m)
