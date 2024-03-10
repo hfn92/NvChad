@@ -7,7 +7,7 @@ void tet() { //
   for (auto &i : test) {
   }
 
-  std::vector<std::string> { "", " " }
+  fmt::format("{}", test);
 }
 
 //

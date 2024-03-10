@@ -17,27 +17,38 @@ local l = extras.lambda
 
 local reg_match_var = "[%w%.%_%-*:<>{}()]+$"
 
+local pfhelper = require "postfix_helper"
+local pfd = pfhelper.create_ts_postfix_d
+
 return {
   -- Shorthand
   -- ls.parser.parse_snippet({trig = "lsp"}, "$1 xFFF is ${2|hard,easy,challenging|}"),
-  postfix({ trig = "+=", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(nil, fmt(string.format([[%s = %s + {}]], parent.env.POSTFIX_MATCH, parent.env.POSTFIX_MATCH), { i(1) }))
-    end),
-  }),
-  postfix({ trig = "-=", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(nil, fmt(string.format([[%s = %s - {}]], parent.env.POSTFIX_MATCH, parent.env.POSTFIX_MATCH), { i(1) }))
-    end),
-  }),
-  postfix({ trig = "/=", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(nil, fmt(string.format([[%s = %s / {}]], parent.env.POSTFIX_MATCH, parent.env.POSTFIX_MATCH), { i(1) }))
-    end),
-  }),
-  postfix({ trig = "*=", match_pattern = reg_match_var }, {
-    d(1, function(_, parent)
-      return sn(nil, fmt(string.format([[%s = %s * {}]], parent.env.POSTFIX_MATCH, parent.env.POSTFIX_MATCH), { i(1) }))
-    end),
-  }),
+  pfd("+=", function(m)
+    return sn(nil, fmt(string.format([[%s = %s + {}]], m, m), { i(1) }))
+  end),
+  pfd("-=", function(m)
+    return sn(nil, fmt(string.format([[%s = %s - {}]], m, m), { i(1) }))
+  end),
+  pfd("/=", function(m)
+    return sn(nil, fmt(string.format([[%s = %s / {}]], m, m), { i(1) }))
+  end),
+  pfd("*=", function(m)
+    return sn(nil, fmt(string.format([[%s = %s * {}]], m, m), { i(1) }))
+  end),
+
+  -- postfix({ trig = "-=", match_pattern = reg_match_var }, {
+  --   d(1, function(_, parent)
+  --     return sn(nil, fmt(string.format([[%s = %s - {}]], parent.env.POSTFIX_MATCH, parent.env.POSTFIX_MATCH), { i(1) }))
+  --   end),
+  -- }),
+  -- postfix({ trig = "/=", match_pattern = reg_match_var }, {
+  --   d(1, function(_, parent)
+  --     return sn(nil, fmt(string.format([[%s = %s / {}]], parent.env.POSTFIX_MATCH, parent.env.POSTFIX_MATCH), { i(1) }))
+  --   end),
+  -- }),
+  -- postfix({ trig = "*=", match_pattern = reg_match_var }, {
+  --   d(1, function(_, parent)
+  --     return sn(nil, fmt(string.format([[%s = %s * {}]], parent.env.POSTFIX_MATCH, parent.env.POSTFIX_MATCH), { i(1) }))
+  --   end),
+  -- }),
 }

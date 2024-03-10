@@ -384,6 +384,8 @@ local plugins = {
           enable = true,
           prev_selection = ",", -- (Optional) keymap to select the previous selection
           keymaps = {
+            ["os"] = "string",
+            ["s"] = "string_inner",
             ["."] = "textsubjects-smart",
             [";"] = "textsubjects-container-outer",
             ["i;"] = "textsubjects-container-inner",
@@ -647,6 +649,9 @@ local plugins = {
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
     ft = { "cpp", "lua", "markdown" },
+  },
+  {
+    dir = vim.fn.stdpath "config" .. "/plugins/postfix_helper",
   },
   {
     dir = vim.fn.stdpath "config" .. "/plugins/progress_bar",
