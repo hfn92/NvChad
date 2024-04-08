@@ -384,8 +384,8 @@ local plugins = {
           enable = true,
           prev_selection = ",", -- (Optional) keymap to select the previous selection
           keymaps = {
-            ["oa"] = "string",
-            ["a"] = "string_inner",
+            ["aS"] = "string",
+            ["as"] = "string_inner",
             ["."] = "textsubjects-smart",
             [";"] = "textsubjects-container-outer",
             ["i;"] = "textsubjects-container-inner",
@@ -411,8 +411,8 @@ local plugins = {
               ["aa"] = "@parameter.outer",
               ["ia"] = "@parameter.inner",
               -- ["at"] = "@type.inner",
-              ["F"] = "@function.outer",
-              ["f"] = "@function.inner",
+              ["aF"] = "@function.outer",
+              ["af"] = "@function.inner",
               -- ["ac"] = "@class.outer",
               -- -- You can optionally set descriptions to the mappings (used in the desc parameter of
               -- -- nvim_buf_set_keymap) which plugins like which-key display
@@ -447,8 +447,10 @@ local plugins = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
+              ["]]"] = "@parameter.inner",
+              ["]a"] = "@parameter.outer",
               ["]f"] = "@function.outer",
-              ["]]"] = { query = "@class.outer", desc = "Next class start" },
+              -- ["]]"] = { query = "@class.outer", desc = "Next class start" },
               --
               -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
               -- ["]o"] = "@loop.*",
@@ -461,24 +463,17 @@ local plugins = {
             },
             goto_next_end = {
               ["]F"] = "@function.outer",
-              ["]["] = "@class.outer",
+              -- ["]["] = "@class.outer",
             },
             goto_previous_start = {
+              ["[a"] = "@parameter.outer",
+              ["[["] = "@parameter.inner",
               ["[f"] = "@function.outer",
-              ["[["] = "@class.outer",
+              -- ["[["] = "@class.outer",
             },
             goto_previous_end = {
               ["[F"] = "@function.outer",
-              ["[]"] = "@class.outer",
-            },
-            -- Below will go to either the start or the end, whichever is closer.
-            -- Use if you want more granular movements
-            -- Make it even more gradual by adding multiple queries and regex.
-            goto_next = {
-              ["]d"] = "@conditional.outer",
-            },
-            goto_previous = {
-              ["[d"] = "@conditional.outer",
+              -- ["[]"] = "@class.outer",
             },
           },
         },
@@ -699,6 +694,10 @@ local plugins = {
     end,
   },
   {
+    "andrewradev/linediff.vim",
+    cmd = "Linediff",
+  },
+  {
     "glacambre/firenvim",
 
     -- Lazy load firenvim
@@ -707,6 +706,11 @@ local plugins = {
     build = function()
       vim.fn["firenvim#install"](0)
     end,
+  },
+  {
+    "max397574/colortils.nvim",
+    cmd = "Colortils",
+    config = true,
   },
   -- {
   --   "ashfinal/qfview.nvim",

@@ -111,6 +111,7 @@ local clr = {
   test = "#FF0000",
   grey = "#969896",
   red_fade = "#965758",
+  str = "#D69545",
 }
 
 vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#FF8080" })
@@ -129,6 +130,7 @@ vim.api.nvim_set_hl(0, "@conditional.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@repeat.cpp", { ctermbg = 0, fg = clr.keyword })
 vim.api.nvim_set_hl(0, "@variable.cpp", { ctermbg = 0, fg = clr.text2 })
 vim.api.nvim_set_hl(0, "@operator.cpp", { ctermbg = 0, fg = clr.text2 })
+vim.api.nvim_set_hl(0, "@character.cpp", { ctermbg = 0, fg = clr.str })
 vim.api.nvim_set_hl(0, "Structure", { ctermbg = 0, fg = clr.red })
 vim.api.nvim_set_hl(0, "@lsp.type.class.cpp", { ctermbg = 0, fg = clr.red })
 vim.api.nvim_set_hl(0, "@lsp.typemod.enum.deduced.cpp", { ctermbg = 0, fg = clr.red })
@@ -137,7 +139,8 @@ vim.api.nvim_set_hl(0, "@lsp.type.macro.cpp", { ctermbg = 0, fg = clr.macro })
 
 vim.api.nvim_set_hl(0, "@keyword.import", { ctermbg = 0, fg = clr.text })
 
--- vim.api.nvim_set_hl(0, "@constructor.lua", { ctermbg = 0, fg = clr.text })
+-- vim.api.nvim_set_hl(0, "@variable.builtin.lua", { ctermbg = 0, fg = clr.red_fade })
+-- vim.api.nvim_set_hl(0, "@lsp.typemod.variable.lua", { ctermbg = 0, fg = clr.red_fade })
 
 vim.api.nvim_set_hl(0, "@type.qualifier.glsl", { ctermbg = 0, fg = clr.keyword })
 

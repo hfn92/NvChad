@@ -11,6 +11,7 @@ local M = {}
 
 function M._create_ts_postfix(trigger, fn)
   return treesitter_postfix({
+    reparseBuffer = "live",
     trig = trigger,
     matchTSNode = postfix_builtin.tsnode_matcher.find_topmost_types {
       "call_expression",

@@ -7,7 +7,7 @@ void tet() { //
   for (auto &i : test) {
   }
 
-  fmt::format("{}", test);
+  test
 }
 
 //

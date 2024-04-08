@@ -115,7 +115,7 @@ for ({} {} : {})
 
   pf("/cr", "const %s& "),
   pf("/ve", "std::vector<%s>"),
-  pf("/re", "retrn %s;"),
+  pf("/re", "return %s;"),
   pf("/st", "std::string(%s)"),
   pf("/mv", "std::move(%s)"),
 

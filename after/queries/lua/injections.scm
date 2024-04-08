@@ -1,6 +1,5 @@
 ;; query
 ; extends
-;; STRING SQL INJECTION
 ; ((string_content) @glsl (#match? @glsl ".*-{2,}( )*[sS][qQ][lL]( )*\n"))
 ; ((string_content) @glsl (#match? @glsl ".*/{2,}( )*[gG][lL][sS][lL]( )*\n"))
 ; ((assignment_statement) @glsl (#match? @glsl "vertex =") (expression_list(string(string_content)@glsl]) @glsl)
@@ -17,6 +16,13 @@
 ;   (#set! injection.combined)
 ;   )
 
+; local_declaration: (variable_declaration) ; [40:1 - 21]
+;  (assignment_statement) ; [40:7 - 21]
+;   (variable_list) ; [40:7 - 10]
+;    name: (identifier) ; [40:7 - 10]
+;   (expression_list) ; [40:14 - 21]
+;    value: (string) ; [40:14 - 21]
+;     content: (string_content) ; [40:15 - 20]
 
 (assignment_statement
   (variable_list) @var
