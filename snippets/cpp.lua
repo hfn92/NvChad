@@ -120,6 +120,7 @@ for ({} {} : {})
   pf("/mv", "std::move(%s)"),
 
   pfd("/tpl", "{}<%s>"),
+  pfd("/p", "{}(%s)"),
   pfd("/var", "auto {} = %s;"),
   pfd("/sc", [[static_cast<{}>(%s)]]),
   pfd("/dc", [[dynamic_cast<{}>(%s)]]),

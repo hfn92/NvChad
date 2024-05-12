@@ -26,7 +26,7 @@
 
 (assignment_statement
   (variable_list) @var
-  (#any-of? @var "vertex" "inout" "fragment" "uniforms" "geometry" "params")
+  (#any-of? @var "vertex" "inout" "fragment" "uniforms" "geometry" "params" "functions")
   (expression_list
      (string content: (string_content) @injection.content))
    (#set! injection.language "glsl")

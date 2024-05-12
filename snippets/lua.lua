@@ -35,6 +35,7 @@ return {
   pfd("*=", function(m)
     return sn(nil, fmt(string.format([[%s = %s * {}]], m, m), { i(1) }))
   end),
+  pfhelper.gen_postfix_trigger_d("/p", "{}(%s)"),
 
   -- postfix({ trig = "-=", match_pattern = reg_match_var }, {
   --   d(1, function(_, parent)

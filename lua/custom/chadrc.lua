@@ -521,6 +521,10 @@ M.mappings = {
       ["<leader>qb"] = { "<cmd>cclose<CR><cmd>bot copen 12<CR>", "Quickfix open bottom" },
       ["<leader>qu"] = { "<cmd>cclose<CR><cmd>belowright copen 12<CR>", "Quickfix open bottom right" },
       ["<leader>qe"] = { "<cmd>cexpr []<CR><cmd>cclose<CR>", "Quickfix clear" },
+      ["<leader>qs"] = {
+        [[:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/g | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+        "substitute",
+      },
       ["<leader>qr"] = {
         [[:cdo s///g | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
         "quickfix replace",

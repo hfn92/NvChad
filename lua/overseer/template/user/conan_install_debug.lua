@@ -14,7 +14,8 @@ return {
     -- Full path to current file (see :help expand())
     return {
       cmd = { "conan" },
-      args = { "install", "../..", "-s", "build_type=Debug", "--build=missing" },
+      -- "-s zlib:build_type=Release"
+      args = { "install", "../..", "-s", "build_type=Debug", "--build=missing", "-s", "lz4:build_type=Release" },
       cwd = "./build/Debug",
       components = { { "on_output_quickfix", open_on_exit = "failure" }, "default" },
     }
