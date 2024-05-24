@@ -24,6 +24,19 @@
 ;    value: (string) ; [40:14 - 21]
 ;     content: (string_content) ; [40:15 - 20]
 
+((function_call
+  name: [
+    (identifier) @_cdef_identifier
+    (_
+      _
+      (identifier) @_cdef_identifier)
+  ]
+  arguments: (arguments
+    (string
+      content: _ @injection.content)))
+  (#set! injection.language "c")
+  (#eq? @_cdef_identifier "create_from_cdef"))
+
 (assignment_statement
   (variable_list) @var
   (#any-of? @var "vertex" "inout" "fragment" "uniforms" "geometry" "params" "functions")
