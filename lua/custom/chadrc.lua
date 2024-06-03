@@ -628,6 +628,7 @@ M.mappings = {
       ["<C-DOWN>"]      = { function() require("dap").step_over() end, "step over", },
       ["<C-RIGHT>"]     = { function() require("dap").step_into() end, "step into", },
       ["<C-LEFT>"]      = { function() require("dap").step_out() end, "step out", },
+      ["<F4>"]          = { function() require("dap").pause() end, "continue", },
       ["<F5>"]          = { function() require("dap").continue() end, "continue", },
       ["<F6>"]          = { function() require("dap").restart() end, "restart", },
       ["<F7>"]          = { function() require("dap").run_last() end, "run last", },

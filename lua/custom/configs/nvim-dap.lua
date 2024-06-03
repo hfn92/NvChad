@@ -9,6 +9,16 @@ dap.adapters.lldb = {
 local mason_registry = require "mason-registry"
 local codelldb = mason_registry.get_package "codelldb" -- note that this will error if you provide a non-existent package name
 
+-- dap.adapters.codelldb = {
+--   stopOnEntry = false,
+--   type = "executable",
+--   command = "/home/fab/Work/lua_debugger/build/Debug/luadbg",
+--   -- args = { "--port", "${port}" },
+--
+--   -- On windows you may have to uncomment this:
+--   -- detached = false,
+-- }
+
 dap.adapters.codelldb = {
   stopOnEntry = false,
   type = "server",
